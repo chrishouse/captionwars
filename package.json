@@ -1,0 +1,30 @@
+{
+    "name": "caption-wars",
+    "version": "1.0.0",
+    "description": "The web's never-ending caption contest",
+    "main": "index.js",
+    "scripts": {
+        "start": "nodemon --exec babel-node server.js --ignore public/",
+        "dev": "webpack -wd"
+    },
+    "author": "Chris House",
+    "license": "MIT",
+    "dependencies": {
+        "express": "^4.16.4",
+        "mongodb": "^3.1.13",
+        "react": "^16.7.0",
+        "react-dom": "^16.7.0"
+    },
+    "devDependencies": {
+        "babel-cli": "^6.26.0",
+        "babel-eslint": "^10.0.1",
+        "babel-loader": "^8.0.5",
+        "babel-preset-es2015": "^6.24.1",
+        "babel-preset-react": "^6.24.1",
+        "babel-preset-stage-2": "^6.24.1",
+        "eslint": "^5.13.0",
+        "eslint-plugin-react": "^7.12.4",
+        "nodemon": "^1.18.9",
+        "webpack": "^4.29.1"
+    }
+}
