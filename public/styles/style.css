@@ -1,0 +1,29 @@
+/*** Colors ***/
+/*** Layout ***/
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box; }
+
+html {
+  font-size: 67.5%; }
+
+body {
+  font-size: 1.6rem;
+  font-family: "Open Sans", arial, sans-serif; }
+
+.inner {
+  width: 100%;
+  max-width: 1065px;
+  margin-left: auto;
+  margin-right: auto; }
+
+.main-header {
+  background-color: #222222;
+  height: auto; }
+
+.header-content {
+  display: flex;
+  color: white;
+  padding: 11px 0;
+  justify-content: space-between; }

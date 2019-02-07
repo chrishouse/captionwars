@@ -1,8 +1,18 @@
 import config from "./config";
 import apiRouter from "./api";
+import sassMiddleware from "node-sass-middleware";
+import path from "path";
 import express from "express";
 
 const server = express();
+
+// Use the SASS middleware
+server.use(
+    sassMiddleware({
+        src: path.join(__dirname, "src/sass"),
+        dest: path.join(__dirname, "/styles")
+    })
+);
 
 // This sets the view engine to be EJS, a useful JS templating language. Express looks for .ejs files inside the views directory
 server.set("view engine", "ejs");
@@ -10,7 +20,8 @@ server.set("view engine", "ejs");
 // The express router - the first argument is the path, the second is event handlers (which receives both request and response objects)
 server.get("/", (req, res) => {
     res.render("index", {
-        content: "<em>Hello</em> World"
+        content:
+            "<div class='loading-screen'><p class='loading-message'>Loading...</p></div>"
     }); // .render looks for a .ejs file within the views directory. Second argument is an object to pass variables into the .ejs template file
 });
 
