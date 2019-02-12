@@ -10,7 +10,7 @@ const server = express();
 server.use(
     sassMiddleware({
         src: path.join(__dirname, "src/sass"),
-        dest: path.join(__dirname, "/styles")
+        dest: path.join(__dirname, "public")
     })
 );
 
