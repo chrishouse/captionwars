@@ -1,0 +1,12 @@
+.user-alerts {
+    .fa-bell {
+        font-size: 20px;
+        margin-left: 13px;
+        &.fas {
+            color: $yellow;
+        }
+        &.far {
+            color: $darkGrey;
+        }
+    }
+}

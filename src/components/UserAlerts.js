@@ -2,7 +2,7 @@ import React from "react";
 
 class UserAlerts extends React.Component {
     state = {
-        AlertActive: false
+        AlertActive: true
     };
 
     render() {

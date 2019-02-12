@@ -10,8 +10,10 @@ class App extends React.Component {
         return (
             <div className="app">
                 <Header />
-                <Sidebar />
-                <Main />
+                <article className="main-container inner">
+                    <Sidebar />
+                    <Main />
+                </article>
             </div>
         );
     }
