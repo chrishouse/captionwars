@@ -2,6 +2,7 @@ import React from "react";
 import Header from "./Header";
 import Sidebar from "./Sidebar";
 import Main from "./Main";
+import PropTypes from "prop-types";
 
 class App extends React.Component {
     state = {};
@@ -9,14 +10,18 @@ class App extends React.Component {
     render() {
         return (
             <div className="app">
-                <Header />
+                <Header userData={this.props.userData} />
                 <article className="main-container inner">
-                    <Sidebar />
+                    <Sidebar userData={this.props.userData} />
                     <Main />
                 </article>
             </div>
         );
     }
 }
+
+App.propTypes = {
+    userData: PropTypes.array
+};
 
 export default App;

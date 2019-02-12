@@ -1,6 +1,7 @@
 import React from "react";
 import AuthYes from "./AuthYes";
 import AuthNo from "./AuthNo";
+import PropTypes from "prop-types";
 
 class Auth extends React.Component {
     state = {
@@ -9,10 +10,18 @@ class Auth extends React.Component {
     render() {
         return (
             <section className="header-auth">
-                {this.state.authenticated ? <AuthYes /> : <AuthNo />}
+                {this.state.authenticated ? (
+                    <AuthYes userData={this.props.userData} />
+                ) : (
+                    <AuthNo />
+                )}
             </section>
         );
     }
 }
+
+Auth.propTypes = {
+    userData: PropTypes.array
+};
 
 export default Auth;

@@ -1,8 +1,13 @@
 import React from "react";
+import PropTypes from "prop-types";
 
 class UserAvatar extends React.Component {
     state = {
         isYou: true
+    };
+
+    numberWithCommas = x => {
+        return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     };
 
     render() {
@@ -10,17 +15,23 @@ class UserAvatar extends React.Component {
             <div className="user-avatar">
                 <img
                     className="user-avatar-image"
-                    src="/images/chrishouse.jpg"
+                    src={`/images/${this.props.userData[0].id}.jpg`}
                     alt="name goes here"
                 />
                 <div
                     className={"user-number" + (this.state.isYou ? " you" : "")}
                 >
-                    1,234
+                    {this.numberWithCommas(
+                        this.props.userData[0].likesReceived
+                    )}
                 </div>
             </div>
         );
     }
 }
+
+UserAvatar.propTypes = {
+    userData: PropTypes.array
+};
 
 export default UserAvatar;

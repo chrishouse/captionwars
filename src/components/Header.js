@@ -1,7 +1,8 @@
 import React from "react";
 import Auth from "./Auth";
+import PropTypes from "prop-types";
 
-const Header = () => {
+const Header = props => {
     return (
         <header className="main-header">
             <section className="header-content inner">
@@ -10,10 +11,14 @@ const Header = () => {
                         <img src="images/logo.png" alt="Caption Wars Logo" />
                     </a>
                 </div>
-                <Auth />
+                <Auth userData={props.userData} />
             </section>
         </header>
     );
+};
+
+Header.propTypes = {
+    userData: PropTypes.array
 };
 
 export default Header;

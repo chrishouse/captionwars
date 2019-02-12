@@ -2,6 +2,7 @@ import React from "react";
 import UserAvatar from "./UserAvatar";
 import UserAlerts from "./UserAlerts";
 import UserMenu from "./UserMenu";
+import PropTypes from "prop-types";
 
 class AuthYes extends React.Component {
     state = {
@@ -24,7 +25,7 @@ class AuthYes extends React.Component {
                     }
                     onClick={this.menuToggle}
                 />
-                <UserAvatar />
+                <UserAvatar userData={this.props.userData} />
                 <UserAlerts />
                 {this.state.menuIsActive ? (
                     <UserMenu menuToggle={this.menuToggle} />
@@ -35,5 +36,9 @@ class AuthYes extends React.Component {
         );
     }
 }
+
+AuthYes.propTypes = {
+    userData: PropTypes.array
+};
 
 export default AuthYes;
