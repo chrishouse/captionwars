@@ -8,4 +8,43 @@
     color: white;
     padding: 11px 0;
     justify-content: space-between;
+    align-items: center;
+}
+
+/*** Authentication ***/
+
+.auth {
+    display: flex;
+    align-items: center;
+}
+
+.auth-yes {
+    .fa-chevron-down {
+        color: $darkGrey;
+        margin-right: 10px;
+    }
+}
+
+/*** User Alerts ***/
+
+.user-alerts {
+    .fa-bell {
+        font-size: 20px;
+        margin-left: 13px;
+        &.fas {
+            color: $yellow;
+        }
+        &.far {
+            color: $darkGrey;
+        }
+    }
+}
+
+/*** User Menu ***/
+
+.user-menu {
+    display: none;
+    &.active {
+        display: block;
+    }
 }

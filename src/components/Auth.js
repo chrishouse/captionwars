@@ -4,7 +4,7 @@ import AuthNo from "./AuthNo";
 
 class Auth extends React.Component {
     state = {
-        authenticated: false
+        authenticated: true
     };
     render() {
         return (
