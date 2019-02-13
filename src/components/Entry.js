@@ -21,7 +21,8 @@ const Entry = props => {
 };
 
 Entry.propTypes = {
-    contestEntry: PropTypes.array
+    contestEntry: PropTypes.array,
+    entry: PropTypes.object
 };
 
 export default Entry;
