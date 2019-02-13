@@ -1,0 +1,19 @@
+.main-container {
+    display: flex;
+    align-items: flex-start;
+}
+
+.main {
+    flex: 3;
+}
+
+.contest {
+    border-radius: $largeBorderRadius;
+    background-color: $lightGrey;
+    margin-top: $mainGutter;
+}
+
+.contest-sorter {
+    border-radius: $largeBorderRadius;
+    background-color: $lightGrey;
+}
