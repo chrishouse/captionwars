@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 
 class UserAvatar extends React.Component {
     state = {
-        isYou: true
+        currentUser: 0
     };
 
     numberWithCommas = x => {
@@ -15,15 +15,18 @@ class UserAvatar extends React.Component {
             <div className="user-avatar">
                 <img
                     className="user-avatar-image"
-                    src={`/images/users/${this.props.userData[0].userId}.jpg`}
+                    src={`/images/users/${this.props.user}.jpg`}
                     alt="name goes here"
                 />
                 <div
-                    className={"user-number" + (this.state.isYou ? " you" : "")}
+                    className={
+                        "user-number" +
+                        (this.state.currentUser === this.props.user
+                            ? " you"
+                            : "")
+                    }
                 >
-                    {this.numberWithCommas(
-                        this.props.userData[0].likesReceived
-                    )}
+                    {this.numberWithCommas(this.props.likesReceived)}
                 </div>
             </div>
         );
@@ -31,7 +34,9 @@ class UserAvatar extends React.Component {
 }
 
 UserAvatar.propTypes = {
-    userData: PropTypes.array
+    user: PropTypes.number,
+    likesReceived: PropTypes.number,
+    isYou: PropTypes.bool
 };
 
 export default UserAvatar;

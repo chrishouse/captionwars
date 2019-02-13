@@ -11,7 +11,7 @@ class Auth extends React.Component {
         return (
             <section className="header-auth">
                 {this.state.authenticated ? (
-                    <AuthYes userData={this.props.userData} />
+                    <AuthYes user={this.props.userData} />
                 ) : (
                     <AuthNo />
                 )}

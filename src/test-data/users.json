@@ -8,5 +8,25 @@
         "likesGiven": 5506,
         "contestsEntered": 79,
         "contestsFollowing": 122
+    },
+    {
+        "userId": 1,
+        "userName": "theDonald",
+        "realName": "Donald Trump",
+        "likesReceived": 564,
+        "currentWinningEntries": 12,
+        "likesGiven": 1506,
+        "contestsEntered": 120,
+        "contestsFollowing": 8
+    },
+    {
+        "userId": 2,
+        "userName": "johnny69",
+        "realName": "John Gates",
+        "likesReceived": 3478,
+        "currentWinningEntries": 234,
+        "likesGiven": 99,
+        "contestsEntered": 178,
+        "contestsFollowing": 2345
     }
 ]

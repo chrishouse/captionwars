@@ -13,7 +13,11 @@ const Contest = props => {
                     src={`/images/contests/${props.contestData.contestId}.jpg`}
                 />
             </section>
-            <Entry contestEntry={props.contestData.entries} />
+
+            {props.contestData.entries.map(entry => {
+                return <Entry key={entry.entryId} entry={entry} />;
+            })}
+
             <EntrySorter />
             <button className="more-entries-btn">More entries</button>
             <button className="follow-btn">Follow contest</button>

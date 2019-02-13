@@ -25,7 +25,10 @@ class AuthYes extends React.Component {
                     }
                     onClick={this.menuToggle}
                 />
-                <UserAvatar userData={this.props.userData} />
+                <UserAvatar
+                    user={this.props.user[0].userId}
+                    likesReceived={this.props.user[0].likesReceived}
+                />
                 <UserAlerts />
                 {this.state.menuIsActive ? (
                     <UserMenu menuToggle={this.menuToggle} />
@@ -38,7 +41,7 @@ class AuthYes extends React.Component {
 }
 
 AuthYes.propTypes = {
-    userData: PropTypes.array
+    user: PropTypes.array
 };
 
 export default AuthYes;
