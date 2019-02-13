@@ -1,151 +1,247 @@
 [
     {
-        "id": 0,
-        "captions": [
+        "contestId": 0,
+        "date": "Friday, February 1st, 2019",
+        "entries": [
             {
+                "entryId": 1,
                 "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-                "likes": 12
+                "likes": 12,
+                "user": 0,
+                "date": ""
             },
             {
+                "entryId": 2,
                 "text": "Nunc tincidunt nunc nec ligula suscipit, a dignissim lectus ornare. Aenean bibendum magna libero.",
-                "likes": 18
+                "likes": 18,
+                "user": 0,
+                "date": ""
             },
             {
+                "entryId": 3,
                 "text": "Suspendisse lacinia ultricies nunc id ornare. Etiam orci risus, vestibulum ut congue vitae, ornare id orci. Etiam ultrices cursus mauris, vel lacinia elit. ",
-                "likes": 4
+                "likes": 4,
+                "user": 0,
+                "date": ""
             },
             {
+                "entryId": 4,
                 "text": "Donec feugiat venenatis lectus vitae eleifend. Proin vel ligula mauris.",
-                "likes": 15
+                "likes": 15,
+                "user": 0,
+                "date": ""
             },
             {
+                "entryId": 5,
                 "text": "Aenean consequat velit sit amet pharetra consectetur. Integer fermentum nisi a mi blandit, vel sollicitudin diam facilisis.",
-                "likes": 2
+                "likes": 2,
+                "user": 0,
+                "date": ""
             }
         ]
     },
     {
-        "id": 1,
-        "captions": [
+        "contestId": 1,
+        "date": "Saturday, February 2nd, 2019",
+        "entries": [
             {
+                "entryId": 6,
                 "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-                "likes": 12
+                "likes": 12,
+                "user": 0,
+                "date": ""
             },
             {
+                "entryId": 7,
                 "text": "Nunc tincidunt nunc nec ligula suscipit, a dignissim lectus ornare. Aenean bibendum magna libero.",
-                "likes": 18
+                "likes": 18,
+                "user": 0,
+                "date": ""
             },
             {
+                "entryId": 8,
                 "text": "Suspendisse lacinia ultricies nunc id ornare. Etiam orci risus, vestibulum ut congue vitae, ornare id orci. Etiam ultrices cursus mauris, vel lacinia elit. ",
-                "likes": 4
+                "likes": 4,
+                "user": 0,
+                "date": ""
             },
             {
+                "entryId": 9,
                 "text": "Donec feugiat venenatis lectus vitae eleifend. Proin vel ligula mauris.",
-                "likes": 15
+                "likes": 15,
+                "user": 0,
+                "date": ""
             },
             {
+                "entryId": 10,
                 "text": "Aenean consequat velit sit amet pharetra consectetur. Integer fermentum nisi a mi blandit, vel sollicitudin diam facilisis.",
-                "likes": 2
+                "likes": 2,
+                "user": 0,
+                "date": ""
             }
         ]
     },
     {
-        "id": 2,
-        "captions": [
+        "contestId": 2,
+        "date": "Sunday, February 3rd, 2019",
+        "entries": [
             {
+                "entryId": 11,
                 "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-                "likes": 12
+                "likes": 12,
+                "user": 0,
+                "date": ""
             },
             {
+                "entryId": 12,
                 "text": "Nunc tincidunt nunc nec ligula suscipit, a dignissim lectus ornare. Aenean bibendum magna libero.",
-                "likes": 18
+                "likes": 18,
+                "user": 0,
+                "date": ""
             },
             {
+                "entryId": 13,
                 "text": "Suspendisse lacinia ultricies nunc id ornare. Etiam orci risus, vestibulum ut congue vitae, ornare id orci. Etiam ultrices cursus mauris, vel lacinia elit. ",
-                "likes": 4
+                "likes": 4,
+                "user": 0,
+                "date": ""
             },
             {
+                "entryId": 14,
                 "text": "Donec feugiat venenatis lectus vitae eleifend. Proin vel ligula mauris.",
-                "likes": 15
+                "likes": 15,
+                "user": 0,
+                "date": ""
             },
             {
+                "entryId": 15,
                 "text": "Aenean consequat velit sit amet pharetra consectetur. Integer fermentum nisi a mi blandit, vel sollicitudin diam facilisis.",
-                "likes": 2
+                "likes": 2,
+                "user": 0,
+                "date": ""
             }
         ]
     },
     {
-        "id": 3,
-        "captions": [
+        "contestId": 3,
+        "date": "Monday, February 4th, 2019",
+        "entries": [
             {
+                "entryId": 16,
                 "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-                "likes": 12
+                "likes": 12,
+                "user": 0,
+                "date": ""
             },
             {
+                "entryId": 17,
                 "text": "Nunc tincidunt nunc nec ligula suscipit, a dignissim lectus ornare. Aenean bibendum magna libero.",
-                "likes": 18
+                "likes": 18,
+                "user": 0,
+                "date": ""
             },
             {
+                "entryId": 18,
                 "text": "Suspendisse lacinia ultricies nunc id ornare. Etiam orci risus, vestibulum ut congue vitae, ornare id orci. Etiam ultrices cursus mauris, vel lacinia elit. ",
-                "likes": 4
+                "likes": 4,
+                "user": 0,
+                "date": ""
             },
             {
+                "entryId": 19,
                 "text": "Donec feugiat venenatis lectus vitae eleifend. Proin vel ligula mauris.",
-                "likes": 15
+                "likes": 15,
+                "user": 0,
+                "date": ""
             },
             {
+                "entryId": 20,
                 "text": "Aenean consequat velit sit amet pharetra consectetur. Integer fermentum nisi a mi blandit, vel sollicitudin diam facilisis.",
-                "likes": 2
+                "likes": 2,
+                "user": 0,
+                "date": ""
             }
         ]
     },
     {
-        "id": 4,
-        "captions": [
+        "contestId": 4,
+        "date": "Tuesday, February 5th, 2019",
+        "entries": [
             {
+                "entryId": 21,
                 "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-                "likes": 12
+                "likes": 12,
+                "user": 0,
+                "date": ""
             },
             {
+                "entryId": 22,
                 "text": "Nunc tincidunt nunc nec ligula suscipit, a dignissim lectus ornare. Aenean bibendum magna libero.",
-                "likes": 18
+                "likes": 18,
+                "user": 0,
+                "date": ""
             },
             {
+                "entryId": 23,
                 "text": "Suspendisse lacinia ultricies nunc id ornare. Etiam orci risus, vestibulum ut congue vitae, ornare id orci. Etiam ultrices cursus mauris, vel lacinia elit. ",
-                "likes": 4
+                "likes": 4,
+                "user": 0,
+                "date": ""
             },
             {
+                "entryId": 24,
                 "text": "Donec feugiat venenatis lectus vitae eleifend. Proin vel ligula mauris.",
-                "likes": 15
+                "likes": 15,
+                "user": 0,
+                "date": ""
             },
             {
+                "entryId": 25,
                 "text": "Aenean consequat velit sit amet pharetra consectetur. Integer fermentum nisi a mi blandit, vel sollicitudin diam facilisis.",
-                "likes": 2
+                "likes": 2,
+                "user": 0,
+                "date": ""
             }
         ]
     },
     {
-        "id": 5,
-        "captions": [
+        "contestId": 5,
+        "date": "Wednesday, February 6th, 2019",
+        "entries": [
             {
+                "entryId": 26,
                 "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-                "likes": 12
+                "likes": 12,
+                "user": 0,
+                "date": ""
             },
             {
+                "entryId": 27,
                 "text": "Nunc tincidunt nunc nec ligula suscipit, a dignissim lectus ornare. Aenean bibendum magna libero.",
-                "likes": 18
+                "likes": 18,
+                "user": 0,
+                "date": ""
             },
             {
+                "entryId": 28,
                 "text": "Suspendisse lacinia ultricies nunc id ornare. Etiam orci risus, vestibulum ut congue vitae, ornare id orci. Etiam ultrices cursus mauris, vel lacinia elit. ",
-                "likes": 4
+                "likes": 4,
+                "user": 0,
+                "date": ""
             },
             {
+                "entryId": 29,
                 "text": "Donec feugiat venenatis lectus vitae eleifend. Proin vel ligula mauris.",
-                "likes": 15
+                "likes": 15,
+                "user": 0,
+                "date": ""
             },
             {
+                "entryId": 30,
                 "text": "Aenean consequat velit sit amet pharetra consectetur. Integer fermentum nisi a mi blandit, vel sollicitudin diam facilisis.",
-                "likes": 2
+                "likes": 2,
+                "user": 0,
+                "date": ""
             }
         ]
     }

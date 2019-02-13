@@ -1,8 +1,8 @@
 import React from "react";
 
-const ContestDate = () => {
+const ContestDate = props => {
     return (
-        <section className="contest-date">...contest date goes here...</section>
+        <section className="contest-date">{props.contestData[0].date}</section>
     );
 };
 

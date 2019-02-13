@@ -15,7 +15,7 @@ class UserAvatar extends React.Component {
             <div className="user-avatar">
                 <img
                     className="user-avatar-image"
-                    src={`/images/${this.props.userData[0].id}.jpg`}
+                    src={`/images/users/${this.props.userData[0].userId}.jpg`}
                     alt="name goes here"
                 />
                 <div

@@ -6,8 +6,13 @@ import PropTypes from "prop-types";
 const Sidebar = props => {
     return (
         <aside className="sidebar">
-            <img src={`/images/${props.userData[0].id}.jpg`} />
-            {props.userData[0].userName}
+            <header className="sidebar-header">
+                <img
+                    className="sidebar-photo"
+                    src={`/images/users/${props.userData[0].userId}.jpg`}
+                />
+                <p className="sidebar-username">{props.userData[0].userName}</p>
+            </header>
             <Stats userData={props.userData} />
             <Leaderboard />
         </aside>

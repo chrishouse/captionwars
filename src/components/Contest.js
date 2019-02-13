@@ -7,11 +7,11 @@ import EntryInput from "./EntryInput";
 import MoreEntriesBtn from "./MoreEntriesBtn";
 import FollowContestBtn from "./FollowContestBtn";
 
-const Contest = () => {
+const Contest = props => {
     return (
         <section className="contest">
-            <ContestDate />
-            <ContestPhoto />
+            <ContestDate contestData={props.contestData} />
+            <ContestPhoto contestData={props.contestData} />
             <Entry />
             <EntrySorter />
             <MoreEntriesBtn />

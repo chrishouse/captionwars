@@ -1,9 +1,11 @@
 import React from "react";
 
-const ContestPhoto = () => {
+const ContestPhoto = props => {
     return (
         <section className="contest-photo">
-            ...contest photo goes here...
+            <img
+                src={`/images/contests/${props.contestData[0].contestId}.jpg`}
+            />
         </section>
     );
 };

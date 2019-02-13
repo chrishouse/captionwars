@@ -13,7 +13,7 @@ class App extends React.Component {
                 <Header userData={this.props.userData} />
                 <article className="main-container inner">
                     <Sidebar userData={this.props.userData} />
-                    <Main />
+                    <Main contestData={this.props.contestData} />
                 </article>
             </div>
         );
@@ -21,7 +21,8 @@ class App extends React.Component {
 }
 
 App.propTypes = {
-    userData: PropTypes.array
+    userData: PropTypes.array,
+    contestData: PropTypes.array
 };
 
 export default App;

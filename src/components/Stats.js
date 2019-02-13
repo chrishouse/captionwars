@@ -10,32 +10,44 @@ class Stats extends React.Component {
         return (
             <section className="sidebar-stats">
                 <div className="user-stat stat-likes-received">
-                    Likes Received
-                    {this.numberWithCommas(
-                        this.props.userData[0].likesReceived
-                    )}
+                    <span>Likes received</span>
+                    <span>
+                        {this.numberWithCommas(
+                            this.props.userData[0].likesReceived
+                        )}
+                    </span>
                 </div>
                 <div className="user-stat stat-winning">
-                    Current winning entries
-                    {this.numberWithCommas(
-                        this.props.userData[0].currentWinningEntries
-                    )}
+                    <span>Current winning entries</span>
+                    <span>
+                        {this.numberWithCommas(
+                            this.props.userData[0].currentWinningEntries
+                        )}
+                    </span>
                 </div>
                 <div className="user-stat">
-                    Likes given{" "}
-                    {this.numberWithCommas(this.props.userData[0].likesGiven)}
+                    <span>Likes given</span>
+                    <span>
+                        {this.numberWithCommas(
+                            this.props.userData[0].likesGiven
+                        )}
+                    </span>
                 </div>
                 <div className="user-stat">
-                    Contests entered{" "}
-                    {this.numberWithCommas(
-                        this.props.userData[0].contestsEntered
-                    )}
+                    <span>Contests entered</span>
+                    <span>
+                        {this.numberWithCommas(
+                            this.props.userData[0].contestsEntered
+                        )}
+                    </span>
                 </div>
                 <div className="user-stat">
-                    Contests following{" "}
-                    {this.numberWithCommas(
-                        this.props.userData[0].contestsFollowing
-                    )}
+                    <span>Contests following</span>
+                    <span>
+                        {this.numberWithCommas(
+                            this.props.userData[0].contestsFollowing
+                        )}
+                    </span>
                 </div>
             </section>
         );

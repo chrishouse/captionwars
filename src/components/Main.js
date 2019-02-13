@@ -2,11 +2,12 @@ import React from "react";
 import ContestSorter from "./ContestSorter";
 import Contest from "./Contest";
 
-const Main = () => {
+const Main = props => {
     return (
         <main className="main">
             <ContestSorter />
-            <Contest />
+            {/* to do: map through the contests here */}
+            <Contest contestData={props.contestData} />
         </main>
     );
 };

@@ -8,7 +8,10 @@ const Header = props => {
             <section className="header-content inner">
                 <div className="logo-container">
                     <a href="/">
-                        <img src="images/logo.png" alt="Caption Wars Logo" />
+                        <img
+                            src="images/assets/logo.png"
+                            alt="Caption Wars Logo"
+                        />
                     </a>
                 </div>
                 <Auth userData={props.userData} />

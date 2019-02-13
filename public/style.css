@@ -121,6 +121,46 @@ body {
   border-radius: 8px;
   background-color: #f3f3f3; }
 
+.sidebar-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 8px;
+  border-bottom: solid 1px #e4e4e4; }
+
+.sidebar-photo {
+  width: 60px;
+  border-radius: 50px;
+  margin-right: 8px; }
+
+.sidebar-username {
+  font-weight: 800;
+  color: #3c3c3c;
+  font-size: 14px; }
+
+.user-stat {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 95%;
+  position: relative;
+  left: -15px;
+  border-radius: 50px;
+  padding: 4px 18px 4px 30px;
+  background-color: #c6c6c6;
+  color: white;
+  font-weight: 600;
+  margin-top: 15px; }
+  .user-stat span:first-child {
+    font-size: 12px;
+    font-weight: 800; }
+  .user-stat span:last-child {
+    font-size: 16px; }
+  .user-stat.stat-likes-received {
+    background-color: #1abb3f; }
+  .user-stat.stat-winning {
+    background-color: #dcbb09; }
+
 .main {
   flex: 3; }
 
