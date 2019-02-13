@@ -1,24 +1,29 @@
 import React from "react";
-import ContestDate from "./ContestDate";
-import ContestPhoto from "./ContestPhoto";
 import Entry from "./Entry";
 import EntrySorter from "./EntrySorter";
 import EntryInput from "./EntryInput";
-import MoreEntriesBtn from "./MoreEntriesBtn";
-import FollowContestBtn from "./FollowContestBtn";
+import PropTypes from "prop-types";
 
 const Contest = props => {
     return (
         <section className="contest">
-            <ContestDate contestData={props.contestData} />
-            <ContestPhoto contestData={props.contestData} />
-            <Entry />
+            <div className="contest-date">{props.contestData.date}</div>
+            <section className="contest-photo">
+                <img
+                    src={`/images/contests/${props.contestData.contestId}.jpg`}
+                />
+            </section>
+            <Entry contestEntry={props.contestData.entries} />
             <EntrySorter />
-            <MoreEntriesBtn />
-            <FollowContestBtn />
+            <button className="more-entries-btn">More entries</button>
+            <button className="follow-btn">Follow contest</button>
             <EntryInput />
         </section>
     );
+};
+
+Contest.propTypes = {
+    contestData: PropTypes.object
 };
 
 export default Contest;
