@@ -1,15 +1,28 @@
 import React from "react";
 import ContestSorter from "./ContestSorter";
 import Contest from "./Contest";
+import PropTypes from "prop-types";
 
-const Main = props => {
-    return (
-        <main className="main">
-            <ContestSorter />
-            {/* to do: map through the contests here */}
-            <Contest contestData={props.contestData} />
-        </main>
-    );
+class Main extends React.Component {
+    render() {
+        return (
+            <main className="main">
+                <ContestSorter />
+                {this.props.contestData.map(contest => {
+                    return (
+                        <Contest
+                            key={contest.contestId}
+                            contestData={contest}
+                        />
+                    );
+                })}
+            </main>
+        );
+    }
+}
+
+Main.propTypes = {
+    contestData: PropTypes.array
 };
 
 export default Main;

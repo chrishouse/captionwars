@@ -6,19 +6,24 @@ import EntrySorter from "./EntrySorter";
 import EntryInput from "./EntryInput";
 import MoreEntriesBtn from "./MoreEntriesBtn";
 import FollowContestBtn from "./FollowContestBtn";
+import PropTypes from "prop-types";
 
 const Contest = props => {
     return (
         <section className="contest">
-            <ContestDate contestData={props.contestData} />
-            <ContestPhoto contestData={props.contestData} />
-            <Entry />
+            <ContestDate contestDate={props.contestData.date} />
+            <ContestPhoto contestPhoto={props.contestData.contestId} />
+            <Entry contestEntry={props.contestData.entries} />
             <EntrySorter />
             <MoreEntriesBtn />
             <FollowContestBtn />
             <EntryInput />
         </section>
     );
+};
+
+Contest.propTypes = {
+    contestData: PropTypes.object
 };
 
 export default Contest;
