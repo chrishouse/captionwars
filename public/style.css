@@ -147,14 +147,13 @@ body {
   position: relative;
   left: -15px;
   border-radius: 50px;
-  padding: 4px 18px 4px 30px;
+  padding: 4px 20px;
   background-color: #b7b7b7;
   color: white;
   font-weight: 600;
   margin-top: 15px; }
   .user-stat span:first-child {
-    font-size: 12px;
-    font-weight: 800; }
+    font-size: 14px; }
   .user-stat span:last-child {
     font-size: 16px; }
   .user-stat.stat-likes-received {
