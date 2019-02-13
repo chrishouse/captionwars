@@ -1,12 +1,6 @@
 @import "variables.scss";
 @import "base.scss";
-@import "header/main.scss";
-@import "header/auth.scss";
-@import "header/alerts.scss";
-@import "header/user-menu.scss";
-@import "main/main-container.scss";
+@import "header.scss";
 @import "user.scss";
-@import "sidebar/sidebar.scss";
-@import "main/main.scss";
-@import "main/contest-sorter.scss";
-@import "main/contest.scss";
+@import "sidebar.scss";
+@import "main.scss";
