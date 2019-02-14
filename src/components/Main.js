@@ -4,10 +4,32 @@ import Contest from "./Contest";
 import PropTypes from "prop-types";
 
 class Main extends React.Component {
+    state = {
+        radioChecked: "newest-first",
+        following: false
+    };
+
+    followingToggle = () => {
+        this.setState({
+            following: !this.state.following
+        });
+    };
+
+    radioChange = radio => {
+        this.setState({
+            radioChecked: radio
+        });
+    };
+
     render() {
         return (
             <main className="main">
-                <ContestSorter />
+                <ContestSorter
+                    radioChecked={this.state.radioChecked}
+                    following={this.state.following}
+                    onFollowingChange={this.followingToggle}
+                    onRadioChange={this.radioChange}
+                />
                 {this.props.contestData.map(contest => {
                     return (
                         <Contest

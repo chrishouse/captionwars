@@ -10,128 +10,51 @@
 .contest-sorter {
     border-radius: $largeBorderRadius;
     background-color: $lightGrey;
-}
-
-.contest {
-    border-radius: $largeBorderRadius;
-    background-color: $lightGrey;
-    margin-top: $mainGutter;
-    padding: 1.5rem;
     display: flex;
-    flex-direction: column;
     align-items: center;
-}
-
-.contest-date {
-    font-family: $serif;
-    font-weight: 700;
-    font-size: 20px;
-    color: $lightBlack;
-    margin-bottom: 1.5rem;
-}
-
-.contest-photo {
-    width: 97%;
-    border-radius: $largeBorderRadius;
-}
-
-.entry {
-    width: 94%;
-    background-color: white;
-    border-radius: $largeBorderRadius;
-    border: solid 1px $borderGrey;
-    margin-bottom: 10px;
-    &.winner {
-        width: 100%;
-        border: solid 1px $yellow;
-        margin-top: 1px;
-        .entry-number {
-            font-size: 28px;
-            background-color: $yellow;
-            padding: 8px 20px;
-        }
-        .entry-text {
-            padding-left: 85px;
-        }
-    }
-}
-
-.entry-number {
-    border-top-left-radius: $largeBorderRadius;
-    background-color: $grey;
-    color: white;
-    font-family: $sans;
-    font-size: 16px;
-    font-weight: 600;
-    padding: 5px 13px;
-    margin: -1px 0 0 -1px;
-    display: inline-block;
-    position: relative;
-    .fa-trophy {
-        position: absolute;
-        font-size: 13px;
-        top: 5px;
-        left: 5px;
-    }
-}
-
-.entry-text {
-    font-family: $serif;
-    font-size: 18px;
-    color: $lightBlack;
-    line-height: 1.4;
-    padding: 0 30px 0 60px;
-}
-
-.entry-info {
-    display: flex;
     justify-content: space-between;
-    align-items: flex-end;
+    padding: 1.2rem 2rem;
+    label {
+        font-size: 12px;
+        font-weight: 800;
+        color: $lightBlack;
+    }
 }
 
-.entry-date {
-    font-family: $sans;
-    font-size: 12px;
-    font-weight: 600;
-    color: $grey;
-    margin: 0 0 8px 8px;
-}
-
-.entry-user-likes {
+.contest-sort-radios,
+.contest-sort-checkbox {
     display: flex;
     align-items: center;
-    margin: 20px 8px 8px 0;
-    background-color: $lightGrey;
-    border-radius: 50px;
-    padding: 2px 12px;
-}
-
-.entry-like-button {
-    margin-right: 5px;
-    cursor: pointer;
-    .far {
-        color: $darkGrey;
-    }
-    &:hover {
-        .far {
-            color: $green;
+    input {
+        margin-right: 9px;
+        visibility: hidden;
+        margin-left: 20px;
+        cursor: pointer;
+        &:first-child {
+            margin-left: 0;
+        }
+        &:before {
+            content: "";
+            visibility: visible;
+            display: inline-block;
+            height: 13px;
+            width: 13px;
+            border-radius: 18px;
+            background: white;
+            border: solid 2px white;
+            margin-top: -3px;
+            box-shadow: 0 0 0 1px $green;
+        }
+        &:checked:before {
+            background: $green;
         }
     }
 }
 
-.entry-likes {
-    font-size: 14px;
-    font-weight: 600;
-    color: white;
-    border-radius: 50px;
-    padding: 4px 11px;
-    background-color: $green;
-    margin-right: 35px;
-}
-
-.entry-user-name {
-    margin-right: 8px;
-    font-size: 12px;
-    font-weight: 600;
-    color: $darkGrey;
+.contest-sort-checkbox {
+    input {
+        &:before {
+            border-radius: 0;
+        }
+    }
 }

@@ -179,7 +179,47 @@ body {
 
 .contest-sorter {
   border-radius: 8px;
-  background-color: #f3f3f3; }
+  background-color: #f3f3f3;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.2rem 2rem; }
+  .contest-sorter label {
+    font-size: 12px;
+    font-weight: 800;
+    color: #3c3c3c; }
+
+.contest-sort-radios,
+.contest-sort-checkbox {
+  display: flex;
+  align-items: center; }
+  .contest-sort-radios input,
+  .contest-sort-checkbox input {
+    margin-right: 9px;
+    visibility: hidden;
+    margin-left: 20px;
+    cursor: pointer; }
+    .contest-sort-radios input:first-child,
+    .contest-sort-checkbox input:first-child {
+      margin-left: 0; }
+    .contest-sort-radios input:before,
+    .contest-sort-checkbox input:before {
+      content: "";
+      visibility: visible;
+      display: inline-block;
+      height: 13px;
+      width: 13px;
+      border-radius: 18px;
+      background: white;
+      border: solid 2px white;
+      margin-top: -3px;
+      box-shadow: 0 0 0 1px #1abb3f; }
+    .contest-sort-radios input:checked:before,
+    .contest-sort-checkbox input:checked:before {
+      background: #1abb3f; }
+
+.contest-sort-checkbox input:before {
+  border-radius: 0; }
 
 .contest {
   border-radius: 8px;

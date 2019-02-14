@@ -1,0 +1,22 @@
+.contest {
+    border-radius: $largeBorderRadius;
+    background-color: $lightGrey;
+    margin-top: $mainGutter;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.contest-date {
+    font-family: $serif;
+    font-weight: 700;
+    font-size: 20px;
+    color: $lightBlack;
+    margin-bottom: 1.5rem;
+}
+
+.contest-photo {
+    width: 97%;
+    border-radius: $largeBorderRadius;
+}
