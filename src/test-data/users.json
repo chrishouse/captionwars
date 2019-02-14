@@ -7,7 +7,8 @@
         "currentWinningEntries": 2,
         "likesGiven": 5506,
         "contestsEntered": 79,
-        "contestsFollowing": 122
+        "contestsFollowing": 122,
+        "currentWinners": 8
     },
     {
         "userId": 1,
@@ -17,7 +18,8 @@
         "currentWinningEntries": 12,
         "likesGiven": 1506,
         "contestsEntered": 120,
-        "contestsFollowing": 8
+        "contestsFollowing": 8,
+        "currentWinners": 0
     },
     {
         "userId": 2,
@@ -27,6 +29,7 @@
         "currentWinningEntries": 234,
         "likesGiven": 99,
         "contestsEntered": 178,
-        "contestsFollowing": 2345
+        "contestsFollowing": 2345,
+        "currentWinners": 12
     }
 ]

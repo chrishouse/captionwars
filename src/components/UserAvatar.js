@@ -28,6 +28,13 @@ class UserAvatar extends React.Component {
                 >
                     {this.numberWithCommas(this.props.likesReceived)}
                 </div>
+                {this.props.currentWinners > 0 ? (
+                    <div className="user-winners">
+                        {this.props.currentWinners}
+                    </div>
+                ) : (
+                    ""
+                )}
             </div>
         );
     }
@@ -36,7 +43,8 @@ class UserAvatar extends React.Component {
 UserAvatar.propTypes = {
     user: PropTypes.number,
     likesReceived: PropTypes.number,
-    isYou: PropTypes.bool
+    isYou: PropTypes.bool,
+    currentWinners: PropTypes.number
 };
 
 export default UserAvatar;

@@ -1,5 +1,6 @@
 /*** Colors ***/
 /*** Layout ***/
+/*** Fonts ***/
 * {
   margin: 0;
   padding: 0;
@@ -10,7 +11,7 @@ html {
 
 body {
   font-size: 1.6rem;
-  font-family: "Open Sans", arial, sans-serif; }
+  font-family: "Open Sans", Arial, sans-serif; }
 
 .inner {
   width: 100%;
@@ -34,7 +35,7 @@ body {
   font-size: 20px;
   margin-left: 13px; }
   .user-alerts .fa-bell.fas {
-    color: #dcbb09; }
+    color: #eac813; }
   .user-alerts .fa-bell.far {
     color: #686868; }
 
@@ -99,18 +100,30 @@ body {
 .user-avatar-image {
   width: 35px;
   border-radius: 50%;
-  z-index: 100; }
+  z-index: 200;
+  transform: scale(1.2); }
 
-.user-number {
+.user-number,
+.user-winners {
   font-size: 14px;
   font-weight: 600;
   background-color: #b7b7b7;
   color: white;
   border-radius: 50px;
-  padding: 4px 13px 4px 26px;
-  margin-left: -20px; }
-  .user-number.you {
+  padding: 4px 11px 4px 25px;
+  margin-left: -20px;
+  position: relative;
+  z-index: 100; }
+  .user-number.you,
+  .user-winners.you {
     background-color: #1abb3f; }
+
+.user-number {
+  padding-left: 28px; }
+
+.user-winners {
+  background-color: #eac813;
+  z-index: 0; }
 
 .sidebar {
   flex: 1;
@@ -155,7 +168,7 @@ body {
   .user-stat.stat-likes-received {
     background-color: #1abb3f; }
   .user-stat.stat-winning {
-    background-color: #dcbb09; }
+    background-color: #eac813; }
 
 .main-container {
   display: flex;
@@ -164,11 +177,110 @@ body {
 .main {
   flex: 3; }
 
-.contest {
-  border-radius: 8px;
-  background-color: #f3f3f3;
-  margin-top: 15px; }
-
 .contest-sorter {
   border-radius: 8px;
   background-color: #f3f3f3; }
+
+.contest {
+  border-radius: 8px;
+  background-color: #f3f3f3;
+  margin-top: 15px;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center; }
+
+.contest-date {
+  font-family: "Bitter", Times, serif;
+  font-weight: 700;
+  font-size: 20px;
+  color: #3c3c3c;
+  margin-bottom: 1.5rem; }
+
+.contest-photo {
+  width: 97%;
+  border-radius: 8px; }
+
+.entry {
+  width: 94%;
+  background-color: white;
+  border-radius: 8px;
+  border: solid 1px #e4e4e4;
+  margin-bottom: 10px; }
+  .entry.winner {
+    width: 100%;
+    border: solid 1px #eac813;
+    margin-top: 1px; }
+    .entry.winner .entry-number {
+      font-size: 28px;
+      background-color: #eac813;
+      padding: 8px 20px; }
+    .entry.winner .entry-text {
+      padding-left: 85px; }
+
+.entry-number {
+  border-top-left-radius: 8px;
+  background-color: #b7b7b7;
+  color: white;
+  font-family: "Open Sans", Arial, sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  padding: 5px 13px;
+  margin: -1px 0 0 -1px;
+  display: inline-block;
+  position: relative; }
+  .entry-number .fa-trophy {
+    position: absolute;
+    font-size: 13px;
+    top: 5px;
+    left: 5px; }
+
+.entry-text {
+  font-family: "Bitter", Times, serif;
+  font-size: 18px;
+  color: #3c3c3c;
+  line-height: 1.4;
+  padding: 0 30px 0 60px; }
+
+.entry-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end; }
+
+.entry-date {
+  font-family: "Open Sans", Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  color: #b7b7b7;
+  margin: 0 0 8px 8px; }
+
+.entry-user-likes {
+  display: flex;
+  align-items: center;
+  margin: 20px 8px 8px 0;
+  background-color: #f3f3f3;
+  border-radius: 50px;
+  padding: 2px 12px; }
+
+.entry-like-button {
+  margin-right: 5px;
+  cursor: pointer; }
+  .entry-like-button .far {
+    color: #686868; }
+  .entry-like-button:hover .far {
+    color: #1abb3f; }
+
+.entry-likes {
+  font-size: 14px;
+  font-weight: 600;
+  color: white;
+  border-radius: 50px;
+  padding: 4px 11px;
+  background-color: #1abb3f;
+  margin-right: 35px; }
+
+.entry-user-name {
+  margin-right: 8px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #686868; }
