@@ -7,15 +7,17 @@ class Auth extends React.Component {
     state = {
         authenticated: true
     };
-    render() {
-        const { authenticated } = this.state;
-        const { userData } = this.props;
 
-        return (
-            <section className="header-auth">
-                {authenticated ? <AuthYes user={userData} /> : <AuthNo />}
-            </section>
+    checkAuth = () => {
+        return this.state.authenticated ? (
+            <AuthYes user={this.props.userData} />
+        ) : (
+            <AuthNo />
         );
+    };
+
+    render() {
+        return <section className="header-auth">{this.checkAuth()}</section>;
     }
 }
 

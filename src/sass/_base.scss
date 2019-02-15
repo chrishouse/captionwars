@@ -19,3 +19,18 @@ body {
     margin-left: auto;
     margin-right: auto;
 }
+
+.button {
+    border-radius: 50px;
+    background-color: $yellow;
+    padding: 8px 10px;
+    color: white;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    transition: all 0.2s;
+    &:hover {
+        background-color: lighten($yellow, 5);
+    }
+}

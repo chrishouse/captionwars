@@ -19,6 +19,19 @@ body {
   margin-left: auto;
   margin-right: auto; }
 
+.button {
+  border-radius: 50px;
+  background-color: #eac813;
+  padding: 8px 10px;
+  color: white;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  transition: all 0.2s; }
+  .button:hover {
+    background-color: #eecf29; }
+
 .main-header {
   background-color: #222222;
   height: auto;
@@ -240,6 +253,57 @@ body {
 .contest-photo {
   width: 97%;
   border-radius: 8px; }
+
+.more-entries-btn-cont {
+  display: flex;
+  margin-top: 3rem;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer; }
+  .more-entries-btn-cont .fa-chevron-down {
+    color: #b7b7b7;
+    transition: all 0.2s; }
+  .more-entries-btn-cont:hover .fa-chevron-down {
+    transform: translateY(3px);
+    color: #686868; }
+
+.more-entries-btn {
+  margin-bottom: 1px; }
+
+.follow-btn {
+  position: relative;
+  top: -35px;
+  right: 25px;
+  align-self: flex-end;
+  font-size: 12px;
+  font-weight: 600;
+  color: #3c3c3c; }
+  .follow-btn .far {
+    font-size: 20px; }
+  .follow-btn > * {
+    vertical-align: middle;
+    cursor: pointer; }
+  .follow-btn:hover * {
+    color: #222222; }
+
+.entry-input {
+  border-top: solid 1px white;
+  padding-top: 2.2rem;
+  width: 94%; }
+  .entry-input textarea {
+    width: 100%;
+    border-color: #e4e4e4;
+    border-radius: 8px;
+    padding: 15px;
+    font-family: "Bitter", Times, serif;
+    font-size: 18px;
+    color: #3c3c3c;
+    line-height: 1.4;
+    resize: none; }
+    .entry-input textarea::placeholder {
+      color: #b7b7b7; }
+  .entry-input .button {
+    float: right; }
 
 .entry {
   width: 94%;
