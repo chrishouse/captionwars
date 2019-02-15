@@ -2,9 +2,9 @@ import React from "react";
 import PropTypes from "prop-types";
 
 const ContestSorter = props => {
-    const { radioChecked } = props;
+    const { radioChecked, following, onFollowingChange } = props;
 
-    const onRadioChange = e => {
+    const handleRadioChange = e => {
         props.onRadioChange(e.target.id);
     };
 
@@ -15,7 +15,7 @@ const ContestSorter = props => {
                     type="radio"
                     id="newest-first"
                     name="contest-sort-radios"
-                    onChange={onRadioChange}
+                    onChange={handleRadioChange}
                     checked={radioChecked === "newest-first" ? true : false}
                 />
                 <label htmlFor="newest-first">Newest first</label>
@@ -23,7 +23,7 @@ const ContestSorter = props => {
                     type="radio"
                     id="oldest-first"
                     name="contest-sort-radios"
-                    onChange={onRadioChange}
+                    onChange={handleRadioChange}
                     checked={radioChecked === "oldest-first" ? true : false}
                 />
                 <label htmlFor="oldest-first">Oldest first</label>
@@ -31,7 +31,7 @@ const ContestSorter = props => {
                     type="radio"
                     id="popular-first"
                     name="contest-sort-radios"
-                    onChange={onRadioChange}
+                    onChange={handleRadioChange}
                     checked={radioChecked === "popular-first" ? true : false}
                 />
                 <label htmlFor="popular-first">Most popular first</label>
@@ -40,8 +40,8 @@ const ContestSorter = props => {
                 <input
                     id="only-following"
                     type="checkbox"
-                    checked={props.following}
-                    onChange={props.onFollowingChange}
+                    checked={following}
+                    onChange={onFollowingChange}
                 />
                 <label htmlFor="only-following">
                     Only show contests I'm following

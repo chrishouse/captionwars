@@ -7,7 +7,7 @@ import PropTypes from "prop-types";
 const Contest = props => {
     const { contestData } = props;
 
-    const showFullContest = () => {
+    const handleSubmit = () => {
         // ... do stuff here ...
     };
 
@@ -40,10 +40,7 @@ const Contest = props => {
                 <button className="more-entries-btn button">
                     More entries
                 </button>
-                <i
-                    className={"fas fa-chevron-down"}
-                    onClick={showFullContest}
-                />
+                <i className={"fas fa-chevron-down"} onClick={handleSubmit} />
             </div>
             <div className="follow-btn">
                 <i className="far fa-arrow-alt-circle-right" />

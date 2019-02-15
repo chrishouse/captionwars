@@ -9,7 +9,7 @@ class AuthYes extends React.Component {
         menuIsActive: false
     };
 
-    menuToggle = () => {
+    handleClick = () => {
         this.setState({
             menuIsActive: !this.state.menuIsActive
         });
@@ -26,7 +26,7 @@ class AuthYes extends React.Component {
                         "fas fa-chevron-down" +
                         (menuIsActive ? " user-menu-open" : "")
                     }
-                    onClick={this.menuToggle}
+                    onClick={this.handleClick}
                 />
                 <UserAvatar
                     user={user[0].userId}
@@ -34,7 +34,7 @@ class AuthYes extends React.Component {
                 />
                 <UserAlerts />
                 {this.state.menuIsActive ? (
-                    <UserMenu menuToggle={this.menuToggle} />
+                    <UserMenu menuToggle={this.handleClick} />
                 ) : (
                     ""
                 )}

@@ -9,13 +9,13 @@ class Main extends React.Component {
         following: false
     };
 
-    followingToggle = () => {
+    handleFollowingCheck = () => {
         this.setState({
             following: !this.state.following
         });
     };
 
-    radioChange = radio => {
+    handleRadioChange = radio => {
         this.setState({
             radioChecked: radio
         });
@@ -29,8 +29,8 @@ class Main extends React.Component {
                 <ContestSorter
                     radioChecked={radioChecked}
                     following={following}
-                    onFollowingChange={this.followingToggle}
-                    onRadioChange={this.radioChange}
+                    onFollowingChange={this.handleFollowingCheck}
+                    onRadioChange={this.handleRadioChange}
                 />
                 {this.props.contestData.map(contest => {
                     return (
