@@ -21,9 +21,9 @@ body {
 }
 
 .button {
-    border-radius: 50px;
+    border-radius: $largeBorderRadius;
     background-color: $yellow;
-    padding: 8px 10px;
+    padding: 10px;
     color: white;
     font-size: 14px;
     font-weight: 600;
