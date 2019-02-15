@@ -3,6 +3,8 @@ import Auth from "./Auth";
 import PropTypes from "prop-types";
 
 const Header = props => {
+    const { userData } = props;
+
     return (
         <header className="main-header">
             <section className="header-content inner">
@@ -14,7 +16,7 @@ const Header = props => {
                         />
                     </a>
                 </div>
-                <Auth userData={props.userData} />
+                <Auth userData={userData} />
             </section>
         </header>
     );

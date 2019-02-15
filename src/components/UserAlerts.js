@@ -6,9 +6,11 @@ class UserAlerts extends React.Component {
     };
 
     render() {
+        const { AlertActive } = this.state;
+
         return (
             <div className="user-alerts">
-                {this.state.AlertActive ? (
+                {AlertActive ? (
                     <i className="alert-bell fas fa-bell" />
                 ) : (
                     <i className="alert-bell far fa-bell" />

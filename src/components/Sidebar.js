@@ -4,16 +4,18 @@ import Leaderboard from "./Leaderboard";
 import PropTypes from "prop-types";
 
 const Sidebar = props => {
+    const { userData } = props;
+
     return (
         <aside className="sidebar">
             <header className="sidebar-header">
                 <img
                     className="sidebar-photo"
-                    src={`/images/users/${props.userData[0].userId}.jpg`}
+                    src={`/images/users/${userData[0].userId}.jpg`}
                 />
-                <p className="sidebar-username">{props.userData[0].userName}</p>
+                <p className="sidebar-username">{userData[0].userName}</p>
             </header>
-            <Stats userData={props.userData} />
+            <Stats userData={userData} />
             <Leaderboard />
         </aside>
     );

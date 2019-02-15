@@ -5,25 +5,23 @@ import EntryInput from "./EntryInput";
 import PropTypes from "prop-types";
 
 const Contest = props => {
+    const { contestData } = props;
+
     return (
         <section className="contest">
-            <div className="contest-date">{props.contestData.date}</div>
+            <div className="contest-date">{contestData.date}</div>
 
             <img
                 className="contest-photo"
-                src={`/images/contests/${props.contestData.contestId}.jpg`}
+                src={`/images/contests/${contestData.contestId}.jpg`}
             />
 
             {/* to do: first sort the entries by likes */}
-            <Entry
-                entryNumber={1}
-                entry={props.contestData.entries[0]}
-                isWinner
-            />
+            <Entry entryNumber={1} entry={contestData.entries[0]} isWinner />
 
             <EntrySorter />
 
-            {props.contestData.entries.map((entry, index) => {
+            {contestData.entries.map((entry, index) => {
                 if (index > 0) {
                     return (
                         <Entry

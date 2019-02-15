@@ -4,36 +4,36 @@ import PropTypes from "prop-types";
 import userData from "../test-data/users";
 
 const Entry = props => {
+    const { isWinner, entryNumber, entry } = props;
+
     const numberWithCommas = x => {
         return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     };
 
     return (
-        <div className={"entry" + (props.isWinner ? " winner" : "")}>
+        <div className={"entry" + (isWinner ? " winner" : "")}>
             <div className="entry-number">
-                {props.isWinner ? <i className="fas fa-trophy" /> : ""}
-                {props.entryNumber}
+                {isWinner ? <i className="fas fa-trophy" /> : ""}
+                {entryNumber}
             </div>
-            <p className="entry-text">{props.entry.text}</p>
+            <p className="entry-text">{entry.text}</p>
 
             <section className="entry-info">
-                <p className="entry-date">{props.entry.date}</p>
+                <p className="entry-date">{entry.date}</p>
                 <div className="entry-user-likes">
                     <a className="entry-like-button">
                         <i className="far fa-thumbs-up" />
                     </a>
                     <p className="entry-likes">
-                        {numberWithCommas(props.entry.likes)}
+                        {numberWithCommas(entry.likes)}
                     </p>
                     <p className="entry-user-name">
-                        {userData[props.entry.user].userName}
+                        {userData[entry.user].userName}
                     </p>
                     <UserAvatar
-                        user={props.entry.user}
-                        likesReceived={userData[props.entry.user].likesReceived}
-                        currentWinners={
-                            userData[props.entry.user].currentWinners
-                        }
+                        user={entry.user}
+                        likesReceived={userData[entry.user].likesReceived}
+                        currentWinners={userData[entry.user].currentWinners}
                     />
                 </div>
             </section>

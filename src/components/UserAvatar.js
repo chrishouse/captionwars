@@ -11,27 +11,25 @@ class UserAvatar extends React.Component {
     };
 
     render() {
+        const { currentUser } = this.state;
+        const { user, likesReceived, currentWinners } = this.props;
+
         return (
             <div className="user-avatar">
                 <img
                     className="user-avatar-image"
-                    src={`/images/users/${this.props.user}.jpg`}
+                    src={`/images/users/${user}.jpg`}
                     alt="name goes here"
                 />
                 <div
                     className={
-                        "user-number" +
-                        (this.state.currentUser === this.props.user
-                            ? " you"
-                            : "")
+                        "user-number" + (currentUser === user ? " you" : "")
                     }
                 >
-                    {this.numberWithCommas(this.props.likesReceived)}
+                    {this.numberWithCommas(likesReceived)}
                 </div>
-                {this.props.currentWinners > 0 ? (
-                    <div className="user-winners">
-                        {this.props.currentWinners}
-                    </div>
+                {currentWinners > 0 ? (
+                    <div className="user-winners">{currentWinners}</div>
                 ) : (
                     ""
                 )}

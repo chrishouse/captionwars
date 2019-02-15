@@ -2,6 +2,8 @@ import React from "react";
 import PropTypes from "prop-types";
 
 const ContestSorter = props => {
+    const { radioChecked } = props;
+
     const onRadioChange = e => {
         props.onRadioChange(e.target.id);
     };
@@ -14,9 +16,7 @@ const ContestSorter = props => {
                     id="newest-first"
                     name="contest-sort-radios"
                     onChange={onRadioChange}
-                    checked={
-                        props.radioChecked === "newest-first" ? true : false
-                    }
+                    checked={radioChecked === "newest-first" ? true : false}
                 />
                 <label htmlFor="newest-first">Newest first</label>
                 <input
@@ -24,9 +24,7 @@ const ContestSorter = props => {
                     id="oldest-first"
                     name="contest-sort-radios"
                     onChange={onRadioChange}
-                    checked={
-                        props.radioChecked === "oldest-first" ? true : false
-                    }
+                    checked={radioChecked === "oldest-first" ? true : false}
                 />
                 <label htmlFor="oldest-first">Oldest first</label>
                 <input
@@ -34,9 +32,7 @@ const ContestSorter = props => {
                     id="popular-first"
                     name="contest-sort-radios"
                     onChange={onRadioChange}
-                    checked={
-                        props.radioChecked === "popular-first" ? true : false
-                    }
+                    checked={radioChecked === "popular-first" ? true : false}
                 />
                 <label htmlFor="popular-first">Most popular first</label>
             </div>

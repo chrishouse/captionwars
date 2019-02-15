@@ -13,12 +13,14 @@ class App extends React.Component {
     };
 
     render() {
+        const { userData, contestData } = this.state;
+
         return (
             <div className="app">
-                <Header userData={this.state.userData} />
+                <Header userData={userData} />
                 <article className="main-container inner">
-                    <Sidebar userData={this.state.userData} />
-                    <Main contestData={this.state.contestData} />
+                    <Sidebar userData={userData} />
+                    <Main contestData={contestData} />
                 </article>
             </div>
         );

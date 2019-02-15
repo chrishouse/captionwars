@@ -16,18 +16,21 @@ class AuthYes extends React.Component {
     };
 
     render() {
+        const { menuIsActive } = this.state;
+        const { user } = this.props;
+
         return (
             <div className="auth auth-yes">
                 <i
                     className={
                         "fas fa-chevron-down" +
-                        (this.state.menuIsActive ? " user-menu-open" : "")
+                        (menuIsActive ? " user-menu-open" : "")
                     }
                     onClick={this.menuToggle}
                 />
                 <UserAvatar
-                    user={this.props.user[0].userId}
-                    likesReceived={this.props.user[0].likesReceived}
+                    user={user[0].userId}
+                    likesReceived={user[0].likesReceived}
                 />
                 <UserAlerts />
                 {this.state.menuIsActive ? (

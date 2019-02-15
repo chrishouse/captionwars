@@ -22,11 +22,13 @@ class Main extends React.Component {
     };
 
     render() {
+        const { radioChecked, following } = this.state;
+
         return (
             <main className="main">
                 <ContestSorter
-                    radioChecked={this.state.radioChecked}
-                    following={this.state.following}
+                    radioChecked={radioChecked}
+                    following={following}
                     onFollowingChange={this.followingToggle}
                     onRadioChange={this.radioChange}
                 />
