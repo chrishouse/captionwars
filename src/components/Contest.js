@@ -9,6 +9,8 @@ class Contest extends React.Component {
         entriesOrder: "ranking" // Can be "ranking" or "newest"
     };
 
+    // sortedEntries =
+
     handleSubmit = () => {
         // ... do stuff here ...
     };
@@ -24,30 +26,38 @@ class Contest extends React.Component {
                     src={`/images/contests/${contestData.contestId}.jpg`}
                 />
 
-                {/* to do: first sort the entries by likes */}
-                <Entry
-                    entryNumber={1}
-                    entry={contestData.entries[0]}
-                    onLikeClick={onLikeClick}
-                    contest={contestData}
-                    isWinner
-                />
+                {/* Sort the entries by likes and return them. Return the winner separately. */}
+                {contestData.entries
+                    .sort((a, b) => b.likes - a.likes)
+                    .map((entry, index) => {
+                        if (index === 0) {
+                            return (
+                                <React.Fragment>
+                                    <Entry
+                                        key={entry.entryId}
+                                        entryNumber={1}
+                                        entry={contestData.entries[0]}
+                                        onLikeClick={onLikeClick}
+                                        contest={contestData}
+                                        isWinner
+                                    />
 
-                <EntrySorter />
+                                    <EntrySorter />
+                                </React.Fragment>
+                            );
+                        } else {
+                            return (
+                                <Entry
+                                    key={entry.entryId}
+                                    entryNumber={index + 1}
+                                    entry={entry}
+                                    onLikeClick={onLikeClick}
+                                    contest={contestData}
+                                />
+                            );
+                        }
+                    })}
 
-                {contestData.entries.map((entry, index) => {
-                    if (index > 0) {
-                        return (
-                            <Entry
-                                key={entry.entryId}
-                                entryNumber={index + 1}
-                                entry={entry}
-                                onLikeClick={onLikeClick}
-                                contest={contestData}
-                            />
-                        );
-                    }
-                })}
                 <div className="more-entries-btn-cont">
                     <button className="more-entries-btn button">
                         More entries
