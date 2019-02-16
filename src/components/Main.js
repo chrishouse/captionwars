@@ -37,6 +37,7 @@ class Main extends React.Component {
                         <Contest
                             key={contest.contestId}
                             contestData={contest}
+                            onLikeClick={this.props.onLikeClick}
                         />
                     );
                 })}

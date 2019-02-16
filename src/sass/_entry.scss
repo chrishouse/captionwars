@@ -71,9 +71,12 @@
 
 .entry-like-button {
     margin-right: 5px;
+    display: flex;
+    align-items: center;
     cursor: pointer;
     .far {
         color: $darkGrey;
+        padding-right: 4px;
     }
     &:hover {
         .far {

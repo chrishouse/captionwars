@@ -368,9 +368,12 @@ body {
 
 .entry-like-button {
   margin-right: 5px;
+  display: flex;
+  align-items: center;
   cursor: pointer; }
   .entry-like-button .far {
-    color: #686868; }
+    color: #686868;
+    padding-right: 4px; }
   .entry-like-button:hover .far {
     color: #1abb3f; }
 

@@ -12,6 +12,23 @@ class App extends React.Component {
         userData: userData
     };
 
+    handleLikeClick = (contest, entry) => {
+        // Make a clone of contestData to manipulate inside this function
+        let contestData = [...this.state.contestData];
+        // Get the array index of the contest passed in
+        let contestIndex = contestData.indexOf(contest);
+        // Get the array index of the entry passed in
+        let entryIndex = contestData[contestIndex].entries.indexOf(entry);
+        // Make a clone of the contest object
+        contestData[contestIndex] = { ...contest };
+        // Make a clone of the entry object
+        contestData[contestIndex].entries[entryIndex] = { ...entry };
+        // Incremement the likes
+        contestData[contestIndex].entries[entryIndex].likes++;
+        // Set the state of the real contestData to match our cloned contestData
+        this.setState({ contestData });
+    };
+
     render() {
         const { userData, contestData } = this.state;
 
@@ -20,7 +37,10 @@ class App extends React.Component {
                 <Header userData={userData} />
                 <article className="main-container inner">
                     <Sidebar userData={userData} />
-                    <Main contestData={contestData} />
+                    <Main
+                        contestData={contestData}
+                        onLikeClick={this.handleLikeClick}
+                    />
                 </article>
             </div>
         );
