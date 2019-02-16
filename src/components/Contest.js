@@ -6,7 +6,7 @@ import PropTypes from "prop-types";
 
 class Contest extends React.Component {
     state = {
-        entriesOrder: "ranking" // Can be "ranking" or "newest"
+        entriesOrder: "date" // Can be "likes" or "date"
     };
 
     // sortedEntries =
@@ -17,46 +17,45 @@ class Contest extends React.Component {
 
     render() {
         const { contestData, onLikeClick } = this.props;
+
+        // Make a clone of the array to modify
+        const entries = [...contestData.entries];
+
+        if (this.state.entriesOrder === "likes") {
+            // Sort the entries by likes
+            entries.sort((a, b) => b.likes - a.likes);
+        } else {
+            // Sort the entries by date
+            // To do
+        }
+
         return (
             <section className="contest">
                 <div className="contest-date">{contestData.date}</div>
-
                 <img
                     className="contest-photo"
                     src={`/images/contests/${contestData.contestId}.jpg`}
                 />
 
-                {/* Sort the entries by likes and return them. Return the winner separately. */}
-                {contestData.entries
-                    .sort((a, b) => b.likes - a.likes)
-                    .map((entry, index) => {
-                        if (index === 0) {
-                            return (
-                                <React.Fragment>
-                                    <Entry
-                                        key={entry.entryId}
-                                        entryNumber={1}
-                                        entry={contestData.entries[0]}
-                                        onLikeClick={onLikeClick}
-                                        contest={contestData}
-                                        isWinner
-                                    />
+                <Entry
+                    entryNumber={1}
+                    entry={entries.shift()}
+                    onLikeClick={onLikeClick}
+                    contest={contestData}
+                    isWinner
+                />
 
-                                    <EntrySorter />
-                                </React.Fragment>
-                            );
-                        } else {
-                            return (
-                                <Entry
-                                    key={entry.entryId}
-                                    entryNumber={index + 1}
-                                    entry={entry}
-                                    onLikeClick={onLikeClick}
-                                    contest={contestData}
-                                />
-                            );
-                        }
-                    })}
+                <EntrySorter />
+
+                {entries.map((entry, index) => (
+                    <Entry
+                        key={entry.entryId}
+                        entryNumber={index + 2}
+                        entry={entry}
+                        onLikeClick={onLikeClick}
+                        contest={contestData}
+                    />
+                ))}
 
                 <div className="more-entries-btn-cont">
                     <button className="more-entries-btn button">
@@ -71,7 +70,6 @@ class Contest extends React.Component {
                     <i className="far fa-arrow-alt-circle-right" />
                     <span> Follow contest</span>
                 </div>
-
                 <EntryInput />
             </section>
         );

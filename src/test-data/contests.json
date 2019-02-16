@@ -34,7 +34,7 @@
             {
                 "entryId": 5,
                 "text": "Aenean consequat velit sit amet pharetra consectetur. Integer fermentum nisi a mi blandit, vel sollicitudin diam facilisis.",
-                "likes": 227,
+                "likes": 425,
                 "user": 2,
                 "date": "Tuesday, February 11th, 2019"
             }
@@ -116,8 +116,8 @@
             {
                 "entryId": 15,
                 "text": "Aenean consequat velit sit amet pharetra consectetur. Integer fermentum nisi a mi blandit, vel sollicitudin diam facilisis.",
-                "likes": 227,
-                "user": 2,
+                "likes": 425,
+                "user": 1,
                 "date": "Tuesday, February 11th, 2019"
             }
         ]
