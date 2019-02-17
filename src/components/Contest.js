@@ -23,7 +23,17 @@ class Contest extends React.Component {
         const { contestData, onLikeClick } = this.props;
         const { entryRadioChecked } = this.state;
 
-        // TO DO: make sure the winner doesn't change even though the sorting changes
+        // Make a clone of the array and sort it by likes (to be used by the winner Entry)
+        const entriesSortedByLikes = Array.from(contestData.entries);
+        entriesSortedByLikes.sort((a, b) => {
+            if (a.likes <= b.likes) {
+                return 1;
+            } else {
+                return -1;
+            }
+        });
+
+        // Sort the remaining entries by likes ONLY IF entry-ranking radio is checked
         if (entryRadioChecked === "entry-ranking") {
             // Sort the entries by likes
             contestData.entries.sort((a, b) => {
@@ -39,6 +49,10 @@ class Contest extends React.Component {
 
         // Make a clone of the (newly sorted) array to modify
         const entries = Array.from(contestData.entries);
+        // And remove the first item (since the first item will show up independently as the winner)
+        if (entryRadioChecked === "entry-ranking") {
+            entries.shift();
+        }
 
         return (
             <section className="contest">
@@ -50,7 +64,7 @@ class Contest extends React.Component {
 
                 <Entry
                     entryNumber={1}
-                    entry={entries.shift()}
+                    entry={entriesSortedByLikes[0]}
                     onLikeClick={onLikeClick}
                     contest={contestData}
                     isWinner
@@ -62,6 +76,8 @@ class Contest extends React.Component {
                     contestId={contestData.contestId}
                 />
 
+                {/* TO DO: Get the entryNumber to be the rank (i.e. the index when sorted by likes) regardless of the sorting option */}
+                {/* TO DO: Rethink: Currently when the entries are sorted by rank the winner won't be repeated, but when sorted by date it will */}
                 {entries.map((entry, index) => (
                     <Entry
                         key={entry.entryId}
