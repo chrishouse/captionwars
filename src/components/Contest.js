@@ -6,28 +6,39 @@ import PropTypes from "prop-types";
 
 class Contest extends React.Component {
     state = {
-        entriesOrder: "date" // Can be "likes" or "date"
+        entryRadioChecked: "entry-newest-first" // Can be "entry-ranking" or "entry-newest-first"
     };
 
-    // sortedEntries =
-
     handleSubmit = () => {
-        // ... do stuff here ...
+        // TO DO: Handle submit
+    };
+
+    handleEntryRadioChange = radio => {
+        this.setState({
+            entryRadioChecked: radio
+        });
     };
 
     render() {
         const { contestData, onLikeClick } = this.props;
+        const { entryRadioChecked } = this.state;
 
-        // Make a clone of the array to modify
-        const entries = [...contestData.entries];
-
-        if (this.state.entriesOrder === "likes") {
+        // TO DO: make sure the winner doesn't change even though the sorting changes
+        if (entryRadioChecked === "entry-ranking") {
             // Sort the entries by likes
-            entries.sort((a, b) => b.likes - a.likes);
+            contestData.entries.sort((a, b) => {
+                if (a.likes <= b.likes) {
+                    return 1;
+                } else {
+                    return -1;
+                }
+            });
         } else {
-            // Sort the entries by date
-            // To do
+            // TO DO: Sort the entries by date
         }
+
+        // Make a clone of the (newly sorted) array to modify
+        const entries = Array.from(contestData.entries);
 
         return (
             <section className="contest">
@@ -45,7 +56,11 @@ class Contest extends React.Component {
                     isWinner
                 />
 
-                <EntrySorter />
+                <EntrySorter
+                    entryRadioChecked={entryRadioChecked}
+                    onEntryRadioChange={this.handleEntryRadioChange}
+                    contestId={contestData.contestId}
+                />
 
                 {entries.map((entry, index) => (
                     <Entry

@@ -3,9 +3,7 @@ import Stats from "./Stats";
 import Leaderboard from "./Leaderboard";
 import PropTypes from "prop-types";
 
-const Sidebar = props => {
-    const { userData } = props;
-
+const Sidebar = ({ userData }) => {
     return (
         <aside className="sidebar">
             <header className="sidebar-header">

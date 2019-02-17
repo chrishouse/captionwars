@@ -2,9 +2,7 @@ import React from "react";
 import Auth from "./Auth";
 import PropTypes from "prop-types";
 
-const Header = props => {
-    const { userData } = props;
-
+const Header = ({ userData }) => {
     return (
         <header className="main-header">
             <section className="header-content inner">

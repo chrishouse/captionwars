@@ -305,12 +305,59 @@ body {
   .entry-input .button {
     float: right; }
 
+.entry-sorter {
+  border-radius: 8px;
+  background-color: #f3f3f3;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 3rem 2rem 1rem 0;
+  align-self: flex-end; }
+  .entry-sorter label,
+  .entry-sorter p {
+    font-size: 12px;
+    font-weight: 800;
+    color: #3c3c3c; }
+
+.entry-sort-radios,
+.entry-sort-checkbox {
+  display: flex;
+  align-items: center; }
+  .entry-sort-radios input,
+  .entry-sort-checkbox input {
+    margin-right: 9px;
+    visibility: hidden;
+    margin-left: 20px;
+    cursor: pointer; }
+    .entry-sort-radios input:first-child,
+    .entry-sort-checkbox input:first-child {
+      margin-left: 0; }
+    .entry-sort-radios input:before,
+    .entry-sort-checkbox input:before {
+      content: "";
+      visibility: visible;
+      display: inline-block;
+      height: 13px;
+      width: 13px;
+      border-radius: 18px;
+      background: white;
+      border: solid 2px white;
+      margin-top: -3px;
+      box-shadow: 0 0 0 1px #1abb3f; }
+    .entry-sort-radios input:checked:before,
+    .entry-sort-checkbox input:checked:before {
+      background: #1abb3f; }
+
+.entry-sort-checkbox input:before {
+  border-radius: 0; }
+
 .entry {
   width: 94%;
   background-color: white;
   border-radius: 8px;
   border: solid 1px #e4e4e4;
-  margin-bottom: 10px; }
+  margin-bottom: 10px;
+  transition: all 0.5s; }
   .entry.winner {
     width: 100%;
     border: solid 1px #eac813;

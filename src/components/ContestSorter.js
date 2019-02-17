@@ -1,11 +1,14 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-const ContestSorter = props => {
-    const { radioChecked, following, onFollowingChange } = props;
-
+const ContestSorter = ({
+    radioChecked,
+    following,
+    onFollowingChange,
+    onRadioChange
+}) => {
     const handleRadioChange = e => {
-        props.onRadioChange(e.target.id);
+        onRadioChange(e.target.id);
     };
 
     return (

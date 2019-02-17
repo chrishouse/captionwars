@@ -8,6 +8,12 @@ class Entry extends React.Component {
         return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     };
 
+    componentDidUpdate = prevProps => {
+        if (prevProps.entryNumber !== this.props.entryNumber) {
+            // TO DO: Styling here, somehow
+        }
+    };
+
     render() {
         const { isWinner, entryNumber, contest, entry } = this.props;
         return (

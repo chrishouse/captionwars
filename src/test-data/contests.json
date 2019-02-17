@@ -6,7 +6,7 @@
             {
                 "entryId": 1,
                 "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-                "likes": 1227,
+                "likes": 1524,
                 "user": 1,
                 "date": "Saturday, February 3rd, 2019"
             },
@@ -28,7 +28,7 @@
                 "entryId": 4,
                 "text": "Donec feugiat venenatis lectus vitae eleifend. Proin vel ligula mauris.",
                 "likes": 1527,
-                "user": 1,
+                "user": 0,
                 "date": "Tuesday, February 11th, 2019"
             },
             {
@@ -88,7 +88,7 @@
             {
                 "entryId": 11,
                 "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-                "likes": 1227,
+                "likes": 5002,
                 "user": 2,
                 "date": "Tuesday, February 11th, 2019"
             },
@@ -109,8 +109,8 @@
             {
                 "entryId": 14,
                 "text": "Donec feugiat venenatis lectus vitae eleifend. Proin vel ligula mauris.",
-                "likes": 1527,
-                "user": 2,
+                "likes": 4998,
+                "user": 0,
                 "date": "Tuesday, February 11th, 2019"
             },
             {
