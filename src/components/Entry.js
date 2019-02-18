@@ -25,7 +25,14 @@ class Entry extends React.Component {
                 <p className="entry-text">{entry.text}</p>
 
                 <section className="entry-info">
-                    <p className="entry-date">{entry.date}</p>
+                    <p className="entry-date">
+                        {new Date(entry.date).toLocaleDateString("en-US", {
+                            weekday: "long",
+                            year: "numeric",
+                            month: "long",
+                            day: "numeric"
+                        })}
+                    </p>
                     <div className="entry-user-likes">
                         <a
                             className="entry-like-button"

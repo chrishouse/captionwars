@@ -23,40 +23,54 @@ class Contest extends React.Component {
         const { contestData, onLikeClick } = this.props;
         const { entryRadioChecked } = this.state;
 
-        // Make a clone of the array and sort it by likes (to be used by the winner Entry)
-        const entriesSortedByLikes = Array.from(contestData.entries);
-        entriesSortedByLikes.sort((a, b) => {
-            if (a.likes <= b.likes) {
+        // Sort the entries either by likes or date, depending on which radio is checked
+        contestData.entries.sort((a, b) => {
+            if (
+                entryRadioChecked === "entry-ranking"
+                    ? a.likes <= b.likes
+                    : a.date <= b.date
+            ) {
                 return 1;
             } else {
                 return -1;
             }
         });
 
-        // Sort the remaining entries by likes ONLY IF entry-ranking radio is checked
-        if (entryRadioChecked === "entry-ranking") {
-            // Sort the entries by likes
-            contestData.entries.sort((a, b) => {
-                if (a.likes <= b.likes) {
-                    return 1;
-                } else {
-                    return -1;
-                }
-            });
-        } else {
-            // TO DO: Sort the entries by date
-        }
-
         // Make a clone of the (newly sorted) array to modify
         const entries = Array.from(contestData.entries);
-        // And remove the first item (since the first item will show up independently as the winner)
+
+        // Grab the item with the highest number of likes (this is the winner)
+        // TO DO: Account for a tie in likes on page load
+        const winner = () => {
+            // Get the highest likes value
+            const maxLikes = contestData.entries.reduce(function(a, b) {
+                return b.likes > a ? b.likes : a;
+            }, 0);
+            // Then get the object with that value and return it
+            const maxObj = contestData.entries.find(function(o) {
+                return o.likes == maxLikes;
+            });
+            return maxObj;
+        };
+
+        // Remove the winner from the entries array (since it will always show up independently at the top)
         if (entryRadioChecked === "entry-ranking") {
             entries.shift();
+        } else {
+            let winnerToDrop = entries.indexOf(winner());
+            entries.splice(winnerToDrop, 1);
         }
 
         return (
             <section className="contest">
-                <div className="contest-date">{contestData.date}</div>
+                <div className="contest-date">
+                    {new Date(contestData.date).toLocaleDateString("en-US", {
+                        weekday: "long",
+                        year: "numeric",
+                        month: "long",
+                        day: "numeric"
+                    })}
+                </div>
                 <img
                     className="contest-photo"
                     src={`/images/contests/${contestData.contestId}.jpg`}
@@ -64,7 +78,7 @@ class Contest extends React.Component {
 
                 <Entry
                     entryNumber={1}
-                    entry={entriesSortedByLikes[0]}
+                    entry={winner()}
                     onLikeClick={onLikeClick}
                     contest={contestData}
                     isWinner
@@ -77,7 +91,6 @@ class Contest extends React.Component {
                 />
 
                 {/* TO DO: Get the entryNumber to be the rank (i.e. the index when sorted by likes) regardless of the sorting option */}
-                {/* TO DO: Rethink: Currently when the entries are sorted by rank the winner won't be repeated, but when sorted by date it will */}
                 {entries.map((entry, index) => (
                     <Entry
                         key={entry.entryId}
