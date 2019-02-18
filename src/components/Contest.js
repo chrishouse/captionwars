@@ -39,6 +39,19 @@ class Contest extends React.Component {
             }
         });
 
+        // Return the rank (by likes) of an entry regardless of sorting order
+        const getRank = entry => {
+            const rankEntries = Array.from(entries);
+            rankEntries.sort((a, b) => {
+                if (a.likes <= b.likes) {
+                    return 1;
+                } else {
+                    return -1;
+                }
+            });
+            return rankEntries.indexOf(entry);
+        };
+
         // Locate the winner (the one with the most likes) and separate it from the entries array
         const winner = () => {
             // Get the highest likes value
@@ -75,8 +88,7 @@ class Contest extends React.Component {
             maxObj = maxObj[0];
 
             // Remove the winner from the entries array
-            let winnerToDrop = entries.indexOf(maxObj);
-            entries.splice(winnerToDrop, 1);
+            entries.splice(entries.indexOf(maxObj), 1);
 
             // Return the winner
             return maxObj;
@@ -111,11 +123,10 @@ class Contest extends React.Component {
                     contestId={contestData.contestId}
                 />
 
-                {/* TO DO: Get the entryNumber to be the rank (i.e. the index when sorted by likes) regardless of the sorting option */}
-                {entries.map((entry, index) => (
+                {entries.map(entry => (
                     <Entry
                         key={entry.entryId}
-                        entryNumber={index + 2}
+                        entryNumber={getRank(entry) + 2}
                         entry={entry}
                         onLikeClick={onLikeClick}
                         contest={contestData}
