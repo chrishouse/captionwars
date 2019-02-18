@@ -2,17 +2,12 @@ import React from "react";
 import PropTypes from "prop-types";
 
 class UserAvatar extends React.Component {
-    state = {
-        currentUser: 0
-    };
-
     numberWithCommas = x => {
         return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     };
 
     render() {
-        const { currentUser } = this.state;
-        const { user, likesReceived, currentWinners } = this.props;
+        const { user, currentUser, likesReceived, currentWinners } = this.props;
 
         return (
             <div className="user-avatar">

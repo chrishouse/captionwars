@@ -10,7 +10,10 @@ class Auth extends React.Component {
 
     checkAuth = () => {
         return this.state.authenticated ? (
-            <AuthYes user={this.props.userData} />
+            <AuthYes
+                user={this.props.userData}
+                currentUser={this.props.currentUser}
+            />
         ) : (
             <AuthNo />
         );

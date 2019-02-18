@@ -15,7 +15,13 @@ class Entry extends React.Component {
     };
 
     render() {
-        const { isWinner, entryNumber, contest, entry } = this.props;
+        const {
+            isWinner,
+            entryNumber,
+            contest,
+            entry,
+            currentUser
+        } = this.props;
         return (
             <div className={"entry" + (isWinner ? " winner" : "")}>
                 <div className="entry-number">
@@ -50,6 +56,7 @@ class Entry extends React.Component {
                         </p>
                         <UserAvatar
                             user={entry.user}
+                            currentUser={currentUser}
                             likesReceived={userData[entry.user].likesReceived}
                             currentWinners={userData[entry.user].currentWinners}
                         />

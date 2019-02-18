@@ -38,7 +38,9 @@ class Stats extends React.Component {
                 <div className="user-stat">
                     <span>Contests following</span>
                     <span>
-                        {this.numberWithCommas(userData[0].contestsFollowing)}
+                        {this.numberWithCommas(
+                            userData[0].numContestsFollowing
+                        )}
                     </span>
                 </div>
             </section>

@@ -5,7 +5,7 @@ import PropTypes from "prop-types";
 
 class Main extends React.Component {
     state = {
-        radioChecked: "newest-first",
+        radioChecked: "newest-first", // Can be "newest-first", "oldest-first" or "popular-first"
         following: false
     };
 
@@ -23,6 +23,47 @@ class Main extends React.Component {
 
     render() {
         const { radioChecked, following } = this.state;
+        const {
+            contestData,
+            onLikeClick,
+            currentUser,
+            contestsFollowing
+        } = this.props;
+
+        // Make a clone of the contests array to modify
+        const contests = Array.from(contestData);
+
+        // Sort the contests either by newest, oldest or popularity, depending on which radio is checked
+        const sortDate = order => {
+            contests.sort((a, b) => {
+                if (order === "newest" ? a.date < b.date : a.date > b.date) {
+                    return 1;
+                } else {
+                    return -1;
+                }
+            });
+        };
+
+        const sortPopular = () => {
+            // TO DO: Sort by popularity
+        };
+
+        switch (radioChecked) {
+            case "newest-first":
+                sortDate("newest");
+                break;
+            case "oldest-first":
+                sortDate("oldest");
+                break;
+            case "popular-first":
+                sortPopular();
+                break;
+        }
+
+        // Show only followed contests if the Following checkbox is checked
+        if (following) {
+            // TO DO handle logic for displaying only Followed contests
+        }
 
         return (
             <main className="main">
@@ -32,12 +73,13 @@ class Main extends React.Component {
                     onFollowingChange={this.handleFollowingCheck}
                     onRadioChange={this.handleRadioChange}
                 />
-                {this.props.contestData.map(contest => {
+                {contests.map(contest => {
                     return (
                         <Contest
                             key={contest.contestId}
                             contestData={contest}
-                            onLikeClick={this.props.onLikeClick}
+                            currentUser={currentUser}
+                            onLikeClick={onLikeClick}
                         />
                     );
                 })}

@@ -7,7 +7,8 @@
         "currentWinningEntries": 2,
         "likesGiven": 5506,
         "contestsEntered": 79,
-        "contestsFollowing": 122,
+        "numContestsFollowing": 122,
+        "contestsFollowing": [0, 3, 4],
         "currentWinners": 8
     },
     {
@@ -18,7 +19,8 @@
         "currentWinningEntries": 12,
         "likesGiven": 1506,
         "contestsEntered": 120,
-        "contestsFollowing": 8,
+        "numContestsFollowing": 8,
+        "contestsFollowing": [],
         "currentWinners": 0
     },
     {
@@ -29,7 +31,8 @@
         "currentWinningEntries": 234,
         "likesGiven": 99,
         "contestsEntered": 178,
-        "contestsFollowing": 2345,
+        "numContestsFollowing": 2345,
+        "contestsFollowing": [1, 5],
         "currentWinners": 12
     }
 ]

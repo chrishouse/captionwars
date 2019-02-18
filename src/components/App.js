@@ -9,7 +9,9 @@ import userData from "../test-data/users";
 class App extends React.Component {
     state = {
         contestData: contestData,
-        userData: userData
+        userData: userData,
+        currentUser: 0,
+        contestsFollowing: [0, 1, 5]
     };
 
     handleLikeClick = (contest, entry) => {
@@ -30,16 +32,23 @@ class App extends React.Component {
     };
 
     render() {
-        const { userData, contestData } = this.state;
+        const {
+            userData,
+            contestData,
+            currentUser,
+            contestsFollowing
+        } = this.state;
 
         return (
             <div className="app">
-                <Header userData={userData} />
+                <Header userData={userData} currentUser={currentUser} />
                 <article className="main-container inner">
                     <Sidebar userData={userData} />
                     <Main
                         contestData={contestData}
                         onLikeClick={this.handleLikeClick}
+                        currentUser={currentUser}
+                        contestsFollowing={contestsFollowing}
                     />
                 </article>
             </div>

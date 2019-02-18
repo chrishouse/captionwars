@@ -20,7 +20,7 @@ class Contest extends React.Component {
     };
 
     render() {
-        const { contestData, onLikeClick } = this.props;
+        const { contestData, onLikeClick, currentUser } = this.props;
         const { entryRadioChecked } = this.state;
 
         // Make a clone of the entries array to modify
@@ -111,6 +111,7 @@ class Contest extends React.Component {
 
                 <Entry
                     entryNumber={1}
+                    currentUser={currentUser}
                     entry={winner()}
                     onLikeClick={onLikeClick}
                     contest={contestData}
@@ -127,6 +128,7 @@ class Contest extends React.Component {
                     <Entry
                         key={entry.entryId}
                         entryNumber={getRank(entry) + 2}
+                        currentUser={currentUser}
                         entry={entry}
                         onLikeClick={onLikeClick}
                         contest={contestData}
