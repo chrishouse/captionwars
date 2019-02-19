@@ -31,7 +31,7 @@ class Main extends React.Component {
         } = this.props;
 
         // Make a clone of the contests array to modify
-        const contests = Array.from(contestData);
+        let contests = Array.from(contestData);
 
         // Sort the contests either by newest, oldest or popularity, depending on which radio is checked
         const sortDate = order => {
@@ -62,7 +62,9 @@ class Main extends React.Component {
 
         // Show only followed contests if the Following checkbox is checked
         if (following) {
-            // TO DO handle logic for displaying only Followed contests
+            contests = contests.filter(contest => {
+                return contestsFollowing.indexOf(contest.contestId) !== -1;
+            });
         }
 
         return (
