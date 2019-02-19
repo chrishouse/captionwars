@@ -1,4 +1,5 @@
 /*** Colors ***/
+/*** Gradients ***/
 /*** Layout ***/
 /*** Fonts ***/
 * {
@@ -120,7 +121,7 @@ body {
 .user-winners {
   font-size: 14px;
   font-weight: 600;
-  background-color: #b7b7b7;
+  background: linear-gradient(to right, #b7b7b7, #cccccc);
   color: white;
   border-radius: 50px;
   padding: 4px 11px 4px 25px;
@@ -129,13 +130,13 @@ body {
   z-index: 100; }
   .user-number.you,
   .user-winners.you {
-    background-color: #1abb3f; }
+    background: linear-gradient(to right, #1abb3f, #82d615); }
 
 .user-number {
   padding-left: 28px; }
 
 .user-winners {
-  background-color: #eac813;
+  background: linear-gradient(to right, #eac813, #dcd509);
   z-index: 0; }
 
 .sidebar {
@@ -170,7 +171,7 @@ body {
   left: -15px;
   border-radius: 50px;
   padding: 4px 20px;
-  background-color: #b7b7b7;
+  background: linear-gradient(to right, #b7b7b7, #cccccc);
   color: white;
   font-weight: 600;
   margin-top: 15px; }
@@ -179,9 +180,9 @@ body {
   .user-stat span:last-child {
     font-size: 16px; }
   .user-stat.stat-likes-received {
-    background-color: #1abb3f; }
+    background: linear-gradient(to right, #1abb3f, #82d615); }
   .user-stat.stat-winning {
-    background-color: #eac813; }
+    background: linear-gradient(to right, #eac813, #dcd509); }
 
 .main-container {
   display: flex;
