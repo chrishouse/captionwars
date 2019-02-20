@@ -27,17 +27,33 @@ class Contest extends React.Component {
         const entries = Array.from(contestData.entries);
 
         // Sort the entries either by likes or date, depending on which radio is checked
-        entries.sort((a, b) => {
-            if (
-                entryRadioChecked === "entry-ranking"
-                    ? a.likes <= b.likes
-                    : a.date <= b.date
-            ) {
-                return 1;
-            } else {
-                return -1;
-            }
-        });
+        switch (entryRadioChecked) {
+            case "entry-ranking":
+                entries.sort((a, b) => {
+                    if (a.likes < b.likes) {
+                        return 1;
+                    } else if (a.likes > b.likes) {
+                        return -1;
+                        // If likes are tied, the entry with the oldest date is returned
+                    } else if (a.likes === b.likes) {
+                        if (a.date > b.date) {
+                            return 1;
+                        } else if (a.date < b.date) {
+                            return -1;
+                        }
+                    }
+                });
+                break;
+            case "entry-newest-first":
+                entries.sort((a, b) => {
+                    if (a.date <= b.date) {
+                        return 1;
+                    } else {
+                        return -1;
+                    }
+                });
+                break;
+        }
 
         // Return the rank (by likes) of an entry regardless of sorting order
         const getRank = entry => {
@@ -66,25 +82,17 @@ class Contest extends React.Component {
 
             // If likes are tied (i.e. the maxObj array contains more than 1 item), the winner is the entry with the earliest date
             if (maxObj.length > 1) {
-                // 1. Convert the items to millisecond format for easy comparison
-                const dateArr = maxObj.map(entry =>
-                    new Date(entry.date).getTime()
-                );
-                // 2. Grab the lowest one
-                let earliestDate = Math.min(...dateArr);
-                // 3. Find the item in the maxObj array whose date matches earlestDate
-                const singleDateObj = maxObj.filter(entry => {
-                    // Convert both date values back to ISO format to match what's in the data
-                    const entryDate = new Date(entry.date).toISOString();
-                    earliestDate = new Date(earliestDate).toISOString();
-                    // Return the single object
-                    return entryDate === earliestDate;
+                maxObj.sort((a, b) => {
+                    if (a.date > b.date) {
+                        return 1;
+                    } else if (a.date < b.date) {
+                        return -1;
+                    }
                 });
-
-                maxObj = singleDateObj;
             }
 
-            // maxObj is an array (with a single object), but we need it to be just an object
+            // maxObj is an array, so get the first item
+            // (if the length of maxObj had been 1 there would only be one item in the array, but we still need to grab it.)
             maxObj = maxObj[0];
 
             // Remove the winner from the entries array
