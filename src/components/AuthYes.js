@@ -29,8 +29,8 @@ class AuthYes extends React.Component {
                     onClick={this.handleClick}
                 />
                 <UserAvatar
-                    user={user[0].userId}
-                    likesReceived={user[0].likesReceived}
+                    user={currentUser}
+                    likesReceived={user[currentUser].likesReceived}
                     currentUser={currentUser}
                 />
                 <UserAlerts />
@@ -45,7 +45,8 @@ class AuthYes extends React.Component {
 }
 
 AuthYes.propTypes = {
-    user: PropTypes.array
+    user: PropTypes.array,
+    currentUser: PropTypes.number
 };
 
 export default AuthYes;

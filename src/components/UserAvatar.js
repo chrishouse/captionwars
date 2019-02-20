@@ -37,7 +37,8 @@ UserAvatar.propTypes = {
     user: PropTypes.number,
     likesReceived: PropTypes.number,
     isYou: PropTypes.bool,
-    currentWinners: PropTypes.number
+    currentWinners: PropTypes.number,
+    currentUser: PropTypes.number
 };
 
 export default UserAvatar;

@@ -69,7 +69,7 @@ class App extends React.Component {
             <div className="app">
                 <Header userData={userData} currentUser={currentUser} />
                 <article className="main-container inner">
-                    <Sidebar userData={userData} />
+                    <Sidebar userData={userData} currentUser={currentUser} />
                     <Main
                         contestData={contestData}
                         onLikeClick={this.handleLikeClick}

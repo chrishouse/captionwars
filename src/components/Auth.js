@@ -25,7 +25,8 @@ class Auth extends React.Component {
 }
 
 Auth.propTypes = {
-    userData: PropTypes.array
+    userData: PropTypes.array,
+    currentUser: PropTypes.number
 };
 
 export default Auth;

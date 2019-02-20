@@ -21,7 +21,8 @@ const Header = ({ userData, currentUser }) => {
 };
 
 Header.propTypes = {
-    userData: PropTypes.array
+    userData: PropTypes.array,
+    currentUser: PropTypes.number
 };
 
 export default Header;
