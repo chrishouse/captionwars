@@ -69,7 +69,12 @@ class Entry extends React.Component {
 
 Entry.propTypes = {
     contestEntry: PropTypes.array,
-    entry: PropTypes.object
+    entry: PropTypes.object,
+    isWinner: PropTypes.bool,
+    entryNumber: PropTypes.number,
+    contest: PropTypes.object,
+    currentUser: PropTypes.number,
+    onLikeClick: PropTypes.func
 };
 
 export default Entry;

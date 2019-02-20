@@ -69,6 +69,7 @@
     border-top: solid 1px white;
     padding-top: 2.2rem;
     width: 94%;
+    position: relative;
     textarea {
         width: 100%;
         border-color: $borderGrey;
@@ -79,6 +80,8 @@
         color: #3c3c3c;
         line-height: 1.4;
         resize: none;
+        min-height: 100px;
+        overflow: hidden;
         &::placeholder {
             color: $grey;
         }
@@ -86,6 +89,12 @@
     .button {
         float: right;
     }
+}
+
+.character-alert {
+    position: absolute;
+    font-size: 14px;
+    color: red;
 }
 
 .entry-sorter {

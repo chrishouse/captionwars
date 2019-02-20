@@ -9,10 +9,6 @@ class Contest extends React.Component {
         entryRadioChecked: "entry-newest-first" // Can be "entry-ranking" or "entry-newest-first"
     };
 
-    handleSubmit = () => {
-        // TO DO: Handle submit
-    };
-
     handleEntryRadioChange = radio => {
         this.setState({
             entryRadioChecked: radio
@@ -20,7 +16,12 @@ class Contest extends React.Component {
     };
 
     render() {
-        const { contestData, onLikeClick, currentUser } = this.props;
+        const {
+            contestData,
+            onLikeClick,
+            currentUser,
+            handleEntrySubmit
+        } = this.props;
         const { entryRadioChecked } = this.state;
 
         // Make a clone of the entries array to modify
@@ -156,14 +157,21 @@ class Contest extends React.Component {
                     <i className="far fa-arrow-alt-circle-right" />
                     <span> Follow contest</span>
                 </div>
-                <EntryInput />
+
+                <EntryInput
+                    handleSubmit={handleEntrySubmit}
+                    contestData={contestData}
+                />
             </section>
         );
     }
 }
 
 Contest.propTypes = {
-    contestData: PropTypes.object
+    contestData: PropTypes.object,
+    onLikeClick: PropTypes.func,
+    currentUser: PropTypes.number,
+    handleEntrySubmit: PropTypes.func
 };
 
 export default Contest;

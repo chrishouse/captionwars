@@ -31,6 +31,32 @@ class App extends React.Component {
         this.setState({ contestData });
     };
 
+    handleEntrySubmit = (contest, entryText) => {
+        const today = new Date().toISOString();
+        // Construct the new entry (this is temporary until we get the database in place)
+        const newEntry = {
+            entryId: 134,
+            text: entryText,
+            likes: 0,
+            user: this.state.currentUser,
+            date: today
+        };
+
+        // Make a copy of the contest data
+        const updatedContestData = [...this.state.contestData];
+        // Get the index of the contest to modify
+        const index = this.state.contestData.indexOf(contest);
+        // Spread the new entry into the existing entries
+        updatedContestData[index].entries = [
+            ...updatedContestData[index].entries,
+            newEntry
+        ];
+
+        this.setState({
+            contestData: updatedContestData
+        });
+    };
+
     render() {
         const {
             userData,
@@ -49,6 +75,7 @@ class App extends React.Component {
                         onLikeClick={this.handleLikeClick}
                         currentUser={currentUser}
                         contestsFollowing={contestsFollowing}
+                        handleEntrySubmit={this.handleEntrySubmit}
                     />
                 </article>
             </div>

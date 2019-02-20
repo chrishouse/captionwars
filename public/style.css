@@ -6,6 +6,8 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box; }
+  *:focus {
+    outline: none; }
 
 html {
   font-size: 67.5%; }
@@ -290,7 +292,8 @@ body {
 .entry-input {
   border-top: solid 1px white;
   padding-top: 2.2rem;
-  width: 94%; }
+  width: 94%;
+  position: relative; }
   .entry-input textarea {
     width: 100%;
     border-color: #e4e4e4;
@@ -300,11 +303,18 @@ body {
     font-size: 18px;
     color: #3c3c3c;
     line-height: 1.4;
-    resize: none; }
+    resize: none;
+    min-height: 100px;
+    overflow: hidden; }
     .entry-input textarea::placeholder {
       color: #b7b7b7; }
   .entry-input .button {
     float: right; }
+
+.character-alert {
+  position: absolute;
+  font-size: 14px;
+  color: red; }
 
 .entry-sorter {
   border-radius: 8px;
