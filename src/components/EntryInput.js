@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 
 class EntryInput extends React.Component {
     state = {
+        visible: true,
         inputText: "",
         textareaHeight: 100,
         characterLimit: 250,
@@ -17,11 +18,13 @@ class EntryInput extends React.Component {
                 this.state.inputText
             );
             this.setState({
+                visible: false,
                 inputText: "",
                 textareaHeight: 100,
                 characterCount: 0,
                 textareaAlert: null
             });
+            this.props.onEntrySubmit();
         } else {
             this.setState({
                 textareaAlert: "Please type something"
@@ -30,6 +33,9 @@ class EntryInput extends React.Component {
     };
 
     handleTextChange = e => {
+        if (e.key === "Enter") {
+            this.handleSubmitClick();
+        }
         const charDiff = this.state.characterLimit - e.target.value.length;
         if (charDiff <= 20) {
             if (charDiff === 1) {
@@ -55,6 +61,7 @@ class EntryInput extends React.Component {
 
     render() {
         const {
+            visible,
             inputText,
             textareaHeight,
             characterLimit,
@@ -62,30 +69,47 @@ class EntryInput extends React.Component {
         } = this.state;
 
         return (
-            <div className="entry-input">
-                <textarea
-                    placeholder="Your entry..."
-                    value={inputText}
-                    onChange={this.handleTextChange}
-                    maxLength={characterLimit}
-                    style={{ height: `${textareaHeight}px` }}
-                />
-                <p className="character-alert">{textareaAlert}</p>
-                <button
-                    className="button"
-                    type="submit"
-                    onClick={this.handleSubmitClick}
+            <React.Fragment>
+                <div
+                    className={`entry-input${
+                        visible ? "" : " entry-input-hidden"
+                    }`}
                 >
-                    Submit
-                </button>
-            </div>
+                    <textarea
+                        placeholder="Your entry..."
+                        value={inputText}
+                        onChange={this.handleTextChange}
+                        maxLength={characterLimit}
+                        style={{ height: `${textareaHeight}px` }}
+                        onKeyDown={this.handleTextChange}
+                    />
+                    <p className="character-alert">{textareaAlert}</p>
+                    <button
+                        className="button"
+                        type="submit"
+                        onClick={this.handleSubmitClick}
+                    >
+                        Submit
+                    </button>
+                </div>
+                <div
+                    className={`entry-msg-cont${
+                        visible ? " entry-msg-hidden" : ""
+                    }`}
+                >
+                    <p className="entry-msg">
+                        You&#39;ve entered this contest.
+                    </p>
+                </div>
+            </React.Fragment>
         );
     }
 }
 
 EntryInput.propTypes = {
     handleSubmit: PropTypes.func,
-    contestData: PropTypes.object
+    contestData: PropTypes.object,
+    onEntrySubmit: PropTypes.func
 };
 
 export default EntryInput;

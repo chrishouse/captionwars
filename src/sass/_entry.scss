@@ -5,6 +5,7 @@
     border: solid 1px $borderGrey;
     margin-bottom: 10px;
     transition: all 0.5s;
+    word-break: break-all;
     &.winner {
         width: 100%;
         border: solid 1px $yellow;

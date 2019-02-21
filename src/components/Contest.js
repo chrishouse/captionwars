@@ -6,12 +6,18 @@ import PropTypes from "prop-types";
 
 class Contest extends React.Component {
     state = {
-        entryRadioChecked: "entry-newest-first" // Can be "entry-ranking" or "entry-newest-first"
+        entriesSortedBy: "entry-newest-first" // Can be "entry-ranking" or "entry-newest-first"
     };
 
     handleEntryRadioChange = radio => {
         this.setState({
-            entryRadioChecked: radio
+            entriesSortedBy: radio
+        });
+    };
+
+    handleEntrySubmit = () => {
+        this.setState({
+            entriesSortedBy: "entry-newest-first"
         });
     };
 
@@ -22,13 +28,13 @@ class Contest extends React.Component {
             currentUser,
             handleEntrySubmit
         } = this.props;
-        const { entryRadioChecked } = this.state;
+        const { entriesSortedBy } = this.state;
 
         // Make a clone of the entries array to modify
         const entries = Array.from(contestData.entries);
 
         // Sort the entries either by likes or date, depending on which radio is checked
-        switch (entryRadioChecked) {
+        switch (entriesSortedBy) {
             case "entry-ranking":
                 entries.sort((a, b) => {
                     if (a.likes < b.likes) {
@@ -128,12 +134,12 @@ class Contest extends React.Component {
                 />
 
                 <EntrySorter
-                    entryRadioChecked={entryRadioChecked}
+                    entriesSortedBy={entriesSortedBy}
                     onEntryRadioChange={this.handleEntryRadioChange}
                     contestId={contestData.contestId}
                 />
 
-                {entries.map(entry => (
+                {entries.slice(0, 4).map(entry => (
                     <Entry
                         key={entry.entryId}
                         entryNumber={getRank(entry) + 2}
@@ -161,6 +167,7 @@ class Contest extends React.Component {
                 <EntryInput
                     handleSubmit={handleEntrySubmit}
                     contestData={contestData}
+                    onEntrySubmit={this.handleEntrySubmit}
                 />
             </section>
         );

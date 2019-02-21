@@ -313,6 +313,26 @@ body {
       color: #b7b7b7; }
   .entry-input .button {
     float: right; }
+  .entry-input.entry-input-hidden {
+    display: none; }
+
+.entry-msg-cont {
+  border-top: solid 1px white;
+  width: 94%;
+  padding-top: 2.2rem;
+  text-align: center; }
+  .entry-msg-cont.entry-msg-hidden {
+    display: none; }
+
+.entry-msg {
+  display: inline-block;
+  font-weight: 400;
+  font-size: 16px;
+  color: #1abb3f;
+  padding: 4px 11px;
+  border: solid 1px #1abb3f;
+  border-radius: 50px;
+  margin-bottom: 20px; }
 
 .character-alert {
   position: absolute;
@@ -371,7 +391,8 @@ body {
   border-radius: 8px;
   border: solid 1px #e4e4e4;
   margin-bottom: 10px;
-  transition: all 0.5s; }
+  transition: all 0.5s;
+  word-break: break-all; }
   .entry.winner {
     width: 100%;
     border: solid 1px #eac813;

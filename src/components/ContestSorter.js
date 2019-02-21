@@ -55,7 +55,7 @@ const ContestSorter = ({
 };
 
 ContestSorter.propTypes = {
-    radioChecked: PropTypes.bool,
+    radioChecked: PropTypes.string,
     following: PropTypes.bool,
     onFollowingChange: PropTypes.func,
     onRadioChange: PropTypes.func

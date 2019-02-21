@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-const EntrySorter = ({ entryRadioChecked, onEntryRadioChange, contestId }) => {
+const EntrySorter = ({ entriesSortedBy, onEntryRadioChange, contestId }) => {
     const handleEntryRadioChange = e => {
         onEntryRadioChange(e.target.id);
     };
@@ -16,9 +16,7 @@ const EntrySorter = ({ entryRadioChecked, onEntryRadioChange, contestId }) => {
                     name={`entry-sort-radios-${contestId}`}
                     onChange={handleEntryRadioChange}
                     checked={
-                        entryRadioChecked === "entry-newest-first"
-                            ? true
-                            : false
+                        entriesSortedBy === "entry-newest-first" ? true : false
                     }
                 />
                 <label htmlFor={`entry-newest-first-${contestId}`}>
@@ -29,9 +27,7 @@ const EntrySorter = ({ entryRadioChecked, onEntryRadioChange, contestId }) => {
                     id="entry-ranking"
                     name={`entry-sort-radios-${contestId}`}
                     onChange={handleEntryRadioChange}
-                    checked={
-                        entryRadioChecked === "entry-ranking" ? true : false
-                    }
+                    checked={entriesSortedBy === "entry-ranking" ? true : false}
                 />
                 <label htmlFor={`entry-ranking-${contestId}`}>Ranking</label>
             </div>
@@ -40,7 +36,7 @@ const EntrySorter = ({ entryRadioChecked, onEntryRadioChange, contestId }) => {
 };
 
 EntrySorter.propTypes = {
-    entryRadioChecked: PropTypes.bool,
+    entriesSortedBy: PropTypes.string,
     onEntryRadioChange: PropTypes.func,
     contestId: PropTypes.number
 };

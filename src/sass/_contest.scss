@@ -89,6 +89,30 @@
     .button {
         float: right;
     }
+    &.entry-input-hidden {
+        display: none;
+    }
+}
+
+.entry-msg-cont {
+    border-top: solid 1px white;
+    width: 94%;
+    padding-top: 2.2rem;
+    text-align: center;
+    &.entry-msg-hidden {
+        display: none;
+    }
+}
+
+.entry-msg {
+    display: inline-block;
+    font-weight: 400;
+    font-size: 16px;
+    color: $green;
+    padding: 4px 11px;
+    border: solid 1px $green;
+    border-radius: 50px;
+    margin-bottom: 20px;
 }
 
 .character-alert {
