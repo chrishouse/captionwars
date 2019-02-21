@@ -47,11 +47,18 @@ const ContestSorter = ({
                     onChange={onFollowingChange}
                 />
                 <label htmlFor="only-following">
-                    Only show contests I'm following
+                    Only show contests I&#39;m following
                 </label>
             </div>
         </section>
     );
+};
+
+ContestSorter.propTypes = {
+    radioChecked: PropTypes.bool,
+    following: PropTypes.bool,
+    onFollowingChange: PropTypes.func,
+    onRadioChange: PropTypes.func
 };
 
 export default ContestSorter;

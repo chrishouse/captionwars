@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 
 const EntrySorter = ({ entryRadioChecked, onEntryRadioChange, contestId }) => {
     const handleEntryRadioChange = e => {
@@ -36,6 +37,12 @@ const EntrySorter = ({ entryRadioChecked, onEntryRadioChange, contestId }) => {
             </div>
         </div>
     );
+};
+
+EntrySorter.propTypes = {
+    entryRadioChecked: PropTypes.bool,
+    onEntryRadioChange: PropTypes.func,
+    contestId: PropTypes.number
 };
 
 export default EntrySorter;
