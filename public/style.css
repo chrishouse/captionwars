@@ -473,3 +473,13 @@ body {
   font-size: 12px;
   font-weight: 600;
   color: #686868; }
+
+.entry-edit {
+  align-self: flex-end;
+  font-size: 12px;
+  font-weight: 600;
+  color: #b7b7b7;
+  cursor: pointer;
+  margin: 0 8px 8px 0; }
+  .entry-edit:hover {
+    color: #1abb3f; }

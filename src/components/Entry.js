@@ -39,6 +39,9 @@ class Entry extends React.Component {
                             day: "numeric"
                         })}
                     </p>
+                    {userData[entry.user].userId === currentUser ? (
+                        <a className="entry-edit">Edit</a>
+                    ) : null}
                     <div className="entry-user-likes">
                         <a
                             className="entry-like-button"
