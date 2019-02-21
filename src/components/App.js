@@ -11,7 +11,7 @@ class App extends React.Component {
         contestData: contestData,
         userData: userData,
         currentUser: 0,
-        contestsFollowing: [0, 1, 5]
+        contestsFollowing: userData[0].contestsFollowing
     };
 
     handleLikeClick = (contest, entry) => {
