@@ -34,6 +34,21 @@ body {
   transition: all 0.2s; }
   .button:hover {
     background-color: #eecf29; }
+  .button.button-grey {
+    background-color: #b7b7b7; }
+    .button.button-grey:hover {
+      background-color: #c4c4c4; }
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  z-index: 450;
+  background-color: rgba(60, 60, 60, 0.9);
+  display: flex;
+  justify-content: center;
+  align-items: center; }
 
 .main-header {
   background-color: #222222;
@@ -292,10 +307,14 @@ body {
   .follow-btn:hover * {
     color: #222222; }
 
+.entry-input-cont {
+  width: 100%; }
+
 .entry-input {
   border-top: solid 1px white;
   padding-top: 2.2rem;
   width: 94%;
+  margin: 0 auto;
   position: relative; }
   .entry-input textarea {
     width: 100%;
@@ -313,8 +332,14 @@ body {
       color: #b7b7b7; }
   .entry-input .button {
     float: right; }
+    .entry-input .button.button-edit-cancel {
+      margin-right: 5px; }
   .entry-input.entry-input-hidden {
     display: none; }
+
+.overlay .entry-input {
+  width: 40%;
+  border: none; }
 
 .entry-msg-cont {
   border-top: solid 1px white;
@@ -403,6 +428,8 @@ body {
       padding: 8px 20px; }
     .entry.winner .entry-text {
       padding-left: 85px; }
+  .entry.entry-hidden {
+    display: none; }
 
 .entry-number {
   border-top-left-radius: 8px;
@@ -474,12 +501,14 @@ body {
   font-weight: 600;
   color: #686868; }
 
-.entry-edit {
+.entry-edit,
+.entry-delete {
   align-self: flex-end;
   font-size: 12px;
   font-weight: 600;
   color: #b7b7b7;
   cursor: pointer;
   margin: 0 8px 8px 0; }
-  .entry-edit:hover {
+  .entry-edit:hover,
+  .entry-delete:hover {
     color: #1abb3f; }

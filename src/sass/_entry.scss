@@ -19,6 +19,9 @@
             padding-left: 85px;
         }
     }
+    &.entry-hidden {
+        display: none;
+    }
 }
 
 .entry-number {
@@ -104,7 +107,8 @@
     color: $darkGrey;
 }
 
-.entry-edit {
+.entry-edit,
+.entry-delete {
     align-self: flex-end;
     font-size: 12px;
     font-weight: 600;

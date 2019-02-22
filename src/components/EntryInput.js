@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 class EntryInput extends React.Component {
     state = {
         visible: true,
-        inputText: "",
+        inputText: this.props.entryText,
         textareaHeight: 100,
         characterLimit: 250,
         characterCount: 0,
@@ -59,7 +59,22 @@ class EntryInput extends React.Component {
         });
     };
 
+    handleCancelClick = () => {
+        this.props.handleCancelClick();
+    };
+
+    handleSaveClick = () => {
+        this.props.handleEntryEditSave(
+            this.props.contestData,
+            this.props.entryData,
+            this.state.inputText
+        );
+        this.props.handleCancelClick();
+    };
+
     render() {
+        const { editMode } = this.props;
+
         const {
             visible,
             inputText,
@@ -69,7 +84,7 @@ class EntryInput extends React.Component {
         } = this.state;
 
         return (
-            <React.Fragment>
+            <div className={`entry-input-cont${editMode ? " overlay" : ""}`}>
                 <div
                     className={`entry-input${
                         visible ? "" : " entry-input-hidden"
@@ -84,13 +99,32 @@ class EntryInput extends React.Component {
                         onKeyDown={this.handleTextChange}
                     />
                     <p className="character-alert">{textareaAlert}</p>
-                    <button
-                        className="button"
-                        type="submit"
-                        onClick={this.handleSubmitClick}
-                    >
-                        Submit
-                    </button>
+                    {!editMode ? (
+                        <button
+                            className="button"
+                            type="submit"
+                            onClick={this.handleSubmitClick}
+                        >
+                            Submit
+                        </button>
+                    ) : (
+                        <div className="entry-editor-buttons">
+                            <button
+                                className="button"
+                                type="submit"
+                                onClick={this.handleSaveClick}
+                            >
+                                Save
+                            </button>
+                            <button
+                                className="button button-grey button-edit-cancel"
+                                type="submit"
+                                onClick={this.handleCancelClick}
+                            >
+                                Cancel
+                            </button>
+                        </div>
+                    )}
                 </div>
                 <div
                     className={`entry-msg-cont${
@@ -101,7 +135,7 @@ class EntryInput extends React.Component {
                         You&#39;ve entered this contest.
                     </p>
                 </div>
-            </React.Fragment>
+            </div>
         );
     }
 }
@@ -109,7 +143,13 @@ class EntryInput extends React.Component {
 EntryInput.propTypes = {
     handleSubmit: PropTypes.func,
     contestData: PropTypes.object,
-    onEntrySubmit: PropTypes.func
+    onEntrySubmit: PropTypes.func,
+    editMode: PropTypes.bool,
+    handleCancelClick: PropTypes.func,
+    handleEntryEditSave: PropTypes.func,
+    entryData: PropTypes.object,
+    contestId: PropTypes.number,
+    entryText: PropTypes.string
 };
 
 export default EntryInput;

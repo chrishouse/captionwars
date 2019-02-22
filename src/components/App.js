@@ -10,7 +10,7 @@ class App extends React.Component {
     state = {
         contestData: contestData,
         userData: userData,
-        currentUser: 0,
+        currentUser: 2,
         contestsFollowing: userData[0].contestsFollowing
     };
 
@@ -31,15 +31,16 @@ class App extends React.Component {
         this.setState({ contestData });
     };
 
+    today = new Date().toISOString();
+
     handleEntrySubmit = (contest, entryText) => {
-        const today = new Date().toISOString();
         // Construct the new entry (this is temporary until we get the database in place)
         const newEntry = {
             entryId: 134,
             text: entryText,
             likes: 0,
             user: this.state.currentUser,
-            date: today
+            date: this.today
         };
 
         // Make a copy of the contest data
@@ -51,6 +52,32 @@ class App extends React.Component {
             ...updatedContestData[index].entries,
             newEntry
         ];
+
+        this.setState({
+            contestData: updatedContestData
+        });
+    };
+
+    handleEntryEditSave = (contest, entry, newText) => {
+        // Construct the edited entry (this is temporary until we get the database in place)
+        const editedEntry = {
+            entryId: entry.entryId,
+            text: newText,
+            likes: 0,
+            user: this.state.currentUser,
+            date: this.today
+        };
+
+        // Make a copy of the contest data
+        const updatedContestData = [...this.state.contestData];
+        // Get the index of the contest to modify
+        const contestIndex = this.state.contestData.indexOf(contest);
+        // Get the index of the edited entry
+        const entryIndex = this.state.contestData[contestIndex].entries.indexOf(
+            entry
+        );
+        // Spread the edited entry into the existing entry
+        updatedContestData[contestIndex].entries[entryIndex] = editedEntry;
 
         this.setState({
             contestData: updatedContestData
@@ -76,6 +103,7 @@ class App extends React.Component {
                         currentUser={currentUser}
                         contestsFollowing={contestsFollowing}
                         handleEntrySubmit={this.handleEntrySubmit}
+                        handleEntryEditSave={this.handleEntryEditSave}
                     />
                 </article>
             </div>

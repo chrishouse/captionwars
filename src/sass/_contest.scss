@@ -65,10 +65,15 @@
     }
 }
 
+.entry-input-cont {
+    width: 100%;
+}
+
 .entry-input {
     border-top: solid 1px white;
     padding-top: 2.2rem;
     width: 94%;
+    margin: 0 auto;
     position: relative;
     textarea {
         width: 100%;
@@ -88,9 +93,19 @@
     }
     .button {
         float: right;
+        &.button-edit-cancel {
+            margin-right: 5px;
+        }
     }
     &.entry-input-hidden {
         display: none;
+    }
+}
+
+.overlay {
+    .entry-input {
+        width: 40%;
+        border: none;
     }
 }
 

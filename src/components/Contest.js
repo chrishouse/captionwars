@@ -26,7 +26,8 @@ class Contest extends React.Component {
             contestData,
             onLikeClick,
             currentUser,
-            handleEntrySubmit
+            handleEntrySubmit,
+            handleEntryEditSave
         } = this.props;
         const { entriesSortedBy } = this.state;
 
@@ -131,6 +132,8 @@ class Contest extends React.Component {
                     onLikeClick={onLikeClick}
                     contest={contestData}
                     isWinner
+                    entryText={""}
+                    handleEntryEditSave={handleEntryEditSave}
                 />
 
                 <EntrySorter
@@ -147,6 +150,8 @@ class Contest extends React.Component {
                         entry={entry}
                         onLikeClick={onLikeClick}
                         contest={contestData}
+                        entryText={""}
+                        handleEntryEditSave={handleEntryEditSave}
                     />
                 ))}
 
@@ -167,6 +172,7 @@ class Contest extends React.Component {
                 <EntryInput
                     handleSubmit={handleEntrySubmit}
                     contestData={contestData}
+                    entryText={""}
                     onEntrySubmit={this.handleEntrySubmit}
                 />
             </section>
@@ -178,7 +184,8 @@ Contest.propTypes = {
     contestData: PropTypes.object,
     onLikeClick: PropTypes.func,
     currentUser: PropTypes.number,
-    handleEntrySubmit: PropTypes.func
+    handleEntrySubmit: PropTypes.func,
+    handleEntryEditSave: PropTypes.func
 };
 
 export default Contest;

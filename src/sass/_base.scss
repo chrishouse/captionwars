@@ -36,4 +36,22 @@ body {
     &:hover {
         background-color: lighten($yellow, 5);
     }
+    &.button-grey {
+        background-color: $grey;
+        &:hover {
+            background-color: lighten($grey, 5);
+        }
+    }
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    z-index: 450;
+    background-color: rgba($lightBlack, 0.9);
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
