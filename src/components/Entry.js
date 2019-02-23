@@ -29,7 +29,14 @@ class Entry extends React.Component {
 
     handleCancelClick = () => {
         this.setState({
-            editMode: false
+            editMode: false,
+            editConfirmed: false
+        });
+    };
+
+    handleImSure = () => {
+        this.setState({
+            editConfirmed: true
         });
     };
 
@@ -110,9 +117,11 @@ class Entry extends React.Component {
                 </div>
 
                 {editMode ? (
-                    // TO DO: Create confirmation dialog and show it until editConfirmed is false
                     !editConfirmed ? (
-                        <EditConfirm />
+                        <EditConfirm
+                            handleNeverMind={this.handleCancelClick}
+                            handleImSure={this.handleImSure}
+                        />
                     ) : (
                         <EntryInput
                             editMode={editMode}

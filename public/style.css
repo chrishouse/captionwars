@@ -43,12 +43,35 @@ body {
   position: fixed;
   top: 0;
   left: 0;
+  right: 0;
   bottom: 0;
   z-index: 450;
   background-color: rgba(60, 60, 60, 0.9);
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center; }
+
+.dialog {
+  max-width: 20%;
+  position: relative;
+  padding: 40px;
+  background-color: white;
+  border-radius: 8px;
+  border: solid 1px #e4e4e4; }
+  .dialog .fa-exclamation {
+    position: absolute;
+    top: -15px;
+    left: -15px;
+    font-size: 23px;
+    color: white;
+    background-color: #e42a00;
+    width: 35px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50px;
+    display: flex;
+    height: 35px; }
 
 .main-header {
   background-color: #222222;
@@ -512,3 +535,9 @@ body {
   .entry-edit:hover,
   .entry-delete:hover {
     color: #1abb3f; }
+
+.user-edit-buttons {
+  margin-bottom: 8px; }
+
+.edit-confirm-buttons .button {
+  margin: 5px; }
