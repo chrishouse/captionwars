@@ -40,6 +40,10 @@ class Entry extends React.Component {
         });
     };
 
+    static defaultProps = {
+        entryText: ""
+    };
+
     render() {
         const {
             isWinner,

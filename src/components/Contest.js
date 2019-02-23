@@ -150,7 +150,6 @@ class Contest extends React.Component {
                         entry={entry}
                         onLikeClick={onLikeClick}
                         contest={contestData}
-                        entryText={""}
                         handleEntryEditSave={handleEntryEditSave}
                     />
                 ))}
