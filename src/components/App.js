@@ -1,18 +1,34 @@
 import React from "react";
+import axios from "axios";
 import Header from "./Header";
 import Sidebar from "./Sidebar";
 import Main from "./Main";
 import PropTypes from "prop-types";
-import contestData from "../test-data/contests";
-import userData from "../test-data/users";
 
 class App extends React.Component {
     state = {
-        contestData: contestData,
-        userData: userData,
+        contestData: this.props.initialContests,
+        userData: this.props.initialUsers,
         currentUser: 2,
-        contestsFollowing: userData[0].contestsFollowing
+        contestsFollowing: [1, 4],
+        dataLoaded: false
     };
+
+    componentDidMount() {
+        // Make an AJAX call to our API endpoints using Axios, and set the state to the data
+        axios
+            .all([axios.get("/api/contests"), axios.get("/api/users")])
+            .then(resp => {
+                this.setState({
+                    contestData: resp[0].data.contests,
+                    userData: resp[1].data.users,
+                    currentUser: 2,
+                    contestsFollowing: resp[1].data.users[2].contestsFollowing,
+                    dataLoaded: true
+                });
+            })
+            .catch(console.error);
+    }
 
     handleLikeClick = (contest, entry) => {
         // Make a clone of contestData to manipulate inside this function
@@ -91,7 +107,6 @@ class App extends React.Component {
             currentUser,
             contestsFollowing
         } = this.state;
-
         return (
             <div className="app">
                 <Header userData={userData} currentUser={currentUser} />
@@ -113,7 +128,9 @@ class App extends React.Component {
 
 App.propTypes = {
     userData: PropTypes.array,
-    contestData: PropTypes.array
+    contestData: PropTypes.array,
+    initialContests: PropTypes.array,
+    initialUsers: PropTypes.array
 };
 
 export default App;

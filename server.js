@@ -17,12 +17,18 @@ server.use(
 // This sets the view engine to be EJS, a useful JS templating language. Express looks for .ejs files inside the views directory
 server.set("view engine", "ejs");
 
+// Get the API call from serverRender so we can get the data for a server render
+import serverRender from "./serverRender";
+
 // The express router - the first argument is the path, the second is event handlers (which receives both request and response objects)
 server.get("/", (req, res) => {
-    res.render("index", {
-        content:
-            "<div class='loading-screen'><p class='loading-message'>Loading...</p></div>"
-    }); // .render looks for a .ejs file within the views directory. Second argument is an object to pass variables into the .ejs template file
+    serverRender() // Call the serverRender function from serverRender.js
+        .then(content => {
+            res.render("index", {
+                content // Render the content returned from the promise
+            }); // .render looks for a .ejs file within the views directory. Second argument is an object to pass variables into the .ejs template file
+        })
+        .catch(console.error);
 });
 
 // Express has a middleware for serving static assets (.use is how we add middleware to the express middleware stack). The argument to .static is the directory.
@@ -31,7 +37,7 @@ server.use(express.static("public"));
 // Again, only this time using our imported express router
 server.use("/api", apiRouter);
 
-// The express listen call - the first argument is the port, second argument is the success handler
-server.listen(config.port, () => {
+// The express listen call - the first two arguments are the port and host, the third argument is the success handler
+server.listen(config.port, config.host, () => {
     console.log(`Express is listening on port ${config.port}`);
 });
