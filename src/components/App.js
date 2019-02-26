@@ -100,7 +100,7 @@ class App extends React.Component {
         });
     };
 
-    render() {
+    showApp() {
         const {
             userData,
             contestData,
@@ -122,6 +122,14 @@ class App extends React.Component {
                     />
                 </article>
             </div>
+        );
+    }
+
+    render() {
+        return (
+            <React.Fragment>
+                {this.state.dataLoaded ? this.showApp() : <div>Loading...</div>}
+            </React.Fragment>
         );
     }
 }
