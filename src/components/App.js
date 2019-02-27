@@ -7,8 +7,8 @@ import PropTypes from "prop-types";
 
 class App extends React.Component {
     state = {
-        contestData: this.props.initialContests,
-        userData: this.props.initialUsers,
+        contestData: [],
+        userData: [],
         currentUser: 2,
         contestsFollowing: [1, 4],
         dataLoaded: false
@@ -126,11 +126,17 @@ class App extends React.Component {
     }
 
     render() {
-        return (
-            <React.Fragment>
-                {this.state.dataLoaded ? this.showApp() : <div>Loading...</div>}
-            </React.Fragment>
-        );
+        {
+            return (
+                <React.Fragment>
+                    {this.state.dataLoaded ? (
+                        this.showApp()
+                    ) : (
+                        <div>Loading...</div>
+                    )}
+                </React.Fragment>
+            );
+        }
     }
 }
 

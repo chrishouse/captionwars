@@ -22,6 +22,24 @@ const Sidebar = ({ userData, currentUser }) => {
     );
 };
 
+Sidebar.defaultProps = {
+    userData: [
+        {
+            userId: 0,
+            userName: "chrishouse83",
+            realName: "Chris House",
+            likesReceived: 1267,
+            currentWinningEntries: 2,
+            likesGiven: 5506,
+            contestsEntered: 79,
+            numContestsFollowing: 122,
+            contestsFollowing: [1, 3, 4],
+            currentWinners: 8
+        }
+    ],
+    currentUser: 0
+};
+
 Sidebar.propTypes = {
     userData: PropTypes.array,
     currentUser: PropTypes.number
