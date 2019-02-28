@@ -7,11 +7,30 @@ import PropTypes from "prop-types";
 
 class App extends React.Component {
     state = {
-        contestData: [],
-        userData: [],
-        currentUser: 2,
+        contestData: this.props.initialContests,
+        userData: this.props.initialUsers,
+        currentUser: 0,
         contestsFollowing: [1, 4],
         dataLoaded: false
+    };
+
+    // Defaults to pop in for the initial render before the AJAX call as completed
+    defaultState = {
+        userData: [
+            {
+                userId: 0,
+                userName: "chrishouse83",
+                realName: "Chris House",
+                likesReceived: 1267,
+                currentWinningEntries: 2,
+                likesGiven: 5506,
+                contestsEntered: 79,
+                numContestsFollowing: 122,
+                contestsFollowing: [1, 3, 4],
+                currentWinners: 8
+            }
+        ],
+        currentUser: 0
     };
 
     componentDidMount() {
@@ -22,7 +41,7 @@ class App extends React.Component {
                 this.setState({
                     contestData: resp[0].data.contests,
                     userData: resp[1].data.users,
-                    currentUser: 2,
+                    currentUser: 0,
                     contestsFollowing: resp[1].data.users[2].contestsFollowing,
                     dataLoaded: true
                 });
@@ -100,13 +119,16 @@ class App extends React.Component {
         });
     };
 
-    showApp() {
-        const {
-            userData,
-            contestData,
-            currentUser,
-            contestsFollowing
-        } = this.state;
+    render() {
+        const { contestData, contestsFollowing, dataLoaded } = this.state;
+
+        let { userData, currentUser } = this.state;
+
+        if (!dataLoaded) {
+            userData = this.defaultState.userData;
+            currentUser = this.defaultState.currentUser;
+        }
+
         return (
             <div className="app">
                 <Header userData={userData} currentUser={currentUser} />
@@ -123,20 +145,6 @@ class App extends React.Component {
                 </article>
             </div>
         );
-    }
-
-    render() {
-        {
-            return (
-                <React.Fragment>
-                    {this.state.dataLoaded ? (
-                        this.showApp()
-                    ) : (
-                        <div>Loading...</div>
-                    )}
-                </React.Fragment>
-            );
-        }
     }
 }
 
