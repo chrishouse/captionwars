@@ -1,5 +1,4 @@
 import React from "react";
-import axios from "axios";
 import Header from "./Header";
 import Sidebar from "./Sidebar";
 import Main from "./Main";
@@ -10,44 +9,8 @@ class App extends React.Component {
         contestData: this.props.initialContests,
         userData: this.props.initialUsers,
         currentUser: 0,
-        contestsFollowing: [1, 4],
-        dataLoaded: false
+        contestsFollowing: [1, 4]
     };
-
-    // Defaults to pop in for the initial render before the AJAX call as completed
-    defaultState = {
-        userData: [
-            {
-                userId: 0,
-                userName: "chrishouse83",
-                realName: "Chris House",
-                likesReceived: 1267,
-                currentWinningEntries: 2,
-                likesGiven: 5506,
-                contestsEntered: 79,
-                numContestsFollowing: 122,
-                contestsFollowing: [1, 3, 4],
-                currentWinners: 8
-            }
-        ],
-        currentUser: 0
-    };
-
-    componentDidMount() {
-        // Make an AJAX call to our API endpoints using Axios, and set the state to the data
-        axios
-            .all([axios.get("/api/contests"), axios.get("/api/users")])
-            .then(resp => {
-                this.setState({
-                    contestData: resp[0].data.contests,
-                    userData: resp[1].data.users,
-                    currentUser: 0,
-                    contestsFollowing: resp[1].data.users[2].contestsFollowing,
-                    dataLoaded: true
-                });
-            })
-            .catch(console.error);
-    }
 
     handleLikeClick = (contest, entry) => {
         // Make a clone of contestData to manipulate inside this function
@@ -120,14 +83,12 @@ class App extends React.Component {
     };
 
     render() {
-        const { contestData, contestsFollowing, dataLoaded } = this.state;
-
-        let { userData, currentUser } = this.state;
-
-        if (!dataLoaded) {
-            userData = this.defaultState.userData;
-            currentUser = this.defaultState.currentUser;
-        }
+        const {
+            userData,
+            currentUser,
+            contestData,
+            contestsFollowing
+        } = this.state;
 
         return (
             <div className="app">

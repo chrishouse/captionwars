@@ -23,9 +23,11 @@ import serverRender from "./serverRender";
 // The express router - the first argument is the path, the second is event handlers (which receives both request and response objects)
 server.get("/", (req, res) => {
     serverRender() // Call the serverRender function from serverRender.js
-        .then(content => {
+        .then(({ initialMarkup, initialContestData, initialUserData }) => {
             res.render("index", {
-                content // Render the content returned from the promise
+                initialMarkup, // Render the content returned from the promise
+                initialContestData, // Render the data returned from the promise
+                initialUserData
             }); // .render looks for a .ejs file within the views directory. Second argument is an object to pass variables into the .ejs template file
         })
         .catch(console.error);

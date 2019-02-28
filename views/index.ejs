@@ -1,6 +1,12 @@
+<script type="text/javascript">
+    // Set the data as global variables so that React can access it on initial load without having to make a trip to the server
+    window.initialContestData = <%- JSON.stringify(initialContestData) -%>;
+    window.initialUserData = <%- JSON.stringify(initialUserData) -%>;
+</script>
+
 <%- include('header') -%>
-    <div id="root">        
-        <%- content %>
-    </div>
-   
+<div id="root">
+    <%- initialMarkup %>
+</div>
+
 <%- include('footer') -%>
