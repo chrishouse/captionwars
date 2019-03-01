@@ -6,7 +6,7 @@ class UserAvatar extends React.Component {
         return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     };
 
-    handleAvatarClick = e => {
+    handleAvatarClick = () => {
         this.props.onAvatarClick(this.props.user);
     };
 

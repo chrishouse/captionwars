@@ -40,8 +40,8 @@ class Entry extends React.Component {
         });
     };
 
-    handleAvatarClick = () => {
-        console.log(this.props.entry.user);
+    handleNameClick = () => {
+        this.props.onAvatarClick(this.props.entry.user);
     };
 
     static defaultProps = {
@@ -110,7 +110,7 @@ class Entry extends React.Component {
                             </a>
                             <p
                                 className="entry-user-name"
-                                onClick={onAvatarClick}
+                                onClick={this.handleNameClick}
                             >
                                 {userData[entry.user].userName}
                             </p>
