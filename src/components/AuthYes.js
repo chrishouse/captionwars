@@ -17,7 +17,7 @@ class AuthYes extends React.Component {
 
     render() {
         const { menuIsActive } = this.state;
-        const { user, currentUser } = this.props;
+        const { user, currentUser, onAvatarClick } = this.props;
 
         return (
             <div className="auth auth-yes">
@@ -32,10 +32,15 @@ class AuthYes extends React.Component {
                     user={currentUser}
                     likesReceived={user[currentUser].likesReceived}
                     currentUser={currentUser}
+                    onAvatarClick={onAvatarClick}
                 />
                 <UserAlerts />
                 {this.state.menuIsActive ? (
-                    <UserMenu menuToggle={this.handleClick} />
+                    <UserMenu
+                        menuToggle={this.handleClick}
+                        onAvatarClick={onAvatarClick}
+                        currentUser={currentUser}
+                    />
                 ) : (
                     ""
                 )}
@@ -46,7 +51,8 @@ class AuthYes extends React.Component {
 
 AuthYes.propTypes = {
     user: PropTypes.array,
-    currentUser: PropTypes.number
+    currentUser: PropTypes.number,
+    onAvatarClick: PropTypes.func
 };
 
 export default AuthYes;

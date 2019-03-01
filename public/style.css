@@ -128,7 +128,8 @@ body {
     color: #3c3c3c;
     font-size: 14px;
     text-decoration: none;
-    padding: 8px 25px; }
+    padding: 8px 25px;
+    cursor: pointer; }
     .user-menu a:hover {
       color: white;
       background-color: #1abb3f; }
@@ -152,7 +153,11 @@ body {
 
 .user-avatar {
   display: flex;
-  align-items: center; }
+  align-items: center;
+  cursor: pointer; }
+
+.entry-user-name {
+  cursor: pointer; }
 
 .user-avatar-image {
   width: 35px;

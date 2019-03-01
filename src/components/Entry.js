@@ -40,6 +40,10 @@ class Entry extends React.Component {
         });
     };
 
+    handleAvatarClick = () => {
+        console.log(this.props.entry.user);
+    };
+
     static defaultProps = {
         entryText: ""
     };
@@ -51,7 +55,8 @@ class Entry extends React.Component {
             contest,
             entry,
             currentUser,
-            handleEntryEditSave
+            handleEntryEditSave,
+            onAvatarClick
         } = this.props;
 
         const { editMode, editConfirmed } = this.state;
@@ -103,7 +108,10 @@ class Entry extends React.Component {
                                     {this.numberWithCommas(entry.likes)}
                                 </p>
                             </a>
-                            <p className="entry-user-name">
+                            <p
+                                className="entry-user-name"
+                                onClick={onAvatarClick}
+                            >
                                 {userData[entry.user].userName}
                             </p>
                             <UserAvatar
@@ -115,6 +123,7 @@ class Entry extends React.Component {
                                 currentWinners={
                                     userData[entry.user].currentWinners
                                 }
+                                onAvatarClick={onAvatarClick}
                             />
                         </div>
                     </section>
@@ -152,7 +161,8 @@ Entry.propTypes = {
     contest: PropTypes.object,
     currentUser: PropTypes.number,
     onLikeClick: PropTypes.func,
-    handleEntryEditSave: PropTypes.func
+    handleEntryEditSave: PropTypes.func,
+    onAvatarClick: PropTypes.func
 };
 
 export default Entry;

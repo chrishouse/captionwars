@@ -6,11 +6,15 @@ class UserAvatar extends React.Component {
         return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     };
 
+    handleAvatarClick = e => {
+        this.props.onAvatarClick(this.props.user);
+    };
+
     render() {
         const { user, currentUser, likesReceived, currentWinners } = this.props;
 
         return (
-            <div className="user-avatar">
+            <div className="user-avatar" onClick={this.handleAvatarClick}>
                 <img
                     className="user-avatar-image"
                     src={`/images/users/${user}.jpg`}
@@ -34,11 +38,12 @@ class UserAvatar extends React.Component {
 }
 
 UserAvatar.propTypes = {
-    user: PropTypes.number,
-    likesReceived: PropTypes.number,
+    user: PropTypes.number.isRequired,
+    likesReceived: PropTypes.number.isRequired,
     isYou: PropTypes.bool,
     currentWinners: PropTypes.number,
-    currentUser: PropTypes.number
+    currentUser: PropTypes.number.isRequired,
+    onAvatarClick: PropTypes.func.isRequired
 };
 
 export default UserAvatar;

@@ -4,11 +4,15 @@ import Sidebar from "./Sidebar";
 import Main from "./Main";
 import PropTypes from "prop-types";
 
+const pushState = (obj, url) => {
+    window.history.pushState(obj, "", url);
+};
+
 class App extends React.Component {
     state = {
         contestData: this.props.initialContests,
         userData: this.props.initialUsers,
-        currentUser: 0,
+        currentUser: 1,
         contestsFollowing: [1, 4]
     };
 
@@ -82,6 +86,10 @@ class App extends React.Component {
         });
     };
 
+    fetchProfile = userId => {
+        pushState({}, `/profile/${userId}`);
+    };
+
     render() {
         const {
             userData,
@@ -92,7 +100,11 @@ class App extends React.Component {
 
         return (
             <div className="app">
-                <Header userData={userData} currentUser={currentUser} />
+                <Header
+                    userData={userData}
+                    currentUser={currentUser}
+                    onAvatarClick={this.fetchProfile}
+                />
                 <article className="main-container inner">
                     <Sidebar userData={userData} currentUser={currentUser} />
                     <Main
@@ -102,6 +114,7 @@ class App extends React.Component {
                         contestsFollowing={contestsFollowing}
                         handleEntrySubmit={this.handleEntrySubmit}
                         handleEntryEditSave={this.handleEntryEditSave}
+                        onAvatarClick={this.fetchProfile}
                     />
                 </article>
             </div>

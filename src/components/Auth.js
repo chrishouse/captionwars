@@ -9,10 +9,12 @@ class Auth extends React.Component {
     };
 
     checkAuth = () => {
+        const { onAvatarClick } = this.props;
         return this.state.authenticated ? (
             <AuthYes
                 user={this.props.userData}
                 currentUser={this.props.currentUser}
+                onAvatarClick={onAvatarClick}
             />
         ) : (
             <AuthNo />
@@ -26,7 +28,8 @@ class Auth extends React.Component {
 
 Auth.propTypes = {
     userData: PropTypes.array,
-    currentUser: PropTypes.number
+    currentUser: PropTypes.number,
+    onAvatarClick: PropTypes.func
 };
 
 export default Auth;

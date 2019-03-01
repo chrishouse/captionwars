@@ -29,7 +29,8 @@ class Main extends React.Component {
             currentUser,
             contestsFollowing,
             handleEntrySubmit,
-            handleEntryEditSave
+            handleEntryEditSave,
+            onAvatarClick
         } = this.props;
 
         // Make a clone of the contests array to modify
@@ -86,6 +87,7 @@ class Main extends React.Component {
                             onLikeClick={onLikeClick}
                             handleEntrySubmit={handleEntrySubmit}
                             handleEntryEditSave={handleEntryEditSave}
+                            onAvatarClick={onAvatarClick}
                         />
                     );
                 })}
@@ -100,7 +102,8 @@ Main.propTypes = {
     currentUser: PropTypes.number,
     contestsFollowing: PropTypes.array,
     handleEntrySubmit: PropTypes.func,
-    handleEntryEditSave: PropTypes.func
+    handleEntryEditSave: PropTypes.func,
+    onAvatarClick: PropTypes.func
 };
 
 export default Main;

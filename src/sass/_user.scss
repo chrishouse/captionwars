@@ -1,6 +1,11 @@
 .user-avatar {
     display: flex;
     align-items: center;
+    cursor: pointer;
+}
+
+.entry-user-name {
+    cursor: pointer;
 }
 
 .user-avatar-image {

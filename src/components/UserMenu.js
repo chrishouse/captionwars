@@ -23,22 +23,30 @@ class UserMenu extends React.Component {
         body.removeEventListener("click", this.bodyClick);
     }
 
+    handleClick = e => {
+        this.props.onAvatarClick(this.props.currentUser);
+    };
+
     render() {
         return (
             <nav className="user-menu">
                 <ul>
                     <li>
-                        <a href="#" className="user-menu-link">
+                        <a
+                            className="user-menu-link"
+                            id="profile"
+                            onClick={this.handleClick}
+                        >
                             <i className="far fa-user-circle" /> Profile
                         </a>
                     </li>
                     <li>
-                        <a href="#" className="user-menu-link">
+                        <a href="#" className="user-menu-link" id="account">
                             <i className="fas fa-cog" /> Account
                         </a>
                     </li>
                     <li>
-                        <a href="#" className="user-menu-link">
+                        <a href="#" className="user-menu-link" id="logout">
                             <i className="fas fa-sign-out-alt" /> Log out
                         </a>
                     </li>
@@ -49,8 +57,9 @@ class UserMenu extends React.Component {
 }
 
 UserMenu.propTypes = {
-    active: PropTypes.bool,
-    menuToggle: PropTypes.func
+    menuToggle: PropTypes.func,
+    onAvatarClick: PropTypes.func,
+    currentUser: PropTypes.number
 };
 
 export default UserMenu;
