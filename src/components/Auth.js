@@ -27,7 +27,7 @@ class Auth extends React.Component {
 }
 
 Auth.propTypes = {
-    userData: PropTypes.array,
+    userData: PropTypes.object,
     currentUser: PropTypes.number,
     onAvatarClick: PropTypes.func
 };

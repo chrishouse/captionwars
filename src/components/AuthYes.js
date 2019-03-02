@@ -50,7 +50,7 @@ class AuthYes extends React.Component {
 }
 
 AuthYes.propTypes = {
-    user: PropTypes.array,
+    user: PropTypes.object,
     currentUser: PropTypes.number,
     onAvatarClick: PropTypes.func
 };

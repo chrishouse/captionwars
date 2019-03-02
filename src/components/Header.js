@@ -25,7 +25,7 @@ const Header = ({ userData, currentUser, onAvatarClick }) => {
 };
 
 Header.propTypes = {
-    userData: PropTypes.array,
+    userData: PropTypes.object,
     currentUser: PropTypes.number,
     onAvatarClick: PropTypes.func
 };

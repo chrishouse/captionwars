@@ -2,7 +2,9 @@ import React from "react";
 import Header from "./Header";
 import Sidebar from "./Sidebar";
 import Main from "./Main";
+import Profile from "./Profile";
 import PropTypes from "prop-types";
+import * as api from "../api";
 
 const pushState = (obj, url) => {
     window.history.pushState(obj, "", url);
@@ -13,7 +15,8 @@ class App extends React.Component {
         contestData: this.props.initialContests,
         userData: this.props.initialUsers,
         currentUser: 1,
-        contestsFollowing: [1, 4]
+        contestsFollowing: [1, 4],
+        profileId: -1
     };
 
     handleLikeClick = (contest, entry) => {
@@ -86,17 +89,58 @@ class App extends React.Component {
         });
     };
 
+    // Set the profileId state to the id of the avatar clicked, change the url, and fetch that user's info from the api
     fetchProfile = userId => {
         pushState({}, `/profile/${userId}`);
+
+        api.fetchUser(userId).then(user => {
+            this.setState({
+                profileId: user.userId,
+                userData: {
+                    ...this.state.userData, // This part is just for a performance boost, since the componemt can read the data directly from state
+                    [user.userId]: user
+                }
+            });
+        });
     };
 
-    render() {
+    currentContent() {
         const {
             userData,
             currentUser,
             contestData,
-            contestsFollowing
+            contestsFollowing,
+            profileId
         } = this.state;
+
+        // If profileId is set it means a user avatar was clicked and we want to display Profile
+        if (this.state.profileId > -1) {
+            return (
+                <Profile
+                    profileId={profileId}
+                    realName={userData[profileId].realName}
+                />
+            );
+        }
+        // Otherwise display the home page
+        return (
+            <article className="main-container inner">
+                <Sidebar userData={userData} currentUser={currentUser} />
+                <Main
+                    contestData={contestData}
+                    onLikeClick={this.handleLikeClick}
+                    currentUser={currentUser}
+                    contestsFollowing={contestsFollowing}
+                    handleEntrySubmit={this.handleEntrySubmit}
+                    handleEntryEditSave={this.handleEntryEditSave}
+                    onAvatarClick={this.fetchProfile}
+                />
+            </article>
+        );
+    }
+
+    render() {
+        const { userData, currentUser } = this.state;
 
         return (
             <div className="app">
@@ -105,28 +149,17 @@ class App extends React.Component {
                     currentUser={currentUser}
                     onAvatarClick={this.fetchProfile}
                 />
-                <article className="main-container inner">
-                    <Sidebar userData={userData} currentUser={currentUser} />
-                    <Main
-                        contestData={contestData}
-                        onLikeClick={this.handleLikeClick}
-                        currentUser={currentUser}
-                        contestsFollowing={contestsFollowing}
-                        handleEntrySubmit={this.handleEntrySubmit}
-                        handleEntryEditSave={this.handleEntryEditSave}
-                        onAvatarClick={this.fetchProfile}
-                    />
-                </article>
+                {this.currentContent()}
             </div>
         );
     }
 }
 
 App.propTypes = {
-    userData: PropTypes.array,
+    userData: PropTypes.object,
     contestData: PropTypes.array,
     initialContests: PropTypes.array,
-    initialUsers: PropTypes.array
+    initialUsers: PropTypes.object
 };
 
 export default App;

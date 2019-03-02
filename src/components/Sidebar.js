@@ -23,7 +23,7 @@ const Sidebar = ({ userData, currentUser }) => {
 };
 
 Sidebar.propTypes = {
-    userData: PropTypes.array,
+    userData: PropTypes.object,
     currentUser: PropTypes.number
 };
 

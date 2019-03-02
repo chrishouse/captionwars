@@ -58,7 +58,7 @@ class Stats extends React.Component {
 }
 
 Stats.propTypes = {
-    userData: PropTypes.array,
+    userData: PropTypes.object,
     currentUser: PropTypes.number
 };
 
