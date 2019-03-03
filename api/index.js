@@ -3,14 +3,29 @@ import contestData from "../src/test-data/contests";
 import userData from "../src/test-data/users";
 
 const router = express.Router();
-// Convert the users array into an object for effeciency
+
+// Convert the data arrays into objects for effeciency
 const users = userData.reduce((obj, user) => {
     obj[user.userId] = user;
     return obj;
 }, {});
 
+//TO DO: figure out how to make this work for contests. Currently it breaks things:
+
+const contests = contestData.reduce((obj, contest) => {
+    obj[contest.contestId] = contest;
+    return obj;
+}, {});
+
 router.get("/contests", (req, res) => {
-    res.send({ contests: contestData });
+    res.send({
+        contests: contests
+    });
+});
+
+router.get("/contests/:contestId", (req, res) => {
+    let contest = contests[req.params.contestId];
+    res.send(contest);
 });
 
 router.get("/users", (req, res) => {

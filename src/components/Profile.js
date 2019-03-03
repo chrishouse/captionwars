@@ -8,17 +8,19 @@ class Profile extends React.Component {
     }
 
     render() {
-        const { profileId, realName } = this.props;
+        const { profileId, userData } = this.props;
         return (
             <main className="profile-content">
-                {profileId} {realName}
+                {profileId} {userData[profileId].realName}{" "}
+                {userData[profileId].userName}
+                <img src={`/images/users/${profileId}.jpg`} />
             </main>
         );
     }
 }
 
 Profile.propTypes = {
-    realName: PropTypes.string,
+    userData: PropTypes.object,
     profileId: PropTypes.number
 };
 

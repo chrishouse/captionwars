@@ -9,7 +9,7 @@ const Header = ({ userData, currentUser, onAvatarClick }) => {
                 <div className="logo-container">
                     <a href="/">
                         <img
-                            src="images/assets/logo.png"
+                            src="/images/assets/logo.png"
                             alt="Caption Wars Logo"
                         />
                     </a>

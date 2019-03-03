@@ -291,6 +291,14 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center; }
+  .contest .fa-times-circle {
+    display: none;
+    position: sticky;
+    top: 122px;
+    color: #b7b7b7;
+    font-size: 32px;
+    margin-right: -850px;
+    cursor: pointer; }
 
 .contest-date {
   font-family: "Bitter", Times, serif;
@@ -436,6 +444,24 @@ body {
 
 .entry-sort-checkbox input:before {
   border-radius: 0; }
+
+.contest-expanded {
+  position: relative;
+  z-index: 400;
+  left: -20%; }
+  .contest-expanded .fa-times-circle {
+    display: block; }
+
+.hidden-contest-overlay {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 300;
+  background-color: rgba(60, 60, 60, 0.9); }
+  .hidden-contest-overlay.hidden {
+    display: none; }
 
 .entry {
   width: 94%;

@@ -21,8 +21,8 @@ server.set("view engine", "ejs");
 import serverRender from "./serverRender";
 
 // The express router - the first argument is the path, the second is event handlers (which receives both request and response objects)
-server.get("/", (req, res) => {
-    serverRender() // Call the serverRender function from serverRender.js
+server.get(["/", "/profile/:userId", "/contest/:contestId"], (req, res) => {
+    serverRender(req.params.userId, req.params.contestId) // Call the serverRender function from serverRender.js
         .then(({ initialMarkup, initialContestData, initialUserData }) => {
             res.render("index", {
                 initialMarkup, // Render the content returned from the promise

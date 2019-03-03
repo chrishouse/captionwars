@@ -12,16 +12,18 @@ const pushState = (obj, url) => {
 
 class App extends React.Component {
     state = {
-        contestData: this.props.initialContests,
-        userData: this.props.initialUsers,
-        currentUser: 1,
+        contestData: this.props.initialContests.contests,
+        singleUser: this.props.initialUsers.singleUser,
+        allUsers: this.props.initialUsers.allUsers,
+        currentUser: 2,
         contestsFollowing: [1, 4],
-        profileId: -1
+        profileId: this.props.initialUsers.profileId,
+        contestId: this.props.initialContests.contestId
     };
 
     handleLikeClick = (contest, entry) => {
         // Make a clone of contestData to manipulate inside this function
-        let contestData = [...this.state.contestData];
+        let contestData = Object.values(this.state.contestData);
         // Get the array index of the contest passed in
         let contestIndex = contestData.indexOf(contest);
         // Get the array index of the entry passed in
@@ -97,35 +99,48 @@ class App extends React.Component {
             this.setState({
                 profileId: user.userId,
                 userData: {
-                    ...this.state.userData, // This part is just for a performance boost, since the componemt can read the data directly from state
+                    ...this.state.allUsers, // This part is just for a performance boost, since the componemt can read the data directly from state
                     [user.userId]: user
                 }
             });
         });
     };
 
+    // Set the contestId state to the id of the contest whose More button was clicked, and change the url
+    fetchContest = contestId => {
+        contestId === -1
+            ? pushState({}, `/`)
+            : pushState({}, `/contest/${contestId}`);
+
+        this.setState({
+            contestId: contestId
+        });
+    };
+
     currentContent() {
         const {
-            userData,
+            allUsers,
+            singleUser,
             currentUser,
             contestData,
             contestsFollowing,
-            profileId
+            profileId,
+            contestId
         } = this.state;
 
         // If profileId is set it means a user avatar was clicked and we want to display Profile
-        if (this.state.profileId > -1) {
+        if (profileId > -1) {
             return (
                 <Profile
                     profileId={profileId}
-                    realName={userData[profileId].realName}
+                    userData={singleUser ? singleUser : allUsers} // Whether or not we're using server data
                 />
             );
         }
         // Otherwise display the home page
         return (
             <article className="main-container inner">
-                <Sidebar userData={userData} currentUser={currentUser} />
+                <Sidebar userData={allUsers} currentUser={currentUser} />
                 <Main
                     contestData={contestData}
                     onLikeClick={this.handleLikeClick}
@@ -134,18 +149,20 @@ class App extends React.Component {
                     handleEntrySubmit={this.handleEntrySubmit}
                     handleEntryEditSave={this.handleEntryEditSave}
                     onAvatarClick={this.fetchProfile}
+                    onMoreClick={this.fetchContest}
+                    contestId={contestId}
                 />
             </article>
         );
     }
 
     render() {
-        const { userData, currentUser } = this.state;
+        const { allUsers, currentUser } = this.state;
 
         return (
             <div className="app">
                 <Header
-                    userData={userData}
+                    userData={allUsers}
                     currentUser={currentUser}
                     onAvatarClick={this.fetchProfile}
                 />
@@ -156,9 +173,9 @@ class App extends React.Component {
 }
 
 App.propTypes = {
-    userData: PropTypes.object,
-    contestData: PropTypes.array,
-    initialContests: PropTypes.array,
+    allUsers: PropTypes.object,
+    contestData: PropTypes.object,
+    initialContests: PropTypes.object,
     initialUsers: PropTypes.object
 };
 
