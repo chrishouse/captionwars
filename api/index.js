@@ -1,5 +1,5 @@
 import express from "express";
-import { MongoClient } from "mongodb";
+import { MongoClient, ObjectID } from "mongodb";
 import assert from "assert";
 import config from "../config";
 
@@ -22,14 +22,14 @@ router.get("/contests", (req, res) => {
                 res.send({ contests });
                 return;
             }
-            contests[contest.contestId] = contest;
+            contests[contest._id] = contest;
         });
 });
 
 router.get("/contests/:contestId", (req, res) => {
     mdb.collection("contests")
         .findOne({
-            contestId: Number(req.params.contestId)
+            _id: ObjectID(req.params.contestId)
         })
         .then(contest => res.send(contest))
         .catch(console.error);

@@ -21,7 +21,7 @@ class Main extends React.Component {
         });
     };
 
-    displayContests(singleContestId) {
+    displayContests(id) {
         const { radioChecked, following } = this.state;
         const {
             contestData,
@@ -33,11 +33,11 @@ class Main extends React.Component {
             handleEntryEditSave,
             onAvatarClick,
             onMoreClick,
-            contestId
+            singleContestId
         } = this.props;
 
-        if (singleContestId > -1) {
-            let contest = this.props.contestData[singleContestId];
+        if (id != -1) {
+            let contest = this.props.contestData[id];
             return (
                 <Contest
                     contestData={contest}
@@ -48,7 +48,7 @@ class Main extends React.Component {
                     handleEntryEditSave={this.props.handleEntryEditSave}
                     onAvatarClick={this.props.onAvatarClick}
                     onMoreClick={this.props.onMoreClick}
-                    contestId={singleContestId}
+                    singleContestId={singleContestId}
                     expanded={true}
                 />
             );
@@ -88,7 +88,7 @@ class Main extends React.Component {
             // Show only followed contests if the Following checkbox is checked
             if (following) {
                 contests = contests.filter(contest => {
-                    return contestsFollowing.indexOf(contest.contestId) !== -1;
+                    return contestsFollowing.indexOf(contest._id) !== -1;
                 });
             }
 
@@ -103,7 +103,7 @@ class Main extends React.Component {
                     {contests.map(contest => {
                         return (
                             <Contest
-                                key={contest.contestId}
+                                key={contest._id}
                                 contestData={contest}
                                 userData={userData}
                                 currentUser={currentUser}
@@ -112,7 +112,7 @@ class Main extends React.Component {
                                 handleEntryEditSave={handleEntryEditSave}
                                 onAvatarClick={onAvatarClick}
                                 onMoreClick={onMoreClick}
-                                contestId={contestId}
+                                singleContestId={singleContestId}
                                 expanded={false}
                             />
                         );
@@ -125,7 +125,7 @@ class Main extends React.Component {
     render() {
         return (
             <main className="main">
-                {this.displayContests(this.props.contestId)}
+                {this.displayContests(this.props.singleContestId)}
             </main>
         );
     }
@@ -141,7 +141,7 @@ Main.propTypes = {
     handleEntryEditSave: PropTypes.func,
     onAvatarClick: PropTypes.func,
     onMoreClick: PropTypes.func,
-    contestId: PropTypes.number
+    singleContestId: PropTypes.number
 };
 
 export default Main;

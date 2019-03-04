@@ -1,7 +1,11 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-const EntrySorter = ({ entriesSortedBy, onEntryRadioChange, contestId }) => {
+const EntrySorter = ({
+    entriesSortedBy,
+    onEntryRadioChange,
+    singleContestId
+}) => {
     const handleEntryRadioChange = e => {
         onEntryRadioChange(e.target.id);
     };
@@ -13,23 +17,25 @@ const EntrySorter = ({ entriesSortedBy, onEntryRadioChange, contestId }) => {
                 <input
                     type="radio"
                     id="entry-newest-first"
-                    name={`entry-sort-radios-${contestId}`}
+                    name={`entry-sort-radios-${singleContestId}`}
                     onChange={handleEntryRadioChange}
                     checked={
                         entriesSortedBy === "entry-newest-first" ? true : false
                     }
                 />
-                <label htmlFor={`entry-newest-first-${contestId}`}>
+                <label htmlFor={`entry-newest-first-${singleContestId}`}>
                     Newest first
                 </label>
                 <input
                     type="radio"
                     id="entry-ranking"
-                    name={`entry-sort-radios-${contestId}`}
+                    name={`entry-sort-radios-${singleContestId}`}
                     onChange={handleEntryRadioChange}
                     checked={entriesSortedBy === "entry-ranking" ? true : false}
                 />
-                <label htmlFor={`entry-ranking-${contestId}`}>Ranking</label>
+                <label htmlFor={`entry-ranking-${singleContestId}`}>
+                    Ranking
+                </label>
             </div>
         </div>
     );
@@ -38,7 +44,7 @@ const EntrySorter = ({ entriesSortedBy, onEntryRadioChange, contestId }) => {
 EntrySorter.propTypes = {
     entriesSortedBy: PropTypes.string,
     onEntryRadioChange: PropTypes.func,
-    contestId: PropTypes.number
+    singleContestId: PropTypes.string
 };
 
 export default EntrySorter;

@@ -22,7 +22,7 @@ class App extends React.Component {
         currentUser: 2,
         contestsFollowing: [1, 4],
         profileId: this.props.initialUsers.profileId,
-        contestId: this.props.initialContests.contestId
+        singleContestId: this.props.initialContests.singleContestId
     };
 
     componentDidMount() {
@@ -30,7 +30,7 @@ class App extends React.Component {
         onPopState(e => {
             this.setState({
                 profileId: (e.state || {}).profileId,
-                contestId: (e.state || {}).contestId
+                singleContestId: (e.state || {}).singleContestId
             });
         });
     }
@@ -124,14 +124,17 @@ class App extends React.Component {
         });
     };
 
-    // Set the contestId state to the id of the contest whose More button was clicked, and change the url
-    fetchContest = contestId => {
-        contestId === -1
-            ? pushState({ contestId: -1 }, `/`)
-            : pushState({ contestId: contestId }, `/contest/${contestId}`);
+    // Set the singleContestId state to the id of the contest whose More button was clicked, and change the url
+    fetchContest = singleContestId => {
+        singleContestId === -1
+            ? pushState({ singleContestId: -1 }, `/`)
+            : pushState(
+                  { singleContestId: singleContestId },
+                  `/contest/${singleContestId}`
+              );
 
         this.setState({
-            contestId: contestId
+            singleContestId: singleContestId
         });
     };
 
@@ -142,7 +145,7 @@ class App extends React.Component {
             contestData,
             contestsFollowing,
             profileId,
-            contestId
+            singleContestId
         } = this.state;
 
         // If profileId is set it means a user avatar was clicked and we want to display Profile
@@ -163,7 +166,7 @@ class App extends React.Component {
                     handleEntryEditSave={this.handleEntryEditSave}
                     onAvatarClick={this.fetchProfile}
                     onMoreClick={this.fetchContest}
-                    contestId={contestId}
+                    singleContestId={singleContestId}
                 />
             </article>
         );
@@ -190,7 +193,7 @@ App.propTypes = {
     contestData: PropTypes.object,
     initialContests: PropTypes.object,
     initialUsers: PropTypes.object,
-    contestId: PropTypes.number
+    singleContestId: PropTypes.number
 };
 
 export default App;

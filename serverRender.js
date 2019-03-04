@@ -33,7 +33,7 @@ const getInitialContestData = (contestId, apiContestData) => {
     !contestId ? (contestId = -1) : null;
     return {
         contests: apiContestData.contests,
-        contestId: contestId
+        singleContestId: contestId
     };
 };
 

@@ -26,7 +26,7 @@ class Contest extends React.Component {
         if (close === true) {
             this.props.onMoreClick(-1);
         } else {
-            this.props.onMoreClick(this.props.contestData.contestId);
+            this.props.onMoreClick(this.props.contestData._id);
         }
     };
 
@@ -195,7 +195,7 @@ class Contest extends React.Component {
                     <EntrySorter
                         entriesSortedBy={entriesSortedBy}
                         onEntryRadioChange={this.handleEntryRadioChange}
-                        contestId={contestData.contestId}
+                        singleContestId={contestData._id}
                     />
 
                     {entries.slice(...getSliceArgs()).map(entry => (
@@ -250,7 +250,7 @@ Contest.propTypes = {
     handleEntryEditSave: PropTypes.func,
     onAvatarClick: PropTypes.func,
     onMoreClick: PropTypes.func,
-    contestId: PropTypes.number,
+    singleContestId: PropTypes.number,
     expanded: PropTypes.bool
 };
 
