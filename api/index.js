@@ -10,8 +10,6 @@ const users = userData.reduce((obj, user) => {
     return obj;
 }, {});
 
-//TO DO: figure out how to make this work for contests. Currently it breaks things:
-
 const contests = contestData.reduce((obj, contest) => {
     obj[contest.contestId] = contest;
     return obj;
