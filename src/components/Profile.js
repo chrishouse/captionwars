@@ -11,7 +11,8 @@ class Profile extends React.Component {
         const { profileId, userData } = this.props;
         return (
             <main className="profile-content">
-                {profileId} {userData[profileId].realName}{" "}
+                {profileId}
+                {userData[profileId].realName}
                 {userData[profileId].userName}
                 <img src={`/images/users/${profileId}.jpg`} />
             </main>

@@ -137,7 +137,7 @@ Main.propTypes = {
     handleEntryEditSave: PropTypes.func,
     onAvatarClick: PropTypes.func,
     onMoreClick: PropTypes.func,
-    contestId: PropTypes.num
+    contestId: PropTypes.number
 };
 
 export default Main;

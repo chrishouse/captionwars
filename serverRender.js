@@ -20,9 +20,6 @@ const getInitialUserData = (userId, apiUserData, apiSingleUserData) => {
     if (userId) {
         return {
             profileId: apiSingleUserData.userId,
-            singleUser: {
-                [apiSingleUserData.userId]: apiSingleUserData
-            },
             allUsers: apiUserData.users
         };
     }

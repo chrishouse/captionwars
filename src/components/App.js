@@ -10,16 +10,34 @@ const pushState = (obj, url) => {
     window.history.pushState(obj, "", url);
 };
 
+// Handle the browser's back/forward buttons
+const onPopState = handler => {
+    window.onpopstate = handler;
+};
+
 class App extends React.Component {
     state = {
         contestData: this.props.initialContests.contests,
-        singleUser: this.props.initialUsers.singleUser,
         allUsers: this.props.initialUsers.allUsers,
         currentUser: 2,
         contestsFollowing: [1, 4],
         profileId: this.props.initialUsers.profileId,
         contestId: this.props.initialContests.contestId
     };
+
+    componentDidMount() {
+        // Handle the browser's back/forward buttons
+        onPopState(e => {
+            this.setState({
+                profileId: (e.state || {}).profileId,
+                contestId: (e.state || {}).contestId
+            });
+        });
+    }
+
+    componentWillUnmount() {
+        onPopState(null);
+    }
 
     handleLikeClick = (contest, entry) => {
         // Make a clone of contestData to manipulate inside this function
@@ -93,7 +111,7 @@ class App extends React.Component {
 
     // Set the profileId state to the id of the avatar clicked, change the url, and fetch that user's info from the api
     fetchProfile = userId => {
-        pushState({}, `/profile/${userId}`);
+        pushState({ profileId: userId }, `/profile/${userId}`);
 
         api.fetchUser(userId).then(user => {
             this.setState({
@@ -109,8 +127,8 @@ class App extends React.Component {
     // Set the contestId state to the id of the contest whose More button was clicked, and change the url
     fetchContest = contestId => {
         contestId === -1
-            ? pushState({}, `/`)
-            : pushState({}, `/contest/${contestId}`);
+            ? pushState({ contestId: -1 }, `/`)
+            : pushState({ contestId: contestId }, `/contest/${contestId}`);
 
         this.setState({
             contestId: contestId
@@ -120,7 +138,6 @@ class App extends React.Component {
     currentContent() {
         const {
             allUsers,
-            singleUser,
             currentUser,
             contestData,
             contestsFollowing,
@@ -130,12 +147,7 @@ class App extends React.Component {
 
         // If profileId is set it means a user avatar was clicked and we want to display Profile
         if (profileId > -1) {
-            return (
-                <Profile
-                    profileId={profileId}
-                    userData={singleUser ? singleUser : allUsers} // Whether or not we're using server data
-                />
-            );
+            return <Profile profileId={profileId} userData={allUsers} />;
         }
         // Otherwise display the home page
         return (
@@ -176,7 +188,8 @@ App.propTypes = {
     allUsers: PropTypes.object,
     contestData: PropTypes.object,
     initialContests: PropTypes.object,
-    initialUsers: PropTypes.object
+    initialUsers: PropTypes.object,
+    contestId: PropTypes.number
 };
 
 export default App;
