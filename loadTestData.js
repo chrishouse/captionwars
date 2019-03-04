@@ -57,7 +57,7 @@ MongoClient.connect(config.mongodbUri, (err, client) => {
             },
             {
                 contestId: 1,
-                date: "Magazine/Newsletter",
+                date: "2018-02-11T13:37:27.000Z",
                 entries: [
                     {
                         entryId: 6,

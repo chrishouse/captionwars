@@ -1,40 +1,61 @@
 import express from "express";
-import contestData from "../src/test-data/contests";
-import userData from "../src/test-data/users";
+import { MongoClient } from "mongodb";
+import assert from "assert";
+import config from "../config";
+
+let mdb;
+MongoClient.connect(config.mongodbUri, (err, client) => {
+    assert.equal(null, err);
+
+    mdb = client.db("test");
+});
 
 const router = express.Router();
 
-// Convert the data arrays into objects for effeciency
-const users = userData.reduce((obj, user) => {
-    obj[user.userId] = user;
-    return obj;
-}, {});
-
-const contests = contestData.reduce((obj, contest) => {
-    obj[contest.contestId] = contest;
-    return obj;
-}, {});
-
 router.get("/contests", (req, res) => {
-    res.send({
-        contests: contests
-    });
+    let contests = {};
+    mdb.collection("contests")
+        .find({})
+        .each((err, contest) => {
+            assert.equal(null, err);
+            if (!contest) {
+                res.send({ contests });
+                return;
+            }
+            contests[contest.contestId] = contest;
+        });
 });
 
 router.get("/contests/:contestId", (req, res) => {
-    let contest = contests[req.params.contestId];
-    res.send(contest);
+    mdb.collection("contests")
+        .findOne({
+            contestId: Number(req.params.contestId)
+        })
+        .then(contest => res.send(contest))
+        .catch(console.error);
 });
 
 router.get("/users", (req, res) => {
-    res.send({
-        users: users
-    });
+    let users = {};
+    mdb.collection("users")
+        .find({})
+        .each((err, user) => {
+            assert.equal(null, err);
+            if (!user) {
+                res.send({ users });
+                return;
+            }
+            users[user.userId] = user;
+        });
 });
 
 router.get("/users/:userId", (req, res) => {
-    let user = users[req.params.userId];
-    res.send(user);
+    mdb.collection("users")
+        .findOne({
+            userId: Number(req.params.userId)
+        })
+        .then(user => res.send(user))
+        .catch(console.error);
 });
 
 export default router;

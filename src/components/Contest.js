@@ -33,6 +33,7 @@ class Contest extends React.Component {
     render() {
         const {
             contestData,
+            userData,
             onLikeClick,
             currentUser,
             handleEntrySubmit,
@@ -180,6 +181,7 @@ class Contest extends React.Component {
 
                     <Entry
                         entryNumber={1}
+                        userData={userData}
                         currentUser={currentUser}
                         entry={winner()}
                         onLikeClick={onLikeClick}
@@ -200,6 +202,7 @@ class Contest extends React.Component {
                         <Entry
                             key={entry.entryId}
                             entryNumber={getRank(entry) + 2}
+                            userData={userData}
                             currentUser={currentUser}
                             entry={entry}
                             onLikeClick={onLikeClick}
@@ -240,6 +243,7 @@ class Contest extends React.Component {
 
 Contest.propTypes = {
     contestData: PropTypes.object,
+    userData: PropTypes.object,
     onLikeClick: PropTypes.func,
     currentUser: PropTypes.number,
     handleEntrySubmit: PropTypes.func,

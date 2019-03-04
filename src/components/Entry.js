@@ -3,7 +3,6 @@ import UserAvatar from "./UserAvatar";
 import EntryInput from "./EntryInput";
 import EditConfirm from "./EditConfirm";
 import PropTypes from "prop-types";
-import userData from "../test-data/users";
 
 class Entry extends React.Component {
     state = {
@@ -51,6 +50,7 @@ class Entry extends React.Component {
     render() {
         const {
             isWinner,
+            userData,
             entryNumber,
             contest,
             entry,
@@ -155,6 +155,7 @@ class Entry extends React.Component {
 
 Entry.propTypes = {
     contestEntry: PropTypes.array,
+    userData: PropTypes.object,
     entry: PropTypes.object,
     isWinner: PropTypes.bool,
     entryNumber: PropTypes.number,

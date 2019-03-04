@@ -155,6 +155,7 @@ class App extends React.Component {
                 <Sidebar userData={allUsers} currentUser={currentUser} />
                 <Main
                     contestData={contestData}
+                    userData={allUsers}
                     onLikeClick={this.handleLikeClick}
                     currentUser={currentUser}
                     contestsFollowing={contestsFollowing}
