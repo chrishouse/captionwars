@@ -24,7 +24,7 @@ const Sidebar = ({ userData, currentUser }) => {
 
 Sidebar.propTypes = {
     userData: PropTypes.object,
-    currentUser: PropTypes.number
+    currentUser: PropTypes.string
 };
 
 export default Sidebar;

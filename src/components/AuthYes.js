@@ -51,7 +51,7 @@ class AuthYes extends React.Component {
 
 AuthYes.propTypes = {
     user: PropTypes.object,
-    currentUser: PropTypes.number,
+    currentUser: PropTypes.string,
     onAvatarClick: PropTypes.func
 };
 

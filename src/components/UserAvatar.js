@@ -38,11 +38,11 @@ class UserAvatar extends React.Component {
 }
 
 UserAvatar.propTypes = {
-    user: PropTypes.number.isRequired,
+    user: PropTypes.string.isRequired,
     likesReceived: PropTypes.number.isRequired,
     isYou: PropTypes.bool,
     currentWinners: PropTypes.number,
-    currentUser: PropTypes.number.isRequired,
+    currentUser: PropTypes.string.isRequired,
     onAvatarClick: PropTypes.func.isRequired
 };
 

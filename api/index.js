@@ -45,14 +45,14 @@ router.get("/users", (req, res) => {
                 res.send({ users });
                 return;
             }
-            users[user.userId] = user;
+            users[user._id] = user;
         });
 });
 
 router.get("/users/:userId", (req, res) => {
     mdb.collection("users")
         .findOne({
-            userId: Number(req.params.userId)
+            _id: ObjectID(req.params.userId)
         })
         .then(user => res.send(user))
         .catch(console.error);

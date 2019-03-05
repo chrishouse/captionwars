@@ -22,7 +22,7 @@ class Profile extends React.Component {
 
 Profile.propTypes = {
     userData: PropTypes.object,
-    profileId: PropTypes.number
+    profileId: PropTypes.string
 };
 
 export default Profile;

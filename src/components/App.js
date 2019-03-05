@@ -19,7 +19,7 @@ class App extends React.Component {
     state = {
         contestData: this.props.initialContests.contests,
         allUsers: this.props.initialUsers.allUsers,
-        currentUser: 2,
+        currentUser: "5c7ecf9eb8a7020d42fb850a",
         contestsFollowing: [1, 4],
         profileId: this.props.initialUsers.profileId,
         singleContestId: this.props.initialContests.singleContestId
@@ -40,18 +40,20 @@ class App extends React.Component {
     }
 
     handleLikeClick = (contest, entry) => {
-        // Make a clone of contestData to manipulate inside this function
-        let contestData = Object.values(this.state.contestData);
-        // Get the array index of the contest passed in
-        let contestIndex = contestData.indexOf(contest);
-        // Get the array index of the entry passed in
-        let entryIndex = contestData[contestIndex].entries.indexOf(entry);
+        // TO DO: completely redo this function to utilize the database
+
+        // Get the index of tne entry before converting
+        let entryIndex = this.state.contestData[contest._id].entries.indexOf(
+            entry
+        );
+        // Clone the contestData object to modify
+        let contestData = JSON.parse(JSON.stringify(this.state.contestData));
         // Make a clone of the contest object
-        contestData[contestIndex] = { ...contest };
+        contestData[contest._id] = { ...contest };
         // Make a clone of the entry object
-        contestData[contestIndex].entries[entryIndex] = { ...entry };
+        contestData[contest._id].entries[entryIndex] = { ...entry };
         // Incremement the likes
-        contestData[contestIndex].entries[entryIndex].likes++;
+        contestData[contest._id].entries[entryIndex].likes++;
         // Set the state of the real contestData to match our cloned contestData
         this.setState({ contestData });
     };
@@ -115,10 +117,10 @@ class App extends React.Component {
 
         api.fetchUser(userId).then(user => {
             this.setState({
-                profileId: user.userId,
+                profileId: user._id,
                 userData: {
                     ...this.state.allUsers, // This part is just for a performance boost, since the componemt can read the data directly from state
-                    [user.userId]: user
+                    [user._id]: user
                 }
             });
         });
@@ -126,8 +128,8 @@ class App extends React.Component {
 
     // Set the singleContestId state to the id of the contest whose More button was clicked, and change the url
     fetchContest = singleContestId => {
-        singleContestId === -1
-            ? pushState({ singleContestId: -1 }, `/`)
+        singleContestId === "-1"
+            ? pushState({ singleContestId: "-1" }, `/`)
             : pushState(
                   { singleContestId: singleContestId },
                   `/contest/${singleContestId}`
@@ -149,7 +151,7 @@ class App extends React.Component {
         } = this.state;
 
         // If profileId is set it means a user avatar was clicked and we want to display Profile
-        if (profileId > -1) {
+        if (profileId) {
             return <Profile profileId={profileId} userData={allUsers} />;
         }
         // Otherwise display the home page
@@ -193,7 +195,7 @@ App.propTypes = {
     contestData: PropTypes.object,
     initialContests: PropTypes.object,
     initialUsers: PropTypes.object,
-    singleContestId: PropTypes.number
+    singleContestId: PropTypes.string
 };
 
 export default App;

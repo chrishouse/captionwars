@@ -23,7 +23,7 @@ class UserMenu extends React.Component {
         body.removeEventListener("click", this.bodyClick);
     }
 
-    handleClick = e => {
+    handleClick = () => {
         this.props.onAvatarClick(this.props.currentUser);
     };
 
@@ -59,7 +59,7 @@ class UserMenu extends React.Component {
 UserMenu.propTypes = {
     menuToggle: PropTypes.func,
     onAvatarClick: PropTypes.func,
-    currentUser: PropTypes.number
+    currentUser: PropTypes.string
 };
 
 export default UserMenu;

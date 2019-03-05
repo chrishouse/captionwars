@@ -59,7 +59,7 @@ class Stats extends React.Component {
 
 Stats.propTypes = {
     userData: PropTypes.object,
-    currentUser: PropTypes.number
+    currentUser: PropTypes.string
 };
 
 export default Stats;

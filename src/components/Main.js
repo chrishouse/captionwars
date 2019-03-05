@@ -38,6 +38,7 @@ class Main extends React.Component {
 
         if (id != -1) {
             let contest = this.props.contestData[id];
+
             return (
                 <Contest
                     contestData={contest}
@@ -86,6 +87,7 @@ class Main extends React.Component {
             }
 
             // Show only followed contests if the Following checkbox is checked
+            // TO DO make this work with the database. It's currently broken because it's using indexOf
             if (following) {
                 contests = contests.filter(contest => {
                     return contestsFollowing.indexOf(contest._id) !== -1;
@@ -135,13 +137,13 @@ Main.propTypes = {
     contestData: PropTypes.object,
     userData: PropTypes.object,
     onLikeClick: PropTypes.func,
-    currentUser: PropTypes.number,
+    currentUser: PropTypes.string,
     contestsFollowing: PropTypes.array,
     handleEntrySubmit: PropTypes.func,
     handleEntryEditSave: PropTypes.func,
     onAvatarClick: PropTypes.func,
     onMoreClick: PropTypes.func,
-    singleContestId: PropTypes.number
+    singleContestId: PropTypes.string
 };
 
 export default Main;

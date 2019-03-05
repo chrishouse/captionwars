@@ -24,7 +24,7 @@ class Contest extends React.Component {
 
     handleMoreClick = close => {
         if (close === true) {
-            this.props.onMoreClick(-1);
+            this.props.onMoreClick("-1");
         } else {
             this.props.onMoreClick(this.props.contestData._id);
         }
@@ -176,7 +176,7 @@ class Contest extends React.Component {
                     </div>
                     <img
                         className="contest-photo"
-                        src={`/images/contests/${contestData.contestId}.jpg`}
+                        src={`/images/contests/${contestData._id}.jpg`}
                     />
 
                     <Entry
@@ -245,12 +245,12 @@ Contest.propTypes = {
     contestData: PropTypes.object,
     userData: PropTypes.object,
     onLikeClick: PropTypes.func,
-    currentUser: PropTypes.number,
+    currentUser: PropTypes.string,
     handleEntrySubmit: PropTypes.func,
     handleEntryEditSave: PropTypes.func,
     onAvatarClick: PropTypes.func,
     onMoreClick: PropTypes.func,
-    singleContestId: PropTypes.number,
+    singleContestId: PropTypes.string,
     expanded: PropTypes.bool
 };
 

@@ -85,7 +85,7 @@ class Entry extends React.Component {
                                 day: "numeric"
                             })}
                         </p>
-                        {userData[entry.user].userId === currentUser ? (
+                        {userData[entry.user]._id === currentUser ? (
                             <div className="user-edit-buttons">
                                 <a
                                     className="entry-edit"
@@ -160,7 +160,7 @@ Entry.propTypes = {
     isWinner: PropTypes.bool,
     entryNumber: PropTypes.number,
     contest: PropTypes.object,
-    currentUser: PropTypes.number,
+    currentUser: PropTypes.string,
     onLikeClick: PropTypes.func,
     handleEntryEditSave: PropTypes.func,
     onAvatarClick: PropTypes.func
