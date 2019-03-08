@@ -58,4 +58,31 @@ router.get("/users/:userId", (req, res) => {
         .catch(console.error);
 });
 
+router.get("/entries", (req, res) => {
+    let entries = {};
+    mdb.collection("entries")
+        .find({})
+        .each((err, entry) => {
+            assert.equal(null, err);
+            if (!entry) {
+                res.send({ entries });
+                return;
+            }
+            entries[entry._id] = entry;
+        });
+});
+
+router.get("/entries/:entryId", (req, res) => {
+    mdb.collection("entries")
+        .findOne({
+            _id: ObjectID(req.params.entryId)
+        })
+        .then(entry => res.send(entry))
+        .catch(console.error);
+});
+
+router.post("/contests", (req, res) => {
+    console.log(req.body);
+});
+
 export default router;

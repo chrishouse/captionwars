@@ -24,7 +24,7 @@ class Contest extends React.Component {
 
     handleMoreClick = close => {
         if (close === true) {
-            this.props.onMoreClick("-1");
+            this.props.onMoreClick();
         } else {
             this.props.onMoreClick(this.props.contestData._id);
         }

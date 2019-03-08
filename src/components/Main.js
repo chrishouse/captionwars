@@ -36,7 +36,7 @@ class Main extends React.Component {
             singleContestId
         } = this.props;
 
-        if (id != -1) {
+        if (id) {
             let contest = this.props.contestData[id];
 
             return (

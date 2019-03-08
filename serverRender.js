@@ -36,10 +36,14 @@ const getInitialUserData = (userId, apiUserData, apiSingleUserData) => {
 
 // This function returns the correct initial data depending on whether a contestId exists in the URL params.
 const getInitialContestData = (contestId, apiContestData) => {
-    !contestId ? (contestId = "-1") : null;
+    if (contestId) {
+        return {
+            contests: apiContestData.contests,
+            singleContestId: String(contestId)
+        };
+    }
     return {
-        contests: apiContestData.contests,
-        singleContestId: String(contestId)
+        contests: apiContestData.contests
     };
 };
 

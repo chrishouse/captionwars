@@ -128,12 +128,14 @@ class App extends React.Component {
 
     // Set the singleContestId state to the id of the contest whose More button was clicked, and change the url
     fetchContest = singleContestId => {
-        singleContestId === "-1"
-            ? pushState({ singleContestId: "-1" }, `/`)
-            : pushState(
-                  { singleContestId: singleContestId },
-                  `/contest/${singleContestId}`
-              );
+        if (singleContestId) {
+            pushState(
+                { singleContestId: singleContestId },
+                `/contest/${singleContestId}`
+            );
+        } else {
+            pushState({ singleContestId: undefined }, `/`);
+        }
 
         this.setState({
             singleContestId: singleContestId
