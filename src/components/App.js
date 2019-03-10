@@ -61,28 +61,23 @@ class App extends React.Component {
     today = new Date().toISOString();
 
     handleEntrySubmit = (contest, entryText) => {
-        // Construct the new entry (this is temporary until we get the database in place)
-        const newEntry = {
-            entryId: 134,
-            text: entryText,
-            likes: 0,
-            user: this.state.currentUser,
-            date: this.today
-        };
-
-        // Make a copy of the contest data
-        const updatedContestData = [...this.state.contestData];
-        // Get the index of the contest to modify
-        const index = this.state.contestData.indexOf(contest);
-        // Spread the new entry into the existing entries
-        updatedContestData[index].entries = [
-            ...updatedContestData[index].entries,
-            newEntry
-        ];
-
-        this.setState({
-            contestData: updatedContestData
-        });
+        // Construct the new entry and call the api
+        api.addEntry(
+            contest._id,
+            entryText,
+            0,
+            this.state.currentUser,
+            this.today
+        )
+            .then(resp => {
+                // Make a copy of the contest data
+                const updatedContestData = { ...this.state.contestData };
+                // Get the contest to modify
+                const contestToEdit = updatedContestData[contest._id];
+                // Spread the new entry into the existing entries of that contest
+                contestToEdit.entries = [...contestToEdit.entries, resp];
+            })
+            .catch(console.error);
     };
 
     handleEntryEditSave = (contest, entry, newText) => {

@@ -81,8 +81,30 @@ router.get("/entries/:entryId", (req, res) => {
         .catch(console.error);
 });
 
-router.post("/contests", (req, res) => {
-    console.log(req.body);
+router.post("/entries", (req, res) => {
+    const contestId = req.body.contestId;
+    const text = req.body.text;
+    const likes = req.body.likes;
+    const user = req.body.user;
+    const date = req.body.date;
+    // Insert the new entry
+    mdb.collection("entries")
+        .insertOne({
+            contestId,
+            text,
+            likes,
+            user,
+            date
+        })
+        .then(
+            res.send({
+                contestId,
+                text,
+                likes,
+                user,
+                date
+            })
+        );
 });
 
 export default router;
