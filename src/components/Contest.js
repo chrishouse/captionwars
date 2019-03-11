@@ -3,11 +3,52 @@ import Entry from "./Entry";
 import EntrySorter from "./EntrySorter";
 import EntryInput from "./EntryInput";
 import PropTypes from "prop-types";
+import * as api from "../api";
 
 class Contest extends React.Component {
     state = {
         entriesSortedBy: "entry-newest-first", // Can be "entry-ranking" or "entry-newest-first"
-        expanded: this.props.expanded
+        expanded: this.props.expanded,
+        // Dummy entry until we get initialData in here
+        contestEntries: [
+            {
+                text:
+                    "Aenean consequat velit sit amet pharetra consectetur. Integer fermentum nisi a mi blandit, vel sollicitudin diam facilisis.",
+                likes: 301,
+                user: "5c7ecf9eb8a7020d42fb850a",
+                date: "2018-12-12T13:37:27.000Z"
+            }
+        ]
+    };
+    componentDidMount() {
+        api.fetchEntries(this.props.contestData._id).then(entries => {
+            this.setState({
+                contestEntries: entries
+            });
+        });
+    }
+
+    handleLikeClick = entry => {
+        api.updateEntryLikes(entry._id, entry.likes + 1)
+            .then(resp => {
+                // Make a copy of the entries data
+                const contestEntriesCopy = { ...this.state.contestEntries };
+                console.log(this.state.contestEntries);
+
+                contestEntriesCopy[entry._id] = {
+                    _id: entry._id,
+                    contestId: entry.contestId,
+                    text: entry.text,
+                    likes: entry.likes + 1,
+                    user: entry.user,
+                    date: entry.date
+                };
+
+                this.setState({
+                    contestEntries: contestEntriesCopy
+                });
+            })
+            .catch(console.error);
     };
 
     handleEntryRadioChange = radio => {
@@ -34,16 +75,15 @@ class Contest extends React.Component {
         const {
             contestData,
             userData,
-            onLikeClick,
             currentUser,
             handleEntrySubmit,
             handleEntryEditSave,
             onAvatarClick
         } = this.props;
-        const { entriesSortedBy } = this.state;
+        const { entriesSortedBy, contestEntries } = this.state;
 
         // Make a clone of the entries array to modify
-        const entries = Array.from(contestData.entries);
+        const entries = Array.from(contestEntries);
 
         // Sort the entries either by likes or date, depending on which radio is checked
         switch (entriesSortedBy) {
@@ -184,7 +224,7 @@ class Contest extends React.Component {
                         userData={userData}
                         currentUser={currentUser}
                         entry={winner()}
-                        onLikeClick={onLikeClick}
+                        onLikeClick={this.handleLikeClick}
                         contest={contestData}
                         isWinner
                         entryText={""}
@@ -200,12 +240,12 @@ class Contest extends React.Component {
 
                     {entries.slice(...getSliceArgs()).map(entry => (
                         <Entry
-                            key={entry.entryId}
+                            key={entry._id}
                             entryNumber={getRank(entry) + 2}
                             userData={userData}
                             currentUser={currentUser}
                             entry={entry}
-                            onLikeClick={onLikeClick}
+                            onLikeClick={this.handleLikeClick}
                             contest={contestData}
                             handleEntryEditSave={handleEntryEditSave}
                             onAvatarClick={onAvatarClick}
@@ -244,7 +284,6 @@ class Contest extends React.Component {
 Contest.propTypes = {
     contestData: PropTypes.object,
     userData: PropTypes.object,
-    onLikeClick: PropTypes.func,
     currentUser: PropTypes.string,
     handleEntrySubmit: PropTypes.func,
     handleEntryEditSave: PropTypes.func,

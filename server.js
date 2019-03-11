@@ -25,13 +25,21 @@ import serverRender from "./serverRender";
 // The express router - the first argument is the path, the second is event handlers (which receives both request and response objects)
 server.get(["/", "/profile/:userId", "/contest/:contestId"], (req, res) => {
     serverRender(req.params.userId, req.params.contestId) // Call the serverRender function from serverRender.js
-        .then(({ initialMarkup, initialContestData, initialUserData }) => {
-            res.render("index", {
-                initialMarkup, // Render the content returned from the promise
-                initialContestData, // Render the data returned from the promise
+        .then(
+            ({
+                initialMarkup,
+                initialContestData,
+                initialEntriesData,
                 initialUserData
-            }); // .render looks for a .ejs file within the views directory. Second argument is an object to pass variables into the .ejs template file
-        })
+            }) => {
+                res.render("index", {
+                    initialMarkup, // Render the content returned from the promise
+                    initialContestData, // Render the data returned from the promise
+                    initialEntriesData,
+                    initialUserData
+                }); // .render looks for a .ejs file within the views directory. Second argument is an object to pass variables into the .ejs template file
+            }
+        )
         .catch(error => {
             console.error(error);
             res.status(404).send("Bad Request");

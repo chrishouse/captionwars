@@ -72,6 +72,7 @@ router.get("/entries", (req, res) => {
         });
 });
 
+// Endpoint to get a single entry based on an entry's _id
 router.get("/entries/:entryId", (req, res) => {
     mdb.collection("entries")
         .findOne({
@@ -79,6 +80,16 @@ router.get("/entries/:entryId", (req, res) => {
         })
         .then(entry => res.send(entry))
         .catch(console.error);
+});
+
+// Endpoint to get all the entries of a given contestId
+router.get("/entries/contest/:contestId", (req, res) => {
+    mdb.collection("entries")
+        .find({ contestId: req.params.contestId })
+        .toArray((err, result) => {
+            assert.equal(null, err);
+            res.send(result);
+        });
 });
 
 router.post("/entries", (req, res) => {
@@ -105,6 +116,20 @@ router.post("/entries", (req, res) => {
                 date
             })
         );
+});
+
+router.put("/entries/updatelikes", (req, res) => {
+    const _id = req.body._id;
+    const likes = req.body.likes;
+    // Update the entry
+    mdb.collection("entries").updateOne(
+        { _id: ObjectID(_id) },
+        { $set: { likes } },
+        function(err, results) {
+            assert.equal(null, err);
+            res.send(results.result);
+        }
+    );
 });
 
 export default router;

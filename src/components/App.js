@@ -18,6 +18,7 @@ const onPopState = handler => {
 class App extends React.Component {
     state = {
         contestData: this.props.initialContests.contests,
+        entriesData: this.props.initialEntries.entries,
         allUsers: this.props.initialUsers.allUsers,
         currentUser: "5c7ecf9eb8a7020d42fb850a",
         contestsFollowing: [1, 4],
@@ -39,25 +40,6 @@ class App extends React.Component {
         onPopState(null);
     }
 
-    handleLikeClick = (contest, entry) => {
-        // TO DO: completely redo this function to utilize the database
-
-        // Get the index of tne entry before converting
-        let entryIndex = this.state.contestData[contest._id].entries.indexOf(
-            entry
-        );
-        // Clone the contestData object to modify
-        let contestData = JSON.parse(JSON.stringify(this.state.contestData));
-        // Make a clone of the contest object
-        contestData[contest._id] = { ...contest };
-        // Make a clone of the entry object
-        contestData[contest._id].entries[entryIndex] = { ...entry };
-        // Incremement the likes
-        contestData[contest._id].entries[entryIndex].likes++;
-        // Set the state of the real contestData to match our cloned contestData
-        this.setState({ contestData });
-    };
-
     today = new Date().toISOString();
 
     handleEntrySubmit = (contest, entryText) => {
@@ -78,6 +60,8 @@ class App extends React.Component {
                 contestToEdit.entries = [...contestToEdit.entries, resp];
             })
             .catch(console.error);
+
+        // TO DO: get the app to use the entries data from the entries collection
     };
 
     handleEntryEditSave = (contest, entry, newText) => {
@@ -158,7 +142,6 @@ class App extends React.Component {
                 <Main
                     contestData={contestData}
                     userData={allUsers}
-                    onLikeClick={this.handleLikeClick}
                     currentUser={currentUser}
                     contestsFollowing={contestsFollowing}
                     handleEntrySubmit={this.handleEntrySubmit}
@@ -191,6 +174,7 @@ App.propTypes = {
     allUsers: PropTypes.object,
     contestData: PropTypes.object,
     initialContests: PropTypes.object,
+    initialEntries: PropTypes.object,
     initialUsers: PropTypes.object,
     singleContestId: PropTypes.string
 };

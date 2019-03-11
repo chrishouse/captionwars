@@ -99,9 +99,7 @@ class Entry extends React.Component {
                         <div className="entry-user-likes">
                             <a
                                 className="entry-like-button"
-                                onClick={() =>
-                                    this.props.onLikeClick(contest, entry)
-                                }
+                                onClick={() => this.props.onLikeClick(entry)}
                             >
                                 <i className="far fa-thumbs-up" />
                                 <p className="entry-likes">

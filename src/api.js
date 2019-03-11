@@ -8,6 +8,12 @@ export const fetchContest = contestId => {
     return axios.get(`/api/contests/${contestId}`).then(resp => resp.data);
 };
 
+export const fetchEntries = contestId => {
+    return axios
+        .get(`/api/entries/contest/${contestId}`)
+        .then(resp => resp.data);
+};
+
 export const addEntry = (contestId, text, likes, user, date) => {
     return axios
         .post("/api/entries", {
@@ -16,6 +22,17 @@ export const addEntry = (contestId, text, likes, user, date) => {
             likes,
             user,
             date
+        })
+        .then(resp => {
+            resp.data;
+        });
+};
+
+export const updateEntryLikes = (_id, likes) => {
+    return axios
+        .put("/api/entries/updatelikes", {
+            _id,
+            likes
         })
         .then(resp => {
             resp.data;

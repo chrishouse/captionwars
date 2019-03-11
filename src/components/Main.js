@@ -26,7 +26,6 @@ class Main extends React.Component {
         const {
             contestData,
             userData,
-            onLikeClick,
             currentUser,
             contestsFollowing,
             handleEntrySubmit,
@@ -44,7 +43,6 @@ class Main extends React.Component {
                     contestData={contest}
                     userData={userData}
                     currentUser={this.props.currentUser}
-                    onLikeClick={this.props.onLikeClick}
                     handleEntrySubmit={this.props.handleEntrySubmit}
                     handleEntryEditSave={this.props.handleEntryEditSave}
                     onAvatarClick={this.props.onAvatarClick}
@@ -109,7 +107,6 @@ class Main extends React.Component {
                                 contestData={contest}
                                 userData={userData}
                                 currentUser={currentUser}
-                                onLikeClick={onLikeClick}
                                 handleEntrySubmit={handleEntrySubmit}
                                 handleEntryEditSave={handleEntryEditSave}
                                 onAvatarClick={onAvatarClick}
@@ -136,7 +133,6 @@ class Main extends React.Component {
 Main.propTypes = {
     contestData: PropTypes.object,
     userData: PropTypes.object,
-    onLikeClick: PropTypes.func,
     currentUser: PropTypes.string,
     contestsFollowing: PropTypes.array,
     handleEntrySubmit: PropTypes.func,

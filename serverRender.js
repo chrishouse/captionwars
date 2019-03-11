@@ -11,12 +11,14 @@ const getApiData = userId => {
     if (userId) {
         return [
             axios.get(`${config.serverUrl}/api/contests`),
+            axios.get(`${config.serverUrl}/api/entries`),
             axios.get(`${config.serverUrl}/api/users`),
             axios.get(`${config.serverUrl}/api/users/${userId}`)
         ];
     }
     return [
         axios.get(`${config.serverUrl}/api/contests`),
+        axios.get(`${config.serverUrl}/api/entries`),
         axios.get(`${config.serverUrl}/api/users`)
     ];
 };
@@ -47,29 +49,39 @@ const getInitialContestData = (contestId, apiContestData) => {
     };
 };
 
+// Get the initial entries data
+const getInitialEntriesData = apiEntriesData => {
+    return {
+        entries: apiEntriesData.entries
+    };
+};
+
 const serverRender = (userId, contestId) => {
     return axios
         .all(getApiData(userId))
         .then(resp => {
             const initialUserData = getInitialUserData(
                 userId,
-                resp[1].data,
-                userId ? resp[2].data : null
+                resp[2].data,
+                userId ? resp[3].data : null
             );
             const initialContestData = getInitialContestData(
                 contestId,
                 resp[0].data
             );
+            const initialEntriesData = getInitialEntriesData(resp[1].data);
             return {
                 // We return both the initial markup and the data itself from the AJAX call
                 initialMarkup: ReactDOMServer.renderToString(
                     <App
                         initialContests={initialContestData}
                         initialUsers={initialUserData}
+                        initialEntries={initialEntriesData}
                     />
                 ),
                 initialContestData: initialContestData,
-                initialUserData: initialUserData
+                initialUserData: initialUserData,
+                initialEntriesData: initialEntriesData
             };
         })
         .catch(console.error);
