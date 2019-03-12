@@ -10,15 +10,7 @@ class Contest extends React.Component {
         entriesSortedBy: "entry-newest-first", // Can be "entry-ranking" or "entry-newest-first"
         expanded: this.props.expanded,
         // Dummy entry until we get initialData in here
-        contestEntries: [
-            {
-                text:
-                    "Aenean consequat velit sit amet pharetra consectetur. Integer fermentum nisi a mi blandit, vel sollicitudin diam facilisis.",
-                likes: 301,
-                user: "5c7ecf9eb8a7020d42fb850a",
-                date: "2018-12-12T13:37:27.000Z"
-            }
-        ]
+        contestEntries: this.props.entriesData
     };
     componentDidMount() {
         api.fetchEntries(this.props.contestData._id).then(entries => {
@@ -28,13 +20,19 @@ class Contest extends React.Component {
         });
     }
 
-    handleLikeClick = entry => {
-        api.updateEntryLikes(entry._id, entry.likes + 1)
-            .then(resp => {
-                // Make a copy of the entries data
-                const contestEntriesCopy = { ...this.state.contestEntries };
-                console.log(this.state.contestEntries);
+    /****** SOMETHING WEIRD is happening. Clicking like is affecting other entries. TO DO: fix it ******/
 
+    handleLikeClick = entry => {
+        entry.likes++;
+        // Make a copy of the entries data
+        const contestEntriesCopy = { ...this.state.contestEntries };
+
+        this.setState({
+            contestEntries: contestEntriesCopy
+        });
+
+        api.updateEntryLikes(entry._id, entry.likes)
+            .then(() => {
                 contestEntriesCopy[entry._id] = {
                     _id: entry._id,
                     contestId: entry.contestId,
@@ -43,10 +41,6 @@ class Contest extends React.Component {
                     user: entry.user,
                     date: entry.date
                 };
-
-                this.setState({
-                    contestEntries: contestEntriesCopy
-                });
             })
             .catch(console.error);
     };
@@ -83,7 +77,7 @@ class Contest extends React.Component {
         const { entriesSortedBy, contestEntries } = this.state;
 
         // Make a clone of the entries array to modify
-        const entries = Array.from(contestEntries);
+        const entries = Object.values(contestEntries);
 
         // Sort the entries either by likes or date, depending on which radio is checked
         switch (entriesSortedBy) {
@@ -283,6 +277,7 @@ class Contest extends React.Component {
 
 Contest.propTypes = {
     contestData: PropTypes.object,
+    entriesData: PropTypes.object,
     userData: PropTypes.object,
     currentUser: PropTypes.string,
     handleEntrySubmit: PropTypes.func,

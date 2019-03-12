@@ -124,6 +124,7 @@ class App extends React.Component {
     currentContent() {
         const {
             allUsers,
+            entriesData,
             currentUser,
             contestData,
             contestsFollowing,
@@ -141,6 +142,7 @@ class App extends React.Component {
                 <Sidebar userData={allUsers} currentUser={currentUser} />
                 <Main
                     contestData={contestData}
+                    entriesData={entriesData}
                     userData={allUsers}
                     currentUser={currentUser}
                     contestsFollowing={contestsFollowing}

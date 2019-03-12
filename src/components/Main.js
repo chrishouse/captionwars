@@ -25,6 +25,7 @@ class Main extends React.Component {
         const { radioChecked, following } = this.state;
         const {
             contestData,
+            entriesData,
             userData,
             currentUser,
             contestsFollowing,
@@ -41,6 +42,7 @@ class Main extends React.Component {
             return (
                 <Contest
                     contestData={contest}
+                    entriesData={entriesData}
                     userData={userData}
                     currentUser={this.props.currentUser}
                     handleEntrySubmit={this.props.handleEntrySubmit}
@@ -105,6 +107,7 @@ class Main extends React.Component {
                             <Contest
                                 key={contest._id}
                                 contestData={contest}
+                                entriesData={entriesData}
                                 userData={userData}
                                 currentUser={currentUser}
                                 handleEntrySubmit={handleEntrySubmit}
@@ -132,6 +135,7 @@ class Main extends React.Component {
 
 Main.propTypes = {
     contestData: PropTypes.object,
+    entriesData: PropTypes.object,
     userData: PropTypes.object,
     currentUser: PropTypes.string,
     contestsFollowing: PropTypes.array,

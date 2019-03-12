@@ -84,11 +84,16 @@ router.get("/entries/:entryId", (req, res) => {
 
 // Endpoint to get all the entries of a given contestId
 router.get("/entries/contest/:contestId", (req, res) => {
+    let entries = {};
     mdb.collection("entries")
         .find({ contestId: req.params.contestId })
-        .toArray((err, result) => {
+        .each((err, entry) => {
             assert.equal(null, err);
-            res.send(result);
+            if (!entry) {
+                res.send(entries);
+                return;
+            }
+            entries[entry._id] = entry;
         });
 });
 

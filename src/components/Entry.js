@@ -74,6 +74,7 @@ class Entry extends React.Component {
                         {isWinner ? <i className="fas fa-trophy" /> : ""}
                         {entryNumber}
                     </div>
+
                     <p className="entry-text">{entry.text}</p>
 
                     <section className="entry-info">
