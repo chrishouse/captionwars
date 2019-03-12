@@ -9,7 +9,6 @@ class Contest extends React.Component {
     state = {
         entriesSortedBy: "entry-newest-first", // Can be "entry-ranking" or "entry-newest-first"
         expanded: this.props.expanded,
-        // Dummy entry until we get initialData in here
         contestEntries: this.props.entriesData
     };
     componentDidMount() {
@@ -20,29 +19,17 @@ class Contest extends React.Component {
         });
     }
 
-    /****** SOMETHING WEIRD is happening. Clicking like is affecting other entries. TO DO: fix it ******/
-
     handleLikeClick = entry => {
-        entry.likes++;
         // Make a copy of the entries data
         const contestEntriesCopy = { ...this.state.contestEntries };
+
+        contestEntriesCopy[entry._id].likes++;
 
         this.setState({
             contestEntries: contestEntriesCopy
         });
 
-        api.updateEntryLikes(entry._id, entry.likes)
-            .then(() => {
-                contestEntriesCopy[entry._id] = {
-                    _id: entry._id,
-                    contestId: entry.contestId,
-                    text: entry.text,
-                    likes: entry.likes + 1,
-                    user: entry.user,
-                    date: entry.date
-                };
-            })
-            .catch(console.error);
+        api.updateEntryLikes(entry._id, contestEntriesCopy[entry._id].likes);
     };
 
     handleEntryRadioChange = radio => {
