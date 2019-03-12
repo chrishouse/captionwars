@@ -30,7 +30,7 @@ class AuthYes extends React.Component {
                 />
                 <UserAvatar
                     user={currentUser}
-                    likesReceived={user[currentUser].likesReceived}
+                    likesReceived={user[currentUser].likesReceived.length}
                     currentUser={currentUser}
                     onAvatarClick={onAvatarClick}
                 />

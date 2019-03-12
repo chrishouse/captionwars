@@ -117,10 +117,11 @@ class Entry extends React.Component {
                                 user={entry.user}
                                 currentUser={currentUser}
                                 likesReceived={
-                                    userData[entry.user].likesReceived
+                                    userData[entry.user].likesReceived.length
                                 }
                                 currentWinners={
-                                    userData[entry.user].currentWinners
+                                    userData[entry.user].currentWinningEntries
+                                        .length
                                 }
                                 onAvatarClick={onAvatarClick}
                             />

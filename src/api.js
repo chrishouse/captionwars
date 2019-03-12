@@ -38,3 +38,14 @@ export const updateEntryLikes = (_id, likes) => {
             resp.data;
         });
 };
+
+export const updateUserLikes = (_id, entryId) => {
+    return axios
+        .put("/api/users/updatelikes", {
+            _id,
+            entryId
+        })
+        .then(resp => {
+            resp.data;
+        });
+};

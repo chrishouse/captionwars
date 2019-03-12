@@ -16,7 +16,7 @@ class Stats extends React.Component {
                     <span>
                         {/* Using the array index here only works while the userId matches the index, which won't be the case once we're using a database */}
                         {this.numberWithCommas(
-                            userData[currentUser].likesReceived
+                            userData[currentUser].likesReceived.length
                         )}
                     </span>
                 </div>
@@ -24,7 +24,7 @@ class Stats extends React.Component {
                     <span>Current winning entries</span>
                     <span>
                         {this.numberWithCommas(
-                            userData[currentUser].currentWinningEntries
+                            userData[currentUser].currentWinningEntries.length
                         )}
                     </span>
                 </div>
@@ -32,7 +32,7 @@ class Stats extends React.Component {
                     <span>Likes given</span>
                     <span>
                         {this.numberWithCommas(
-                            userData[currentUser].likesGiven
+                            userData[currentUser].likesGiven.length
                         )}
                     </span>
                 </div>
@@ -40,7 +40,7 @@ class Stats extends React.Component {
                     <span>Contests entered</span>
                     <span>
                         {this.numberWithCommas(
-                            userData[currentUser].contestsEntered
+                            userData[currentUser].contestsEntered.length
                         )}
                     </span>
                 </div>
@@ -48,7 +48,7 @@ class Stats extends React.Component {
                     <span>Contests following</span>
                     <span>
                         {this.numberWithCommas(
-                            userData[currentUser].numContestsFollowing
+                            userData[currentUser].contestsFollowing.length
                         )}
                     </span>
                 </div>

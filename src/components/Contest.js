@@ -30,6 +30,8 @@ class Contest extends React.Component {
         });
 
         api.updateEntryLikes(entry._id, contestEntriesCopy[entry._id].likes);
+
+        this.props.updateUserLikes(entry.user, entry._id);
     };
 
     handleEntryRadioChange = radio => {
@@ -272,7 +274,8 @@ Contest.propTypes = {
     onAvatarClick: PropTypes.func,
     onMoreClick: PropTypes.func,
     singleContestId: PropTypes.string,
-    expanded: PropTypes.bool
+    expanded: PropTypes.bool,
+    updateUserLikes: PropTypes.func
 };
 
 export default Contest;

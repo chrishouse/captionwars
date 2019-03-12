@@ -33,7 +33,8 @@ class Main extends React.Component {
             handleEntryEditSave,
             onAvatarClick,
             onMoreClick,
-            singleContestId
+            singleContestId,
+            updateUserLikes
         } = this.props;
 
         if (id) {
@@ -51,6 +52,7 @@ class Main extends React.Component {
                     onMoreClick={this.props.onMoreClick}
                     singleContestId={singleContestId}
                     expanded={true}
+                    updateUserLikes={updateUserLikes}
                 />
             );
         } else {
@@ -116,6 +118,7 @@ class Main extends React.Component {
                                 onMoreClick={onMoreClick}
                                 singleContestId={singleContestId}
                                 expanded={false}
+                                updateUserLikes={updateUserLikes}
                             />
                         );
                     })}
@@ -143,7 +146,8 @@ Main.propTypes = {
     handleEntryEditSave: PropTypes.func,
     onAvatarClick: PropTypes.func,
     onMoreClick: PropTypes.func,
-    singleContestId: PropTypes.string
+    singleContestId: PropTypes.string,
+    updateUserLikes: PropTypes.func
 };
 
 export default Main;

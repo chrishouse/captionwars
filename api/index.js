@@ -137,4 +137,18 @@ router.put("/entries/updatelikes", (req, res) => {
     );
 });
 
+router.put("/users/updatelikes", (req, res) => {
+    const _id = req.body._id;
+    const entryId = req.body.entryId;
+    // Update the user's likesReceived
+    mdb.collection("users").updateOne(
+        { _id: ObjectID(_id) },
+        { $push: { likesReceived: entryId } },
+        function(err, results) {
+            assert.equal(null, err);
+            res.send(results.result);
+        }
+    );
+});
+
 export default router;

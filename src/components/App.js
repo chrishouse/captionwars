@@ -90,6 +90,18 @@ class App extends React.Component {
         });
     };
 
+    updateUserLikes = (user, entry) => {
+        api.updateUserLikes(user, entry);
+        // Make a copy of the user data
+        const userDataCopy = { ...this.state.allUsers };
+        // Add the new entry to user's likesReceived array
+        userDataCopy[user].likesReceived.push(entry);
+
+        this.setState({
+            allUsers: userDataCopy
+        });
+    };
+
     // Set the profileId state to the id of the avatar clicked, change the url, and fetch that user's info from the api
     fetchProfile = userId => {
         pushState({ profileId: userId }, `/profile/${userId}`);
@@ -151,6 +163,7 @@ class App extends React.Component {
                     onAvatarClick={this.fetchProfile}
                     onMoreClick={this.fetchContest}
                     singleContestId={singleContestId}
+                    updateUserLikes={this.updateUserLikes}
                 />
             </article>
         );
