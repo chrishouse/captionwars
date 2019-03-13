@@ -72,6 +72,27 @@
     background-color: $lightGrey;
     border-radius: 50px;
     padding: 2px 12px;
+    position: relative;
+}
+
+.entry-note {
+    visibility: hidden;
+    opacity: 0;
+    position: absolute;
+    top: 110%;
+    white-space: nowrap;
+    padding: 5px 10px;
+    z-index: 400;
+    border: solid 1px $red;
+    background-color: white;
+    border-radius: 4px;
+    color: $lightBlack;
+    font-size: 14px;
+    transition: all 0.2s;
+    &.visible {
+        visibility: visible;
+        opacity: 1;
+    }
 }
 
 .entry-like-button {
@@ -83,7 +104,8 @@
         color: $darkGrey;
         padding-right: 4px;
     }
-    &:hover {
+    &:hover,
+    .liked & {
         .far {
             color: $green;
         }

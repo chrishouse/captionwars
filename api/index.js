@@ -138,12 +138,21 @@ router.put("/entries/updatelikes", (req, res) => {
 });
 
 router.put("/users/updatelikes", (req, res) => {
-    const _id = req.body._id;
+    const userReceiving = req.body.userReceiving;
+    const userGiving = req.body.userGiving;
     const entryId = req.body.entryId;
     // Update the user's likesReceived
     mdb.collection("users").updateOne(
-        { _id: ObjectID(_id) },
+        { _id: ObjectID(userReceiving) },
         { $push: { likesReceived: entryId } },
+        function(err, results) {
+            assert.equal(null, err);
+        }
+    );
+    // Update the giver user's likesGiven
+    mdb.collection("users").updateOne(
+        { _id: ObjectID(userGiving) },
+        { $push: { likesGiven: entryId } },
         function(err, results) {
             assert.equal(null, err);
             res.send(results.result);

@@ -39,10 +39,11 @@ export const updateEntryLikes = (_id, likes) => {
         });
 };
 
-export const updateUserLikes = (_id, entryId) => {
+export const updateUserLikes = (userReceiving, userGiving, entryId) => {
     return axios
         .put("/api/users/updatelikes", {
-            _id,
+            userReceiving,
+            userGiving,
             entryId
         })
         .then(resp => {

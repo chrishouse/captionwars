@@ -20,7 +20,7 @@ class App extends React.Component {
         contestData: this.props.initialContests.contests,
         entriesData: this.props.initialEntries.entries,
         allUsers: this.props.initialUsers.allUsers,
-        currentUser: "5c7ecf9eb8a7020d42fb850a",
+        currentUser: "5c886c405d03b17733d4337a",
         contestsFollowing: [1, 4],
         profileId: this.props.initialUsers.profileId,
         singleContestId: this.props.initialContests.singleContestId
@@ -90,12 +90,26 @@ class App extends React.Component {
         });
     };
 
-    updateUserLikes = (user, entry) => {
-        api.updateUserLikes(user, entry);
+    updateUserLikes = (userReceiving, entry, remove) => {
+        api.updateUserLikes(userReceiving, this.state.currentUser, entry);
         // Make a copy of the user data
         const userDataCopy = { ...this.state.allUsers };
-        // Add the new entry to user's likesReceived array
-        userDataCopy[user].likesReceived.push(entry);
+
+        if (remove) {
+            // Remove the entry from receiving user's likesReceived array
+            userDataCopy[userReceiving].likesReceived = userDataCopy[
+                userReceiving
+            ].likesReceived.filter(item => entry != item);
+            // Remove the new entry from the giving user's likesGiven array
+            userDataCopy[this.state.currentUser].likesGiven = userDataCopy[
+                this.state.currentUser
+            ].likesGiven.filter(item => entry != item);
+        } else {
+            // Add the new entry to receiving user's likesReceived array
+            userDataCopy[userReceiving].likesReceived.push(entry);
+            // Add the new entry to the giving user's likesGiven array
+            userDataCopy[this.state.currentUser].likesGiven.push(entry);
+        }
 
         this.setState({
             allUsers: userDataCopy

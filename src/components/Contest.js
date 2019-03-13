@@ -19,11 +19,13 @@ class Contest extends React.Component {
         });
     }
 
-    handleLikeClick = entry => {
+    handleLikeClick = (entry, remove) => {
         // Make a copy of the entries data
         const contestEntriesCopy = { ...this.state.contestEntries };
 
-        contestEntriesCopy[entry._id].likes++;
+        remove
+            ? contestEntriesCopy[entry._id].likes--
+            : contestEntriesCopy[entry._id].likes++;
 
         this.setState({
             contestEntries: contestEntriesCopy
@@ -31,7 +33,7 @@ class Contest extends React.Component {
 
         api.updateEntryLikes(entry._id, contestEntriesCopy[entry._id].likes);
 
-        this.props.updateUserLikes(entry.user, entry._id);
+        this.props.updateUserLikes(entry.user, entry._id, remove);
     };
 
     handleEntryRadioChange = radio => {

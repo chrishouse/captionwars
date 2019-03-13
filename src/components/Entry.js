@@ -7,16 +7,53 @@ import PropTypes from "prop-types";
 class Entry extends React.Component {
     state = {
         editMode: false,
-        editConfirmed: false
+        editConfirmed: false,
+        likedByCurrentUser: false,
+        entryNote: false
     };
 
     numberWithCommas = x => {
         return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     };
 
+    componentDidMount() {
+        // If the current user has liked this entry, set the state of likedByCurrentUser to true
+        const currentUserLikesGiven = this.props.userData[
+            this.props.currentUser
+        ].likesGiven.filter(like => like === this.props.entry._id);
+
+        if (currentUserLikesGiven.length > 0) {
+            this.setState({
+                likedByCurrentUser: true
+            });
+        }
+    }
+
     componentDidUpdate = prevProps => {
         if (prevProps.entryNumber !== this.props.entryNumber) {
             // TO DO: Styling here, somehow
+        }
+    };
+
+    // There's an issue here. When clicking like pushed the entry to the winner spot, likedByCurrentUser state doesn't always persist
+    handleLikeClick = () => {
+        if (this.props.entry.user === this.props.currentUser) {
+            this.setState({
+                entryNote: true
+            });
+            setTimeout(() => {
+                this.setState({
+                    entryNote: false
+                });
+            }, 5000);
+        } else {
+            this.props.onLikeClick(
+                this.props.entry,
+                this.state.likedByCurrentUser
+            );
+            this.setState({
+                likedByCurrentUser: !this.state.likedByCurrentUser
+            });
         }
     };
 
@@ -59,7 +96,12 @@ class Entry extends React.Component {
             onAvatarClick
         } = this.props;
 
-        const { editMode, editConfirmed } = this.state;
+        const {
+            editMode,
+            editConfirmed,
+            likedByCurrentUser,
+            entryNote
+        } = this.state;
 
         return (
             <React.Fragment>
@@ -97,10 +139,15 @@ class Entry extends React.Component {
                                 <a className="entry-delete">Delete</a>
                             </div>
                         ) : null}
-                        <div className="entry-user-likes">
+                        <div
+                            className={
+                                "entry-user-likes" +
+                                (likedByCurrentUser ? " liked" : "")
+                            }
+                        >
                             <a
                                 className="entry-like-button"
-                                onClick={() => this.props.onLikeClick(entry)}
+                                onClick={this.handleLikeClick}
                             >
                                 <i className="far fa-thumbs-up" />
                                 <p className="entry-likes">
@@ -125,6 +172,13 @@ class Entry extends React.Component {
                                 }
                                 onAvatarClick={onAvatarClick}
                             />
+                            <div
+                                className={
+                                    "entry-note" + (entryNote ? " visible" : "")
+                                }
+                            >
+                                <p>You can&#39;t like your own entry, bucko.</p>
+                            </div>
                         </div>
                     </section>
                 </div>

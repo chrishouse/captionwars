@@ -526,7 +526,26 @@ body {
   margin: 20px 8px 8px 0;
   background-color: #f3f3f3;
   border-radius: 50px;
-  padding: 2px 12px; }
+  padding: 2px 12px;
+  position: relative; }
+
+.entry-note {
+  visibility: hidden;
+  opacity: 0;
+  position: absolute;
+  top: 110%;
+  white-space: nowrap;
+  padding: 5px 10px;
+  z-index: 400;
+  border: solid 1px #e42a00;
+  background-color: white;
+  border-radius: 4px;
+  color: #3c3c3c;
+  font-size: 14px;
+  transition: all 0.2s; }
+  .entry-note.visible {
+    visibility: visible;
+    opacity: 1; }
 
 .entry-like-button {
   margin-right: 5px;
@@ -536,7 +555,8 @@ body {
   .entry-like-button .far {
     color: #686868;
     padding-right: 4px; }
-  .entry-like-button:hover .far {
+  .entry-like-button:hover .far,
+  .liked .entry-like-button .far {
     color: #1abb3f; }
 
 .entry-likes {
