@@ -29,8 +29,6 @@ class Main extends React.Component {
             userData,
             currentUser,
             contestsFollowing,
-            handleEntrySubmit,
-            handleEntryEditSave,
             onAvatarClick,
             onMoreClick,
             singleContestId,
@@ -47,7 +45,6 @@ class Main extends React.Component {
                     userData={userData}
                     currentUser={this.props.currentUser}
                     handleEntrySubmit={this.props.handleEntrySubmit}
-                    handleEntryEditSave={this.props.handleEntryEditSave}
                     onAvatarClick={this.props.onAvatarClick}
                     onMoreClick={this.props.onMoreClick}
                     singleContestId={singleContestId}
@@ -112,7 +109,6 @@ class Main extends React.Component {
                                 entriesData={entriesData}
                                 userData={userData}
                                 currentUser={currentUser}
-                                handleEntryEditSave={handleEntryEditSave}
                                 onAvatarClick={onAvatarClick}
                                 onMoreClick={onMoreClick}
                                 singleContestId={singleContestId}
@@ -142,7 +138,6 @@ Main.propTypes = {
     currentUser: PropTypes.string,
     contestsFollowing: PropTypes.array,
     handleEntrySubmit: PropTypes.func,
-    handleEntryEditSave: PropTypes.func,
     onAvatarClick: PropTypes.func,
     onMoreClick: PropTypes.func,
     singleContestId: PropTypes.string,

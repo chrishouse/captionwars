@@ -33,12 +33,20 @@ class Contest extends React.Component {
             .catch(console.error);
     };
 
-    componentDidMount() {
+    getUpdatedEntries() {
         api.fetchEntries(this.props.contestData._id).then(entries => {
             this.setState({
                 contestEntries: entries
             });
         });
+    }
+
+    handleEntryEditSave = (entry, newText) => {
+        api.updateEntryText(entry, newText).then(this.getUpdatedEntries());
+    };
+
+    componentDidMount() {
+        this.getUpdatedEntries();
     }
 
     handleLikeClick = (entry, remove) => {
@@ -77,7 +85,6 @@ class Contest extends React.Component {
             contestData,
             userData,
             currentUser,
-            handleEntryEditSave,
             onAvatarClick
         } = this.props;
         const { entriesSortedBy, contestEntries } = this.state;
@@ -228,7 +235,7 @@ class Contest extends React.Component {
                         contest={contestData}
                         isWinner
                         entryText={""}
-                        handleEntryEditSave={handleEntryEditSave}
+                        handleEntryEditSave={this.handleEntryEditSave}
                         onAvatarClick={onAvatarClick}
                     />
 
@@ -247,7 +254,7 @@ class Contest extends React.Component {
                             entry={entry}
                             onLikeClick={this.handleLikeClick}
                             contest={contestData}
-                            handleEntryEditSave={handleEntryEditSave}
+                            handleEntryEditSave={this.handleEntryEditSave}
                             onAvatarClick={onAvatarClick}
                         />
                     ))}

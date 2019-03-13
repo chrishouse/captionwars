@@ -20,7 +20,7 @@ class App extends React.Component {
         contestData: this.props.initialContests.contests,
         entriesData: this.props.initialEntries.entries,
         allUsers: this.props.initialUsers.allUsers,
-        currentUser: "5c7ecf9eb8a7020d42fb850c",
+        currentUser: "5c886c405d03b17733d4337a",
         contestsFollowing: [1, 4],
         profileId: this.props.initialUsers.profileId,
         singleContestId: this.props.initialContests.singleContestId
@@ -41,32 +41,6 @@ class App extends React.Component {
     }
 
     today = new Date().toISOString();
-
-    handleEntryEditSave = (contest, entry, newText) => {
-        // Construct the edited entry (this is temporary until we get the database in place)
-        const editedEntry = {
-            entryId: entry.entryId,
-            text: newText,
-            likes: 0,
-            user: this.state.currentUser,
-            date: this.today
-        };
-
-        // Make a copy of the contest data
-        const updatedContestData = [...this.state.contestData];
-        // Get the index of the contest to modify
-        const contestIndex = this.state.contestData.indexOf(contest);
-        // Get the index of the edited entry
-        const entryIndex = this.state.contestData[contestIndex].entries.indexOf(
-            entry
-        );
-        // Spread the edited entry into the existing entry
-        updatedContestData[contestIndex].entries[entryIndex] = editedEntry;
-
-        this.setState({
-            contestData: updatedContestData
-        });
-    };
 
     updateUserLikes = (userReceiving, entry, remove) => {
         api.updateUserLikes(userReceiving, this.state.currentUser, entry);
@@ -150,7 +124,6 @@ class App extends React.Component {
                     userData={allUsers}
                     currentUser={currentUser}
                     contestsFollowing={contestsFollowing}
-                    handleEntryEditSave={this.handleEntryEditSave}
                     onAvatarClick={this.fetchProfile}
                     onMoreClick={this.fetchContest}
                     singleContestId={singleContestId}

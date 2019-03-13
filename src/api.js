@@ -54,3 +54,14 @@ export const updateUserLikes = (userReceiving, userGiving, entryId) => {
             resp.data;
         });
 };
+
+export const updateEntryText = (entryId, text) => {
+    return axios
+        .put("/api/entries/updatetext", {
+            entryId,
+            text
+        })
+        .then(resp => {
+            resp.data;
+        });
+};

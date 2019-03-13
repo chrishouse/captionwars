@@ -64,8 +64,7 @@ class EntryInput extends React.Component {
 
     handleSaveClick = () => {
         this.props.handleEntryEditSave(
-            this.props.contestData,
-            this.props.entryData,
+            this.props.entryData._id,
             this.state.inputText
         );
         this.props.handleCancelClick();

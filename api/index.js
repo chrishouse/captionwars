@@ -160,4 +160,18 @@ router.put("/users/updatelikes", (req, res) => {
     );
 });
 
+router.put("/entries/updatetext", (req, res) => {
+    const _id = req.body.entryId;
+    const text = req.body.text;
+    // Update the entry
+    mdb.collection("entries").updateOne(
+        { _id: ObjectID(_id) },
+        { $set: { text, likes: 0 } },
+        function(err, results) {
+            assert.equal(null, err);
+            res.send(results.result);
+        }
+    );
+});
+
 export default router;
