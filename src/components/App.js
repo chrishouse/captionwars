@@ -20,7 +20,7 @@ class App extends React.Component {
         contestData: this.props.initialContests.contests,
         entriesData: this.props.initialEntries.entries,
         allUsers: this.props.initialUsers.allUsers,
-        currentUser: "5c886c405d03b17733d4337a",
+        currentUser: "5c7ecf9eb8a7020d42fb850c",
         contestsFollowing: [1, 4],
         profileId: this.props.initialUsers.profileId,
         singleContestId: this.props.initialContests.singleContestId
@@ -41,25 +41,6 @@ class App extends React.Component {
     }
 
     today = new Date().toISOString();
-
-    handleEntrySubmit = (contest, entryText) => {
-        // Construct the new entry and call the api
-        api.addEntry(
-            contest._id,
-            entryText,
-            0,
-            this.state.currentUser,
-            this.today
-        )
-            .then(
-                api.fetchAllEntries().then(entries => {
-                    this.setState({
-                        entriesData: entries
-                    });
-                })
-            )
-            .catch(console.error);
-    };
 
     handleEntryEditSave = (contest, entry, newText) => {
         // Construct the edited entry (this is temporary until we get the database in place)
@@ -169,7 +150,6 @@ class App extends React.Component {
                     userData={allUsers}
                     currentUser={currentUser}
                     contestsFollowing={contestsFollowing}
-                    handleEntrySubmit={this.handleEntrySubmit}
                     handleEntryEditSave={this.handleEntryEditSave}
                     onAvatarClick={this.fetchProfile}
                     onMoreClick={this.fetchContest}

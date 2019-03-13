@@ -24,7 +24,6 @@ class EntryInput extends React.Component {
                 characterCount: 0,
                 textareaAlert: null
             });
-            this.props.onEntrySubmit();
         } else {
             this.setState({
                 textareaAlert: "Please type something"

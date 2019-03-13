@@ -11,21 +11,34 @@ class Contest extends React.Component {
         expanded: this.props.expanded,
         contestEntries: this.props.entriesData
     };
+
+    today = new Date().toISOString();
+
+    handleEntrySubmit = (contest, entryText) => {
+        // Construct the new entry and call the api
+        api.addEntry(
+            contest._id,
+            entryText,
+            0,
+            this.props.currentUser,
+            this.today
+        )
+            .then(
+                api.fetchEntries(contest._id).then(entries => {
+                    this.setState({
+                        contestEntries: entries
+                    });
+                })
+            )
+            .catch(console.error);
+    };
+
     componentDidMount() {
         api.fetchEntries(this.props.contestData._id).then(entries => {
             this.setState({
                 contestEntries: entries
             });
         });
-    }
-
-    // This is necessary in order to get this component to update when a new entry is submitted in the App component
-    componentDidUpdate(prevProps) {
-        if (prevProps.entriesData !== this.props.entriesData) {
-            this.setState({
-                contestEntries: this.props.entriesData
-            });
-        }
     }
 
     handleLikeClick = (entry, remove) => {
@@ -51,12 +64,6 @@ class Contest extends React.Component {
         });
     };
 
-    handleEntrySubmit = () => {
-        this.setState({
-            entriesSortedBy: "entry-newest-first"
-        });
-    };
-
     handleMoreClick = close => {
         if (close === true) {
             this.props.onMoreClick();
@@ -70,7 +77,6 @@ class Contest extends React.Component {
             contestData,
             userData,
             currentUser,
-            handleEntrySubmit,
             handleEntryEditSave,
             onAvatarClick
         } = this.props;
@@ -264,10 +270,9 @@ class Contest extends React.Component {
                     </div>
 
                     <EntryInput
-                        handleSubmit={handleEntrySubmit}
+                        handleSubmit={this.handleEntrySubmit}
                         contestData={contestData}
                         entryText={""}
-                        onEntrySubmit={this.handleEntrySubmit}
                     />
                 </section>
             </React.Fragment>

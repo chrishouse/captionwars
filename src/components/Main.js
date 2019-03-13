@@ -112,7 +112,6 @@ class Main extends React.Component {
                                 entriesData={entriesData}
                                 userData={userData}
                                 currentUser={currentUser}
-                                handleEntrySubmit={handleEntrySubmit}
                                 handleEntryEditSave={handleEntryEditSave}
                                 onAvatarClick={onAvatarClick}
                                 onMoreClick={onMoreClick}
