@@ -19,6 +19,15 @@ class Contest extends React.Component {
         });
     }
 
+    // This is necessary in order to get this component to update when a new entry is submitted in the App component
+    componentDidUpdate(prevProps) {
+        if (prevProps.entriesData !== this.props.entriesData) {
+            this.setState({
+                contestEntries: this.props.entriesData
+            });
+        }
+    }
+
     handleLikeClick = (entry, remove) => {
         // Make a copy of the entries data
         const contestEntriesCopy = { ...this.state.contestEntries };

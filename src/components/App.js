@@ -51,17 +51,14 @@ class App extends React.Component {
             this.state.currentUser,
             this.today
         )
-            .then(resp => {
-                // Make a copy of the contest data
-                const updatedContestData = { ...this.state.contestData };
-                // Get the contest to modify
-                const contestToEdit = updatedContestData[contest._id];
-                // Spread the new entry into the existing entries of that contest
-                contestToEdit.entries = [...contestToEdit.entries, resp];
-            })
+            .then(
+                api.fetchAllEntries().then(entries => {
+                    this.setState({
+                        entriesData: entries
+                    });
+                })
+            )
             .catch(console.error);
-
-        // TO DO: get the app to use the entries data from the entries collection
     };
 
     handleEntryEditSave = (contest, entry, newText) => {

@@ -8,6 +8,10 @@ export const fetchContest = contestId => {
     return axios.get(`/api/contests/${contestId}`).then(resp => resp.data);
 };
 
+export const fetchAllEntries = () => {
+    return axios.get(`/api/entries/`).then(resp => resp.data.entries);
+};
+
 export const fetchEntries = contestId => {
     return axios
         .get(`/api/entries/contest/${contestId}`)
