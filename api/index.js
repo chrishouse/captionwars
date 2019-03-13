@@ -145,7 +145,7 @@ router.put("/users/updatelikes", (req, res) => {
     mdb.collection("users").updateOne(
         { _id: ObjectID(userReceiving) },
         { $push: { likesReceived: entryId } },
-        function(err, results) {
+        function(err) {
             assert.equal(null, err);
         }
     );
@@ -172,6 +172,18 @@ router.put("/entries/updatetext", (req, res) => {
             res.send(results.result);
         }
     );
+});
+
+router.delete("/entries/deleteentry", (req, res) => {
+    const entryId = req.body.entryId;
+    // Delete the entry
+    mdb.collection("entries").remove({ _id: ObjectID(entryId) }, function(
+        err,
+        results
+    ) {
+        assert.equal(null, err);
+        res.send(results.result);
+    });
 });
 
 export default router;

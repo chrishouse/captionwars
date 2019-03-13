@@ -80,6 +80,10 @@ class Contest extends React.Component {
         }
     };
 
+    handleDeleteImSure = entryId => {
+        api.deleteEntry(entryId).then(this.getUpdatedEntries());
+    };
+
     render() {
         const {
             contestData,
@@ -237,6 +241,7 @@ class Contest extends React.Component {
                         entryText={""}
                         handleEntryEditSave={this.handleEntryEditSave}
                         onAvatarClick={onAvatarClick}
+                        handleDeleteImSure={this.handleDeleteImSure}
                     />
 
                     <EntrySorter
@@ -256,6 +261,7 @@ class Contest extends React.Component {
                             contest={contestData}
                             handleEntryEditSave={this.handleEntryEditSave}
                             onAvatarClick={onAvatarClick}
+                            handleDeleteImSure={this.handleDeleteImSure}
                         />
                     ))}
 

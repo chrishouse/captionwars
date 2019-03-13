@@ -2,6 +2,7 @@ import React from "react";
 import UserAvatar from "./UserAvatar";
 import EntryInput from "./EntryInput";
 import EditConfirm from "./EditConfirm";
+import DeleteConfirm from "./DeleteConfirm";
 import PropTypes from "prop-types";
 
 class Entry extends React.Component {
@@ -9,7 +10,8 @@ class Entry extends React.Component {
         editMode: false,
         editConfirmed: false,
         likedByCurrentUser: false,
-        entryNote: false
+        entryNote: false,
+        deleteConfirm: false
     };
 
     numberWithCommas = x => {
@@ -66,7 +68,8 @@ class Entry extends React.Component {
     handleCancelClick = () => {
         this.setState({
             editMode: false,
-            editConfirmed: false
+            editConfirmed: false,
+            deleteConfirm: false
         });
     };
 
@@ -78,6 +81,14 @@ class Entry extends React.Component {
 
     handleNameClick = () => {
         this.props.onAvatarClick(this.props.entry.user);
+    };
+
+    handleShowDeleteConfirm = () => {
+        this.setState({ deleteConfirm: true });
+    };
+
+    handleDeleteImSure = () => {
+        this.props.handleDeleteImSure(this.props.entry._id);
     };
 
     static defaultProps = {
@@ -100,7 +111,8 @@ class Entry extends React.Component {
             editMode,
             editConfirmed,
             likedByCurrentUser,
-            entryNote
+            entryNote,
+            deleteConfirm
         } = this.state;
 
         return (
@@ -136,7 +148,12 @@ class Entry extends React.Component {
                                 >
                                     Edit
                                 </a>
-                                <a className="entry-delete">Delete</a>
+                                <a
+                                    className="entry-delete"
+                                    onClick={this.handleShowDeleteConfirm}
+                                >
+                                    Delete
+                                </a>
                             </div>
                         ) : null}
                         <div
@@ -183,6 +200,13 @@ class Entry extends React.Component {
                     </section>
                 </div>
 
+                {deleteConfirm ? (
+                    <DeleteConfirm
+                        handleDeleteNeverMind={this.handleCancelClick}
+                        handleDeleteImSure={this.handleDeleteImSure}
+                    />
+                ) : null}
+
                 {editMode ? (
                     !editConfirmed ? (
                         <EditConfirm
@@ -217,7 +241,8 @@ Entry.propTypes = {
     currentUser: PropTypes.string,
     onLikeClick: PropTypes.func,
     handleEntryEditSave: PropTypes.func,
-    onAvatarClick: PropTypes.func
+    onAvatarClick: PropTypes.func,
+    handleDeleteImSure: PropTypes.func
 };
 
 export default Entry;

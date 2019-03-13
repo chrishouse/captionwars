@@ -65,3 +65,11 @@ export const updateEntryText = (entryId, text) => {
             resp.data;
         });
 };
+
+export const deleteEntry = entryId => {
+    return axios
+        .delete("/api/entries/deleteentry", { data: { entryId: entryId } })
+        .then(resp => {
+            resp.data;
+        });
+};
