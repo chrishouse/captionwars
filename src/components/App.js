@@ -43,7 +43,14 @@ class App extends React.Component {
     today = new Date().toISOString();
 
     updateUserLikes = (userReceiving, entry, remove) => {
-        api.updateUserLikes(userReceiving, this.state.currentUser, entry);
+        // Update the db
+        api.updateUserLikes(
+            userReceiving,
+            this.state.currentUser,
+            entry,
+            remove
+        );
+
         // Make a copy of the user data
         const userDataCopy = { ...this.state.allUsers };
 

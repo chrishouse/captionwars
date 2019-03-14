@@ -160,6 +160,29 @@ router.put("/users/updatelikes", (req, res) => {
     );
 });
 
+router.delete("/users/deletelikes", (req, res) => {
+    const userReceiving = req.body.userReceiving;
+    const userGiving = req.body.userGiving;
+    const entryId = req.body.entryId;
+    // Update the user's likesReceived
+    mdb.collection("users").update(
+        { _id: ObjectID(userReceiving) },
+        { $pull: { likesReceived: entryId } },
+        function(err) {
+            assert.equal(null, err);
+        }
+    );
+    // Update the giver user's likesGiven
+    mdb.collection("users").update(
+        { _id: ObjectID(userGiving) },
+        { $pull: { likesGiven: entryId } },
+        function(err, results) {
+            assert.equal(null, err);
+            res.send(results.result);
+        }
+    );
+});
+
 router.put("/entries/updatetext", (req, res) => {
     const _id = req.body.entryId;
     const text = req.body.text;

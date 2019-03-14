@@ -22,22 +22,35 @@ class Entry extends React.Component {
         // If the current user has liked this entry, set the state of likedByCurrentUser to true
         const currentUserLikesGiven = this.props.userData[
             this.props.currentUser
-        ].likesGiven.filter(like => like === this.props.entry._id);
+        ].likesGiven;
 
-        if (currentUserLikesGiven.length > 0) {
+        if (currentUserLikesGiven.includes(this.props.entry._id)) {
             this.setState({
                 likedByCurrentUser: true
             });
         }
     }
 
-    componentDidUpdate = prevProps => {
+    componentDidUpdate = (prevProps, prevState) => {
         if (prevProps.entryNumber !== this.props.entryNumber) {
             // TO DO: Styling here, somehow
         }
+
+        if (prevProps.entry !== this.props.entry) {
+            // If the current user has liked this entry, set the state of likedByCurrentUser to true
+            const currentUserLikesGiven = this.props.userData[
+                this.props.currentUser
+            ].likesGiven;
+
+            if (currentUserLikesGiven.includes(this.props.entry._id)) {
+                this.setState({
+                    likedByCurrentUser: true
+                });
+            }
+        }
     };
 
-    // There's an issue here. When clicking like pushed the entry to the winner spot, likedByCurrentUser state doesn't always persist
+    // There's an issue here. When clicking like pushes the entry to the winner spot, likedByCurrentUser state doesn't always persist
     handleLikeClick = () => {
         if (this.props.entry.user === this.props.currentUser) {
             this.setState({
@@ -47,7 +60,7 @@ class Entry extends React.Component {
                 this.setState({
                     entryNote: false
                 });
-            }, 5000);
+            }, 4000);
         } else {
             this.props.onLikeClick(
                 this.props.entry,

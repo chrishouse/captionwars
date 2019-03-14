@@ -43,16 +43,30 @@ export const updateEntryLikes = (_id, likes) => {
         });
 };
 
-export const updateUserLikes = (userReceiving, userGiving, entryId) => {
-    return axios
-        .put("/api/users/updatelikes", {
-            userReceiving,
-            userGiving,
-            entryId
-        })
-        .then(resp => {
-            resp.data;
-        });
+export const updateUserLikes = (userReceiving, userGiving, entryId, remove) => {
+    if (remove) {
+        return axios
+            .delete("/api/users/deletelikes", {
+                data: {
+                    userReceiving,
+                    userGiving,
+                    entryId
+                }
+            })
+            .then(resp => {
+                resp.data;
+            });
+    } else {
+        return axios
+            .put("/api/users/updatelikes", {
+                userReceiving,
+                userGiving,
+                entryId
+            })
+            .then(resp => {
+                resp.data;
+            });
+    }
 };
 
 export const updateEntryText = (entryId, text) => {
