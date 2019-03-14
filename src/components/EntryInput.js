@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 
 class EntryInput extends React.Component {
     state = {
-        visible: true,
         inputText: this.props.entryText,
         textareaHeight: 100,
         characterLimit: 250,
@@ -18,7 +17,6 @@ class EntryInput extends React.Component {
                 this.state.inputText
             );
             this.setState({
-                visible: false,
                 inputText: "",
                 textareaHeight: 100,
                 characterCount: 0,
@@ -71,10 +69,9 @@ class EntryInput extends React.Component {
     };
 
     render() {
-        const { editMode } = this.props;
+        const { editMode, userHasEntered } = this.props;
 
         const {
-            visible,
             inputText,
             textareaHeight,
             characterLimit,
@@ -85,7 +82,7 @@ class EntryInput extends React.Component {
             <div className={`entry-input-cont${editMode ? " overlay" : ""}`}>
                 <div
                     className={`entry-input${
-                        visible ? "" : " entry-input-hidden"
+                        userHasEntered ? " entry-input-hidden" : ""
                     }`}
                 >
                     <textarea
@@ -126,7 +123,7 @@ class EntryInput extends React.Component {
                 </div>
                 <div
                     className={`entry-msg-cont${
-                        visible ? " entry-msg-hidden" : ""
+                        userHasEntered ? "" : " entry-msg-hidden"
                     }`}
                 >
                     <p className="entry-msg">
@@ -147,7 +144,8 @@ EntryInput.propTypes = {
     handleEntryEditSave: PropTypes.func,
     entryData: PropTypes.object,
     contestId: PropTypes.number,
-    entryText: PropTypes.string
+    entryText: PropTypes.string,
+    userHasEntered: PropTypes.bool
 };
 
 export default EntryInput;

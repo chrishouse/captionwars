@@ -209,4 +209,32 @@ router.delete("/entries/deleteentry", (req, res) => {
     });
 });
 
+router.put("/users/addcontestentered", (req, res) => {
+    const userId = req.body.userId;
+    const contestId = req.body.contestId;
+    // Add the contest to contestsEntere
+    mdb.collection("users").updateOne(
+        { _id: ObjectID(userId) },
+        { $push: { contestsEntered: contestId } },
+        function(err, results) {
+            assert.equal(null, err);
+            res.send(results.result);
+        }
+    );
+});
+
+router.delete("/users/deletecontestentered", (req, res) => {
+    const userId = req.body.userId;
+    const contestId = req.body.contestId;
+    // Delete the contest from contestsEntere
+    mdb.collection("users").update(
+        { _id: ObjectID(userId) },
+        { $pull: { contestsEntered: contestId } },
+        function(err, results) {
+            assert.equal(null, err);
+            res.send(results.result);
+        }
+    );
+});
+
 export default router;

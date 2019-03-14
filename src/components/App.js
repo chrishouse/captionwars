@@ -75,6 +75,27 @@ class App extends React.Component {
         });
     };
 
+    updateContestsEntered = (userId, contestId, remove) => {
+        api.updateContestsEntered(userId, contestId, remove);
+
+        // Make a copy of the user data
+        const userDataCopy = { ...this.state.allUsers };
+
+        if (remove) {
+            // Remove the contest from user's contestsEntered array
+            userDataCopy[userId].contestsEntered = userDataCopy[
+                userId
+            ].contestsEntered.filter(item => contestId != item);
+        } else {
+            // Add the new contest to the user's contestsEntered array
+            userDataCopy[userId].contestsEntered.push(contestId);
+        }
+
+        this.setState({
+            allUsers: userDataCopy
+        });
+    };
+
     // Set the profileId state to the id of the avatar clicked, change the url, and fetch that user's info from the api
     fetchProfile = userId => {
         pushState({ profileId: userId }, `/profile/${userId}`);
@@ -135,6 +156,7 @@ class App extends React.Component {
                     onMoreClick={this.fetchContest}
                     singleContestId={singleContestId}
                     updateUserLikes={this.updateUserLikes}
+                    updateContestsEntered={this.updateContestsEntered}
                 />
             </article>
         );

@@ -87,3 +87,27 @@ export const deleteEntry = entryId => {
             resp.data;
         });
 };
+
+export const updateContestsEntered = (userId, contestId, remove) => {
+    if (remove) {
+        return axios
+            .delete("/api/users/deletecontestentered", {
+                data: {
+                    userId,
+                    contestId
+                }
+            })
+            .then(resp => {
+                resp.data;
+            });
+    } else {
+        return axios
+            .put("/api/users/addcontestentered", {
+                userId,
+                contestId
+            })
+            .then(resp => {
+                resp.data;
+            });
+    }
+};

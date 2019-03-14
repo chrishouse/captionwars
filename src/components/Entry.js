@@ -31,7 +31,7 @@ class Entry extends React.Component {
         }
     }
 
-    componentDidUpdate = (prevProps, prevState) => {
+    componentDidUpdate = prevProps => {
         if (prevProps.entryNumber !== this.props.entryNumber) {
             // TO DO: Styling here, somehow
         }
@@ -102,6 +102,7 @@ class Entry extends React.Component {
 
     handleDeleteImSure = () => {
         this.props.handleDeleteImSure(this.props.entry._id);
+        this.setState({ deleteConfirm: false });
     };
 
     static defaultProps = {

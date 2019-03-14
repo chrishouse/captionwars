@@ -32,7 +32,8 @@ class Main extends React.Component {
             onAvatarClick,
             onMoreClick,
             singleContestId,
-            updateUserLikes
+            updateUserLikes,
+            updateContestsEntered
         } = this.props;
 
         if (id) {
@@ -50,6 +51,7 @@ class Main extends React.Component {
                     singleContestId={singleContestId}
                     expanded={true}
                     updateUserLikes={updateUserLikes}
+                    updateContestsEntered={updateContestsEntered}
                 />
             );
         } else {
@@ -114,6 +116,7 @@ class Main extends React.Component {
                                 singleContestId={singleContestId}
                                 expanded={false}
                                 updateUserLikes={updateUserLikes}
+                                updateContestsEntered={updateContestsEntered}
                             />
                         );
                     })}
@@ -141,7 +144,8 @@ Main.propTypes = {
     onAvatarClick: PropTypes.func,
     onMoreClick: PropTypes.func,
     singleContestId: PropTypes.string,
-    updateUserLikes: PropTypes.func
+    updateUserLikes: PropTypes.func,
+    updateContestsEntered: PropTypes.func
 };
 
 export default Main;

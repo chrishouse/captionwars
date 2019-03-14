@@ -9,7 +9,8 @@ class Contest extends React.Component {
     state = {
         entriesSortedBy: "entry-newest-first", // Can be "entry-ranking" or "entry-newest-first"
         expanded: this.props.expanded,
-        contestEntries: this.props.entriesData
+        contestEntries: this.props.entriesData,
+        userHasEntered: false
     };
 
     today = new Date().toISOString();
@@ -31,6 +32,17 @@ class Contest extends React.Component {
                 })
             )
             .catch(console.error);
+
+        // Add the contest to the user's contestsEntered array
+        this.props.updateContestsEntered(
+            this.props.currentUser,
+            contest._id,
+            false
+        );
+
+        this.setState({
+            userHasEntered: true
+        });
     };
 
     getUpdatedEntries() {
@@ -47,6 +59,16 @@ class Contest extends React.Component {
 
     componentDidMount() {
         this.getUpdatedEntries();
+
+        // Check if current user has entered this contest, set state accordingly
+        const currentUsersContests = this.props.userData[this.props.currentUser]
+            .contestsEntered;
+
+        if (currentUsersContests.includes(this.props.contestData._id)) {
+            this.setState({
+                userHasEntered: true
+            });
+        }
     }
 
     handleLikeClick = (entry, remove) => {
@@ -82,6 +104,17 @@ class Contest extends React.Component {
 
     handleDeleteImSure = entryId => {
         api.deleteEntry(entryId).then(this.getUpdatedEntries());
+
+        // Delete the contest from the user's contestsEntered array
+        this.props.updateContestsEntered(
+            this.props.currentUser,
+            this.props.contestData._id,
+            true
+        );
+
+        this.setState({
+            userHasEntered: false
+        });
     };
 
     render() {
@@ -91,7 +124,7 @@ class Contest extends React.Component {
             currentUser,
             onAvatarClick
         } = this.props;
-        const { entriesSortedBy, contestEntries } = this.state;
+        const { entriesSortedBy, contestEntries, userHasEntered } = this.state;
 
         // Make a clone of the entries array to modify
         const entries = Object.values(contestEntries);
@@ -286,6 +319,7 @@ class Contest extends React.Component {
                         handleSubmit={this.handleEntrySubmit}
                         contestData={contestData}
                         entryText={""}
+                        userHasEntered={userHasEntered}
                     />
                 </section>
             </React.Fragment>
@@ -304,7 +338,8 @@ Contest.propTypes = {
     onMoreClick: PropTypes.func,
     singleContestId: PropTypes.string,
     expanded: PropTypes.bool,
-    updateUserLikes: PropTypes.func
+    updateUserLikes: PropTypes.func,
+    updateContestsEntered: PropTypes.func
 };
 
 export default Contest;
