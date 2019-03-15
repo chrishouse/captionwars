@@ -10,7 +10,8 @@ class Contest extends React.Component {
         entriesSortedBy: "entry-newest-first", // Can be "entry-ranking" or "entry-newest-first"
         expanded: this.props.expanded,
         contestEntries: this.props.entriesData,
-        userHasEntered: false
+        userHasEntered: false,
+        confirmMessage: false
     };
 
     today = new Date().toISOString();
@@ -40,9 +41,22 @@ class Contest extends React.Component {
             false
         );
 
+        // Show the confirmation message, and then hide it 8 seconds later
         this.setState({
-            userHasEntered: true
+            entriesSortedBy: "entry-newest-first",
+            userHasEntered: true,
+            confirmMessage: true
         });
+
+        setTimeout(() => {
+            this.setState({
+                confirmMessage: false
+            });
+        }, 8000);
+
+        // Scroll to the top of the contest
+        const contestEl = document.getElementById(this.props.contestData._id);
+        contestEl.scrollIntoView();
     };
 
     getUpdatedEntries() {
@@ -124,7 +138,12 @@ class Contest extends React.Component {
             currentUser,
             onAvatarClick
         } = this.props;
-        const { entriesSortedBy, contestEntries, userHasEntered } = this.state;
+        const {
+            entriesSortedBy,
+            contestEntries,
+            userHasEntered,
+            confirmMessage
+        } = this.state;
 
         // Make a clone of the entries array to modify
         const entries = Object.values(contestEntries);
@@ -233,6 +252,7 @@ class Contest extends React.Component {
                     }}
                 />
                 <section
+                    id={contestData._id}
                     className={
                         "contest" +
                         (this.state.expanded ? " contest-expanded" : "")
@@ -321,6 +341,15 @@ class Contest extends React.Component {
                         entryText={""}
                         userHasEntered={userHasEntered}
                     />
+
+                    <div
+                        className={
+                            "confirm-message" +
+                            (confirmMessage ? " visible" : "")
+                        }
+                    >
+                        Thanks for your entry. Good luck!
+                    </div>
                 </section>
             </React.Fragment>
         );

@@ -6,6 +6,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    position: relative;
     .fa-times-circle {
         display: none;
         position: sticky;
@@ -217,5 +218,29 @@
     background-color: rgba($lightBlack, 0.9);
     &.hidden {
         display: none;
+    }
+}
+
+.confirm-message {
+    visibility: hidden;
+    opacity: 0;
+    position: absolute;
+    right: 96%;
+    top: 765px;
+    width: 175px;
+    padding: 5px 10px;
+    z-index: 400;
+    white-space: normal;
+    word-break: normal;
+    text-align: right;
+    border: solid 1px $green;
+    background-color: white;
+    border-radius: 4px;
+    color: $lightBlack;
+    font-size: 14px;
+    transition: all 0.2s;
+    &.visible {
+        visibility: visible;
+        opacity: 1;
     }
 }

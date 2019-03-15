@@ -20,7 +20,7 @@ class App extends React.Component {
         contestData: this.props.initialContests.contests,
         entriesData: this.props.initialEntries.entries,
         allUsers: this.props.initialUsers.allUsers,
-        currentUser: "5c886c405d03b17733d4337a",
+        currentUser: "5c8af4aacc052bf9a3975b48",
         contestsFollowing: [1, 4],
         profileId: this.props.initialUsers.profileId,
         singleContestId: this.props.initialContests.singleContestId

@@ -290,7 +290,8 @@ body {
   padding: 1.5rem;
   display: flex;
   flex-direction: column;
-  align-items: center; }
+  align-items: center;
+  position: relative; }
   .contest .fa-times-circle {
     display: none;
     position: sticky;
@@ -462,6 +463,28 @@ body {
   background-color: rgba(60, 60, 60, 0.9); }
   .hidden-contest-overlay.hidden {
     display: none; }
+
+.confirm-message {
+  visibility: hidden;
+  opacity: 0;
+  position: absolute;
+  right: 96%;
+  top: 765px;
+  width: 175px;
+  padding: 5px 10px;
+  z-index: 400;
+  white-space: normal;
+  word-break: normal;
+  text-align: right;
+  border: solid 1px #1abb3f;
+  background-color: white;
+  border-radius: 4px;
+  color: #3c3c3c;
+  font-size: 14px;
+  transition: all 0.2s; }
+  .confirm-message.visible {
+    visibility: visible;
+    opacity: 1; }
 
 .entry {
   width: 94%;

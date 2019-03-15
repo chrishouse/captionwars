@@ -18,24 +18,12 @@ class Entry extends React.Component {
         return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     };
 
-    componentDidMount() {
-        // If the current user has liked this entry, set the state of likedByCurrentUser to true
-        const currentUserLikesGiven = this.props.userData[
-            this.props.currentUser
-        ].likesGiven;
-
-        if (currentUserLikesGiven.includes(this.props.entry._id)) {
-            this.setState({
-                likedByCurrentUser: true
-            });
-        }
-    }
-
     componentDidUpdate = prevProps => {
         if (prevProps.entryNumber !== this.props.entryNumber) {
             // TO DO: Styling here, somehow
         }
 
+        // Doing this with componentDidUpdate instead of componentDidMount because the contests will always update onload due to the initial data being replaced
         if (prevProps.entry !== this.props.entry) {
             // If the current user has liked this entry, set the state of likedByCurrentUser to true
             const currentUserLikesGiven = this.props.userData[
@@ -50,7 +38,6 @@ class Entry extends React.Component {
         }
     };
 
-    // There's an issue here. When clicking like pushes the entry to the winner spot, likedByCurrentUser state doesn't always persist
     handleLikeClick = () => {
         if (this.props.entry.user === this.props.currentUser) {
             this.setState({
@@ -66,9 +53,10 @@ class Entry extends React.Component {
                 this.props.entry,
                 this.state.likedByCurrentUser
             );
-            this.setState({
-                likedByCurrentUser: !this.state.likedByCurrentUser
-            });
+
+            this.setState(prevState => ({
+                likedByCurrentUser: !prevState.likedByCurrentUser
+            }));
         }
     };
 
@@ -142,9 +130,7 @@ class Entry extends React.Component {
                         {isWinner ? <i className="fas fa-trophy" /> : ""}
                         {entryNumber}
                     </div>
-
                     <p className="entry-text">{entry.text}</p>
-
                     <section className="entry-info">
                         <p className="entry-date">
                             {new Date(entry.date).toLocaleDateString("en-US", {
