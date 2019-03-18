@@ -221,6 +221,22 @@ router.put("/entries/updatetext", (req, res) => {
                 mdb.collection("entries").updateOne(
                     { _id: ObjectID(entryId) },
                     { $set: { text, likes: 0 } },
+                    function(err) {
+                        assert.equal(null, err);
+                    }
+                );
+                // Remove the entry from all users' likesGiven array
+                mdb.collection("users").updateMany(
+                    {},
+                    { $pull: { likesGiven: entryId } },
+                    function(err) {
+                        assert.equal(null, err);
+                    }
+                );
+                // Remove the entry from the user's likesReceived array
+                mdb.collection("users").update(
+                    { _id: ObjectID(currentUser) },
+                    { $pull: { likesReceived: entryId } },
                     function(err, results) {
                         assert.equal(null, err);
                         res.send(results.result);
@@ -244,6 +260,22 @@ router.delete("/entries/deleteentry", (req, res) => {
                 // Then delete the entry
                 mdb.collection("entries").remove(
                     { _id: ObjectID(entryId) },
+                    function(err) {
+                        assert.equal(null, err);
+                    }
+                );
+                // Remove the entry from all users' likesGiven array
+                mdb.collection("users").updateMany(
+                    {},
+                    { $pull: { likesGiven: entryId } },
+                    function(err) {
+                        assert.equal(null, err);
+                    }
+                );
+                // Remove the entry from the user's likesReceived array
+                mdb.collection("users").update(
+                    { _id: ObjectID(currentUser) },
+                    { $pull: { likesReceived: entryId } },
                     function(err, results) {
                         assert.equal(null, err);
                         res.send(results.result);
