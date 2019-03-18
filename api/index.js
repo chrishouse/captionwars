@@ -103,54 +103,35 @@ router.post("/entries", (req, res) => {
     const likes = req.body.likes;
     const user = req.body.user;
     const date = req.body.date;
-    // Insert the new entry
-    mdb.collection("entries")
-        .insertOne({
-            contestId,
-            text,
-            likes,
-            user,
-            date
-        })
-        .then(
-            res.send({
-                contestId,
-                text,
-                likes,
-                user,
-                date
-            })
-        );
+
+    // First make sure the user hasn't entered this contest already
+    mdb.collection("users")
+        .findOne({ _id: ObjectID(user) })
+        .then(currentUser => {
+            if (currentUser.contestsEntered.includes(contestId)) {
+                // Do nothing
+            } else {
+                // Insert the new entry
+                mdb.collection("entries")
+                    .insertOne({
+                        contestId,
+                        text,
+                        likes,
+                        user,
+                        date
+                    })
+                    .then(
+                        res.send({
+                            contestId,
+                            text,
+                            likes,
+                            user,
+                            date
+                        })
+                    );
+            }
+        });
 });
-
-// router.put("/entries/updatelikes", (req, res) => {
-//     const entryId = req.body.entryId;
-//     let likes = req.body.likes;
-//     const userGiving = req.body.userGiving;
-
-//     // First check if the user has liked this entry before
-//     mdb.collection("users")
-//         .findOne({ _id: ObjectID(userGiving) })
-//         .then(user => {
-//             console.log(userGiving, entryId);
-//             if (user.likesGiven.includes(entryId)) {
-//                 likes = likes - 1;
-//                 console.log("like removed.");
-//             } else {
-//                 likes = likes + 1;
-//                 console.log("like added.");
-//             }
-//             // Update the entry
-//             mdb.collection("entries").updateOne(
-//                 { _id: ObjectID(entryId) },
-//                 { $set: { likes } },
-//                 function(err, results) {
-//                     assert.equal(null, err);
-//                     res.send(results.result);
-//                 }
-//             );
-//         });
-// });
 
 router.put("/users/updatelikes", (req, res) => {
     const userReceiving = req.body.userReceiving;
@@ -183,8 +164,6 @@ router.put("/users/updatelikes", (req, res) => {
                 // And remove one like from the entry
                 likes = likes - 1;
 
-                console.log("like removed from entry");
-
                 // Update the entry with the new number of likes
                 mdb.collection("entries").updateOne(
                     { _id: ObjectID(entryId) },
@@ -215,8 +194,6 @@ router.put("/users/updatelikes", (req, res) => {
                 // And add one like to the entry
                 likes = likes + 1;
 
-                console.log("like added to entry. ");
-
                 // Update the entry with the new number of likes
                 mdb.collection("entries").updateOne(
                     { _id: ObjectID(entryId) },
@@ -233,27 +210,47 @@ router.put("/users/updatelikes", (req, res) => {
 router.put("/entries/updatetext", (req, res) => {
     const entryId = req.body.entryId;
     const text = req.body.text;
-    // Update the entry
-    mdb.collection("entries").updateOne(
-        { _id: ObjectID(entryId) },
-        { $set: { text, likes: 0 } },
-        function(err, results) {
-            assert.equal(null, err);
-            res.send(results.result);
-        }
-    );
+    const currentUser = req.body.currentUser;
+
+    // Make sure the entry to edit belongs to the current user
+    mdb.collection("entries")
+        .findOne({ _id: ObjectID(entryId) })
+        .then(entry => {
+            if (entry.user === currentUser) {
+                // Then update the entry
+                mdb.collection("entries").updateOne(
+                    { _id: ObjectID(entryId) },
+                    { $set: { text, likes: 0 } },
+                    function(err, results) {
+                        assert.equal(null, err);
+                        res.send(results.result);
+                    }
+                );
+            }
+        });
 });
 
 router.delete("/entries/deleteentry", (req, res) => {
     const entryId = req.body.entryId;
-    // Delete the entry
-    mdb.collection("entries").remove({ _id: ObjectID(entryId) }, function(
-        err,
-        results
-    ) {
-        assert.equal(null, err);
-        res.send(results.result);
-    });
+    const currentUser = req.body.currentUser;
+
+    // Make sure the entry to delete belongs to the current user
+    let entryUser;
+    mdb.collection("entries")
+        .findOne({ _id: ObjectID(entryId) })
+        .then(entry => {
+            entryUser = entry.user;
+            if (entryUser === currentUser) {
+                // Then delete the entry
+                mdb.collection("entries").remove(
+                    { _id: ObjectID(entryId) },
+                    function(err, results) {
+                        assert.equal(null, err);
+                        res.send(results.result);
+                    }
+                );
+            }
+        });
 });
 
 router.put("/users/addcontestentered", (req, res) => {

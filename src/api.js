@@ -41,20 +41,23 @@ export const updateUserLikes = (userReceiving, userGiving, entryId, likes) => {
     });
 };
 
-export const updateEntryText = (entryId, text) => {
+export const updateEntryText = (entryId, text, currentUser) => {
     return axios
         .put("/api/entries/updatetext", {
             entryId,
-            text
+            text,
+            currentUser
         })
         .then(resp => {
             resp.data;
         });
 };
 
-export const deleteEntry = entryId => {
+export const deleteEntry = (entryId, currentUser) => {
     return axios
-        .delete("/api/entries/deleteentry", { data: { entryId: entryId } })
+        .delete("/api/entries/deleteentry", {
+            data: { entryId: entryId, currentUser }
+        })
         .then(resp => {
             resp.data;
         });

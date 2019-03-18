@@ -79,7 +79,9 @@ class Contest extends React.Component {
     }
 
     handleEntryEditSave = (entry, newText) => {
-        api.updateEntryText(entry, newText).then(this.getUpdatedEntries());
+        api.updateEntryText(entry, newText, this.props.currentUser).then(
+            this.getUpdatedEntries()
+        );
     };
 
     componentDidMount() {
@@ -132,7 +134,9 @@ class Contest extends React.Component {
     };
 
     handleDeleteImSure = entryId => {
-        api.deleteEntry(entryId).then(this.getUpdatedEntries());
+        api.deleteEntry(entryId, this.props.currentUser).then(
+            this.getUpdatedEntries()
+        );
 
         // Delete the contest from the user's contestsEntered array
         this.props.updateContestsEntered(
