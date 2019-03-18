@@ -272,10 +272,15 @@ router.delete("/entries/deleteentry", (req, res) => {
                         assert.equal(null, err);
                     }
                 );
-                // Remove the entry from the user's likesReceived array
+                // Remove the entry from the user's likesReceived and contestsEntered arrays
                 mdb.collection("users").update(
                     { _id: ObjectID(currentUser) },
-                    { $pull: { likesReceived: entryId } },
+                    {
+                        $pull: {
+                            likesReceived: entryId,
+                            contestsEntered: entryId
+                        }
+                    },
                     function(err, results) {
                         assert.equal(null, err);
                         res.send(results.result);
