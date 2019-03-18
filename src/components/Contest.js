@@ -6,13 +6,24 @@ import PropTypes from "prop-types";
 import * as api from "../api";
 
 class Contest extends React.Component {
-    state = {
-        entriesSortedBy: "entry-newest-first", // Can be "entry-ranking" or "entry-newest-first"
-        expanded: this.props.expanded,
-        contestEntries: this.props.entriesData,
-        userHasEntered: false,
-        confirmMessage: false
-    };
+    constructor(props) {
+        super(props);
+
+        // Filter out the initialEntries data to show just this contest's entries
+        function filterInitialEntries() {
+            return Object.values(props.entriesData).filter(entry => {
+                return entry.contestId === props.contestData._id;
+            });
+        }
+
+        this.state = {
+            entriesSortedBy: "entry-newest-first", // Can be "entry-ranking" or "entry-newest-first"
+            expanded: this.props.expanded,
+            contestEntries: { ...filterInitialEntries() },
+            userHasEntered: false,
+            confirmMessage: false
+        };
+    }
 
     today = new Date().toISOString();
 
@@ -86,6 +97,14 @@ class Contest extends React.Component {
     }
 
     handleLikeClick = (entry, remove) => {
+        // Call the api
+        this.props.updateUserLikes(
+            entry.user,
+            entry._id,
+            this.state.contestEntries[entry._id].likes,
+            remove
+        );
+
         // Make a copy of the entries data
         const contestEntriesCopy = { ...this.state.contestEntries };
 
@@ -96,10 +115,6 @@ class Contest extends React.Component {
         this.setState({
             contestEntries: contestEntriesCopy
         });
-
-        api.updateEntryLikes(entry._id, contestEntriesCopy[entry._id].likes);
-
-        this.props.updateUserLikes(entry.user, entry._id, remove);
     };
 
     handleEntryRadioChange = radio => {

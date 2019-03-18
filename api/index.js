@@ -123,72 +123,119 @@ router.post("/entries", (req, res) => {
         );
 });
 
-router.put("/entries/updatelikes", (req, res) => {
-    const _id = req.body._id;
-    const likes = req.body.likes;
-    // Update the entry
-    mdb.collection("entries").updateOne(
-        { _id: ObjectID(_id) },
-        { $set: { likes } },
-        function(err, results) {
-            assert.equal(null, err);
-            res.send(results.result);
-        }
-    );
-});
+// router.put("/entries/updatelikes", (req, res) => {
+//     const entryId = req.body.entryId;
+//     let likes = req.body.likes;
+//     const userGiving = req.body.userGiving;
+
+//     // First check if the user has liked this entry before
+//     mdb.collection("users")
+//         .findOne({ _id: ObjectID(userGiving) })
+//         .then(user => {
+//             console.log(userGiving, entryId);
+//             if (user.likesGiven.includes(entryId)) {
+//                 likes = likes - 1;
+//                 console.log("like removed.");
+//             } else {
+//                 likes = likes + 1;
+//                 console.log("like added.");
+//             }
+//             // Update the entry
+//             mdb.collection("entries").updateOne(
+//                 { _id: ObjectID(entryId) },
+//                 { $set: { likes } },
+//                 function(err, results) {
+//                     assert.equal(null, err);
+//                     res.send(results.result);
+//                 }
+//             );
+//         });
+// });
 
 router.put("/users/updatelikes", (req, res) => {
     const userReceiving = req.body.userReceiving;
     const userGiving = req.body.userGiving;
     const entryId = req.body.entryId;
-    // Update the user's likesReceived
-    mdb.collection("users").updateOne(
-        { _id: ObjectID(userReceiving) },
-        { $push: { likesReceived: entryId } },
-        function(err) {
-            assert.equal(null, err);
-        }
-    );
-    // Update the giver user's likesGiven
-    mdb.collection("users").updateOne(
-        { _id: ObjectID(userGiving) },
-        { $push: { likesGiven: entryId } },
-        function(err, results) {
-            assert.equal(null, err);
-            res.send(results.result);
-        }
-    );
-});
+    let likes = req.body.likes;
 
-router.delete("/users/deletelikes", (req, res) => {
-    const userReceiving = req.body.userReceiving;
-    const userGiving = req.body.userGiving;
-    const entryId = req.body.entryId;
-    // Update the user's likesReceived
-    mdb.collection("users").update(
-        { _id: ObjectID(userReceiving) },
-        { $pull: { likesReceived: entryId } },
-        function(err) {
-            assert.equal(null, err);
-        }
-    );
-    // Update the giver user's likesGiven
-    mdb.collection("users").update(
-        { _id: ObjectID(userGiving) },
-        { $pull: { likesGiven: entryId } },
-        function(err, results) {
-            assert.equal(null, err);
-            res.send(results.result);
-        }
-    );
+    // First check if the user has liked this entry before
+    mdb.collection("users")
+        .findOne({ _id: ObjectID(userGiving) })
+        .then(user => {
+            if (user.likesGiven.includes(entryId)) {
+                // If so, remove the entryId from the user's likesReceived
+                mdb.collection("users").update(
+                    { _id: ObjectID(userReceiving) },
+                    { $pull: { likesReceived: entryId } },
+                    function(err) {
+                        assert.equal(null, err);
+                    }
+                );
+                // And remove the entryId from the giver user's likesGiven
+                mdb.collection("users").update(
+                    { _id: ObjectID(userGiving) },
+                    { $pull: { likesGiven: entryId } },
+                    function(err) {
+                        assert.equal(null, err);
+                    }
+                );
+
+                // And remove one like from the entry
+                likes = likes - 1;
+
+                console.log("like removed from entry");
+
+                // Update the entry with the new number of likes
+                mdb.collection("entries").updateOne(
+                    { _id: ObjectID(entryId) },
+                    { $set: { likes } },
+                    function(err, results) {
+                        assert.equal(null, err);
+                        res.send(results.result);
+                    }
+                );
+            } else {
+                // If not, add the entryId to the user's likesReceived
+                mdb.collection("users").updateOne(
+                    { _id: ObjectID(userReceiving) },
+                    { $push: { likesReceived: entryId } },
+                    function(err) {
+                        assert.equal(null, err);
+                    }
+                );
+                // And add the entryId to the giver user's likesGiven
+                mdb.collection("users").updateOne(
+                    { _id: ObjectID(userGiving) },
+                    { $push: { likesGiven: entryId } },
+                    function(err) {
+                        assert.equal(null, err);
+                    }
+                );
+
+                // And add one like to the entry
+                likes = likes + 1;
+
+                console.log("like added to entry. ");
+
+                // Update the entry with the new number of likes
+                mdb.collection("entries").updateOne(
+                    { _id: ObjectID(entryId) },
+                    { $set: { likes } },
+                    function(err, results) {
+                        assert.equal(null, err);
+                        res.send(results.result);
+                    }
+                );
+            }
+        });
 });
 
 router.put("/entries/updatetext", (req, res) => {
-    const _id = req.body.entryId;
+    const entryId = req.body.entryId;
     const text = req.body.text;
     // Update the entry
     mdb.collection("entries").updateOne(
-        { _id: ObjectID(_id) },
+        { _id: ObjectID(entryId) },
         { $set: { text, likes: 0 } },
         function(err, results) {
             assert.equal(null, err);

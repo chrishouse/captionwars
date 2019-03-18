@@ -18,23 +18,30 @@ class Entry extends React.Component {
         return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     };
 
+    checkIfLikedByCurrentUser = () => {
+        // If the current user has liked this entry, set the state of likedByCurrentUser to true
+        const currentUserLikesGiven = this.props.userData[
+            this.props.currentUser
+        ].likesGiven;
+
+        if (currentUserLikesGiven.includes(this.props.entry._id)) {
+            this.setState({
+                likedByCurrentUser: true
+            });
+        }
+    };
+
+    componentDidMount() {
+        this.checkIfLikedByCurrentUser();
+    }
+
     componentDidUpdate = prevProps => {
         if (prevProps.entryNumber !== this.props.entryNumber) {
             // TO DO: Styling here, somehow
         }
 
-        // Doing this with componentDidUpdate instead of componentDidMount because the contests will always update onload due to the initial data being replaced
         if (prevProps.entry !== this.props.entry) {
-            // If the current user has liked this entry, set the state of likedByCurrentUser to true
-            const currentUserLikesGiven = this.props.userData[
-                this.props.currentUser
-            ].likesGiven;
-
-            if (currentUserLikesGiven.includes(this.props.entry._id)) {
-                this.setState({
-                    likedByCurrentUser: true
-                });
-            }
+            this.checkIfLikedByCurrentUser();
         }
     };
 

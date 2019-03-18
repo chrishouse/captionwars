@@ -32,41 +32,13 @@ export const addEntry = (contestId, text, likes, user, date) => {
         });
 };
 
-export const updateEntryLikes = (_id, likes) => {
-    return axios
-        .put("/api/entries/updatelikes", {
-            _id,
-            likes
-        })
-        .then(resp => {
-            resp.data;
-        });
-};
-
-export const updateUserLikes = (userReceiving, userGiving, entryId, remove) => {
-    if (remove) {
-        return axios
-            .delete("/api/users/deletelikes", {
-                data: {
-                    userReceiving,
-                    userGiving,
-                    entryId
-                }
-            })
-            .then(resp => {
-                resp.data;
-            });
-    } else {
-        return axios
-            .put("/api/users/updatelikes", {
-                userReceiving,
-                userGiving,
-                entryId
-            })
-            .then(resp => {
-                resp.data;
-            });
-    }
+export const updateUserLikes = (userReceiving, userGiving, entryId, likes) => {
+    return axios.put("/api/users/updatelikes", {
+        userReceiving,
+        userGiving,
+        entryId,
+        likes
+    });
 };
 
 export const updateEntryText = (entryId, text) => {
