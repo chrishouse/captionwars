@@ -63,6 +63,8 @@ export const deleteEntry = (entryId, currentUser) => {
         });
 };
 
+// TO DO: This function probably needs to be consolidated with the addEntry function somehow
+
 export const updateContestsEntered = (userId, contestId, remove) => {
     if (remove) {
         return axios
@@ -85,4 +87,22 @@ export const updateContestsEntered = (userId, contestId, remove) => {
                 resp.data;
             });
     }
+};
+
+export const updateCurrentWinningEntries = (
+    oldWinner,
+    newWinner,
+    oldUser,
+    newUser
+) => {
+    return axios
+        .put("/api/users/updatescurrentwinningentries", {
+            oldWinner,
+            newWinner,
+            oldUser,
+            newUser
+        })
+        .then(resp => {
+            resp.data;
+        });
 };

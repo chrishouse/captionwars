@@ -272,13 +272,12 @@ router.delete("/entries/deleteentry", (req, res) => {
                         assert.equal(null, err);
                     }
                 );
-                // Remove the entry from the user's likesReceived and contestsEntered arrays
+                // Remove the entry from the user's likesReceived array
                 mdb.collection("users").update(
                     { _id: ObjectID(currentUser) },
                     {
                         $pull: {
-                            likesReceived: entryId,
-                            contestsEntered: entryId
+                            likesReceived: entryId
                         }
                     },
                     function(err, results) {
@@ -289,6 +288,8 @@ router.delete("/entries/deleteentry", (req, res) => {
             }
         });
 });
+
+// TO DO: these functions probably need to be consolidated with other functions somehow
 
 router.put("/users/addcontestentered", (req, res) => {
     const userId = req.body.userId;
@@ -316,6 +317,40 @@ router.delete("/users/deletecontestentered", (req, res) => {
             res.send(results.result);
         }
     );
+});
+
+router.put("/users/updatescurrentwinningentries", (req, res) => {
+    let oldWinner;
+    let newWinner;
+
+    if (req.body.oldWinner) {
+        oldWinner = req.body.oldWinner._id;
+    }
+
+    if (req.body.newWinner) {
+        newWinner = req.body.newWinner._id;
+    }
+
+    const oldUser = req.body.oldUser;
+    const newUser = req.body.newUser;
+
+    mdb.collection("users")
+        .updateOne(
+            { _id: ObjectID(oldUser) },
+            { $pull: { currentWinningEntries: oldWinner } }
+        )
+        .then(
+            mdb
+                .collection("users")
+                .updateOne(
+                    { _id: ObjectID(newUser) },
+                    { $push: { currentWinningEntries: newWinner } },
+                    function(err, results) {
+                        assert.equal(null, err);
+                        res.send(results.result);
+                    }
+                )
+        );
 });
 
 export default router;

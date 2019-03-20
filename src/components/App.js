@@ -20,7 +20,7 @@ class App extends React.Component {
         contestData: this.props.initialContests.contests,
         entriesData: this.props.initialEntries.entries,
         allUsers: this.props.initialUsers.allUsers,
-        currentUser: "5c8af402cc052bf9a3975b45",
+        currentUser: "5c7ecf9eb8a7020d42fb850c",
         contestsFollowing: [1, 4],
         profileId: this.props.initialUsers.profileId,
         singleContestId: this.props.initialContests.singleContestId
@@ -96,6 +96,35 @@ class App extends React.Component {
         });
     };
 
+    updateCurrentWinningEntries = (oldWinner, newWinner) => {
+        // Make a copy of the user data
+        const userDataCopy = { ...this.state.allUsers };
+        let oldUser;
+        let newUser;
+
+        if (oldWinner) {
+            oldUser = oldWinner.user;
+            // Set the state
+            userDataCopy[oldUser].currentWinningEntries = userDataCopy[
+                oldUser
+            ].currentWinningEntries.filter(entry => {
+                entry !== oldWinner;
+            });
+        }
+
+        if (newWinner) {
+            newUser = newWinner.user;
+            userDataCopy[newUser].currentWinningEntries.push(newWinner);
+        }
+
+        this.setState({
+            allUsers: userDataCopy
+        });
+
+        // Call the api
+        api.updateCurrentWinningEntries(oldWinner, newWinner, oldUser, newUser);
+    };
+
     // Set the profileId state to the id of the avatar clicked, change the url, and fetch that user's info from the api
     fetchProfile = userId => {
         pushState({ profileId: userId }, `/profile/${userId}`);
@@ -157,6 +186,9 @@ class App extends React.Component {
                     singleContestId={singleContestId}
                     updateUserLikes={this.updateUserLikes}
                     updateContestsEntered={this.updateContestsEntered}
+                    updateCurrentWinningEntries={
+                        this.updateCurrentWinningEntries
+                    }
                 />
             </article>
         );

@@ -21,9 +21,13 @@ class Contest extends React.Component {
             expanded: this.props.expanded,
             contestEntries: { ...filterInitialEntries() },
             userHasEntered: false,
-            confirmMessage: false
+            confirmMessage: false,
+            currentWinner: undefined
         };
     }
+
+    // Our class-scoped variable that will hold a copy of the entries object
+    entries;
 
     today = new Date().toISOString();
 
@@ -38,8 +42,18 @@ class Contest extends React.Component {
         )
             .then(
                 api.fetchEntries(contest._id).then(entries => {
+                    // Reset the entries variable to a copy of state.contestEntries
+                    this.entries = Object.values(this.state.contestEntries);
+
+                    let newWinner = this.getWinner(false);
+                    if (newWinner === undefined) {
+                        const key = Object.keys(entries)[0];
+                        newWinner = entries[key];
+                    }
+
                     this.setState({
-                        contestEntries: entries
+                        contestEntries: entries,
+                        currentWinner: newWinner
                     });
                 })
             )
@@ -57,6 +71,7 @@ class Contest extends React.Component {
             entriesSortedBy: "entry-newest-first",
             userHasEntered: true,
             confirmMessage: true
+            // currentWinner: newWinner
         });
 
         setTimeout(() => {
@@ -98,6 +113,85 @@ class Contest extends React.Component {
         }
     }
 
+    componentDidUpdate = (prevProps, prevState) => {
+        // TO DO: handle when winner changes on like, add, edit, or delete
+        // What I think is the correct process: anything that could change the winner will set the currentWinner state,
+        // and then componentDidUpdate will check if the old winner is different from the new winner (using prevState).
+
+        // ******We're getting there. Still need to handle delete and edit.******
+
+        const oldWinner = prevState.currentWinner;
+        const newWinner = this.state.currentWinner;
+        if (oldWinner !== newWinner) {
+            this.props.updateCurrentWinningEntries(oldWinner, newWinner);
+        }
+    };
+
+    // Return the rank (by likes) of an entry regardless of sorting order. If tied return the earliest date.
+    getRank = entry => {
+        const rankEntries = Array.from(this.entries);
+        rankEntries.sort((a, b) => {
+            if (a.likes < b.likes) {
+                return 1;
+            } else if (a.likes > b.likes) {
+                return -1;
+            } else if (a.likes === b.likes) {
+                if (a.date > b.date) {
+                    return 1;
+                } else if (a.date < b.date) {
+                    return -1;
+                }
+            }
+        });
+        return rankEntries.indexOf(entry);
+    };
+
+    // Locate the winner (the one with the most likes)
+    getWinner = remove => {
+        // Get the highest likes value
+        const maxLikes = this.entries.reduce((a, b) => {
+            return b.likes > a ? b.likes : a;
+        }, 0);
+
+        // Then get the object(s) with that value and put it/them into an array
+        let maxObj = this.entries.filter(entry => {
+            return entry.likes === maxLikes;
+        });
+
+        // If likes are tied (i.e. the maxObj array contains more than 1 item), the winner is the entry with the earliest date
+        if (maxObj.length > 1) {
+            maxObj.sort((a, b) => {
+                if (a.date > b.date) {
+                    return 1;
+                } else if (a.date < b.date) {
+                    return -1;
+                }
+            });
+        }
+
+        // maxObj is an array, so get the first item
+        // (if the length of maxObj had been 1 there would only be one item in the array, but we still need to grab it.)
+        maxObj = maxObj[0];
+
+        if (remove === true) {
+            // Remove the winner from the entries array
+            this.entries.splice(this.entries.indexOf(maxObj), 1);
+        }
+
+        // Return the winner
+        return maxObj;
+    };
+
+    getSliceArgs = () => {
+        let sliceArgs = [];
+        if (this.state.expanded) {
+            sliceArgs = [0];
+        } else {
+            sliceArgs = [0, 4];
+        }
+        return sliceArgs;
+    };
+
     handleLikeClick = (entry, remove) => {
         // Call the api
         this.props.updateUserLikes(
@@ -114,8 +208,11 @@ class Contest extends React.Component {
             ? contestEntriesCopy[entry._id].likes--
             : contestEntriesCopy[entry._id].likes++;
 
+        let newWinner = this.getWinner(false);
+
         this.setState({
-            contestEntries: contestEntriesCopy
+            contestEntries: contestEntriesCopy,
+            currentWinner: newWinner
         });
     };
 
@@ -134,19 +231,19 @@ class Contest extends React.Component {
     };
 
     handleDeleteImSure = entryId => {
-        api.deleteEntry(entryId, this.props.currentUser).then(
-            this.getUpdatedEntries()
-        );
+        api.deleteEntry(entryId, this.props.currentUser).then(() => {
+            this.getUpdatedEntries();
 
-        // Delete the contest from the user's contestsEntered array
-        this.props.updateContestsEntered(
-            this.props.currentUser,
-            this.props.contestData._id,
-            true
-        );
+            // Delete the contest from the user's contestsEntered array
+            this.props.updateContestsEntered(
+                this.props.currentUser,
+                this.props.contestData._id,
+                true
+            );
 
-        this.setState({
-            userHasEntered: false
+            this.setState({
+                userHasEntered: false
+            });
         });
     };
 
@@ -157,20 +254,15 @@ class Contest extends React.Component {
             currentUser,
             onAvatarClick
         } = this.props;
-        const {
-            entriesSortedBy,
-            contestEntries,
-            userHasEntered,
-            confirmMessage
-        } = this.state;
+        const { entriesSortedBy, userHasEntered, confirmMessage } = this.state;
 
-        // Make a clone of the entries array to modify
-        const entries = Object.values(contestEntries);
+        // Reset the entries variable to a copy of state.contestEntries
+        this.entries = Object.values(this.state.contestEntries);
 
         // Sort the entries either by likes or date, depending on which radio is checked
-        switch (entriesSortedBy) {
+        switch (this.state.entriesSortedBy) {
             case "entry-ranking":
-                entries.sort((a, b) => {
+                this.entries.sort((a, b) => {
                     if (a.likes < b.likes) {
                         return 1;
                     } else if (a.likes > b.likes) {
@@ -186,7 +278,7 @@ class Contest extends React.Component {
                 });
                 break;
             case "entry-newest-first":
-                entries.sort((a, b) => {
+                this.entries.sort((a, b) => {
                     if (a.date <= b.date) {
                         return 1;
                     } else {
@@ -195,69 +287,6 @@ class Contest extends React.Component {
                 });
                 break;
         }
-
-        // Return the rank (by likes) of an entry regardless of sorting order. If tied return the earliest date.
-        const getRank = entry => {
-            const rankEntries = Array.from(entries);
-            rankEntries.sort((a, b) => {
-                if (a.likes < b.likes) {
-                    return 1;
-                } else if (a.likes > b.likes) {
-                    return -1;
-                } else if (a.likes === b.likes) {
-                    if (a.date > b.date) {
-                        return 1;
-                    } else if (a.date < b.date) {
-                        return -1;
-                    }
-                }
-            });
-            return rankEntries.indexOf(entry);
-        };
-
-        // Locate the winner (the one with the most likes) and separate it from the entries array
-        const winner = () => {
-            // Get the highest likes value
-            const maxLikes = entries.reduce((a, b) => {
-                return b.likes > a ? b.likes : a;
-            }, 0);
-
-            // Then get the object(s) with that value and put it/them into an array
-            let maxObj = entries.filter(entry => {
-                return entry.likes === maxLikes;
-            });
-
-            // If likes are tied (i.e. the maxObj array contains more than 1 item), the winner is the entry with the earliest date
-            if (maxObj.length > 1) {
-                maxObj.sort((a, b) => {
-                    if (a.date > b.date) {
-                        return 1;
-                    } else if (a.date < b.date) {
-                        return -1;
-                    }
-                });
-            }
-
-            // maxObj is an array, so get the first item
-            // (if the length of maxObj had been 1 there would only be one item in the array, but we still need to grab it.)
-            maxObj = maxObj[0];
-
-            // Remove the winner from the entries array
-            entries.splice(entries.indexOf(maxObj), 1);
-
-            // Return the winner
-            return maxObj;
-        };
-
-        const getSliceArgs = () => {
-            let sliceArgs = [];
-            if (this.state.expanded) {
-                sliceArgs = [0];
-            } else {
-                sliceArgs = [0, 4];
-            }
-            return sliceArgs;
-        };
 
         return (
             <React.Fragment>
@@ -302,53 +331,68 @@ class Contest extends React.Component {
                         src={`/images/contests/${contestData._id}.jpg`}
                     />
 
-                    <Entry
-                        entryNumber={1}
-                        userData={userData}
-                        currentUser={currentUser}
-                        entry={winner()}
-                        onLikeClick={this.handleLikeClick}
-                        contest={contestData}
-                        isWinner
-                        entryText={""}
-                        handleEntryEditSave={this.handleEntryEditSave}
-                        onAvatarClick={onAvatarClick}
-                        handleDeleteImSure={this.handleDeleteImSure}
-                    />
-
-                    <EntrySorter
-                        entriesSortedBy={entriesSortedBy}
-                        onEntryRadioChange={this.handleEntryRadioChange}
-                        singleContestId={contestData._id}
-                    />
-
-                    {entries.slice(...getSliceArgs()).map(entry => (
+                    {this.entries.length > 0 ? (
                         <Entry
-                            key={entry._id}
-                            entryNumber={getRank(entry) + 2}
+                            entryNumber={1}
                             userData={userData}
                             currentUser={currentUser}
-                            entry={entry}
+                            entry={this.getWinner(true)}
                             onLikeClick={this.handleLikeClick}
                             contest={contestData}
+                            isWinner
+                            entryText={""}
                             handleEntryEditSave={this.handleEntryEditSave}
                             onAvatarClick={onAvatarClick}
                             handleDeleteImSure={this.handleDeleteImSure}
                         />
-                    ))}
+                    ) : null}
+                    {this.entries.length > 0 ? (
+                        <EntrySorter
+                            entriesSortedBy={entriesSortedBy}
+                            onEntryRadioChange={this.handleEntryRadioChange}
+                            singleContestId={contestData._id}
+                        />
+                    ) : null}
+                    {this.entries.length > 0
+                        ? this.entries
+                              .slice(...this.getSliceArgs())
+                              .map(entry => (
+                                  <Entry
+                                      key={entry._id}
+                                      entryNumber={this.getRank(entry) + 2}
+                                      userData={userData}
+                                      currentUser={currentUser}
+                                      entry={entry}
+                                      onLikeClick={this.handleLikeClick}
+                                      contest={contestData}
+                                      handleEntryEditSave={
+                                          this.handleEntryEditSave
+                                      }
+                                      onAvatarClick={onAvatarClick}
+                                      handleDeleteImSure={
+                                          this.handleDeleteImSure
+                                      }
+                                  />
+                              ))
+                        : null}
 
                     <div className="more-entries-btn-cont">
-                        <button
-                            className="more-entries-btn button"
-                            onClick={this.handleMoreClick}
-                        >
-                            More entries
-                        </button>
-                        <i
-                            className={"fas fa-chevron-down"}
-                            onClick={this.handleSubmit}
-                        />
+                        {this.entries.length > 4 ? (
+                            <React.Fragment>
+                                <button
+                                    className="more-entries-btn button"
+                                    onClick={this.handleMoreClick}
+                                >
+                                    More entries
+                                </button>
+                                <i
+                                    className={"fas fa-chevron-down"}
+                                    onClick={this.handleSubmit}
+                                />
+                            </React.Fragment>
+                        ) : null}
                     </div>
+
                     <div className="follow-btn">
                         <i className="far fa-arrow-alt-circle-right" />
                         <span> Follow contest</span>
@@ -387,7 +431,8 @@ Contest.propTypes = {
     singleContestId: PropTypes.string,
     expanded: PropTypes.bool,
     updateUserLikes: PropTypes.func,
-    updateContestsEntered: PropTypes.func
+    updateContestsEntered: PropTypes.func,
+    updateCurrentWinningEntries: PropTypes.func
 };
 
 export default Contest;

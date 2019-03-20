@@ -33,7 +33,8 @@ class Main extends React.Component {
             onMoreClick,
             singleContestId,
             updateUserLikes,
-            updateContestsEntered
+            updateContestsEntered,
+            updateCurrentWinningEntries
         } = this.props;
 
         if (id) {
@@ -52,6 +53,7 @@ class Main extends React.Component {
                     expanded={true}
                     updateUserLikes={updateUserLikes}
                     updateContestsEntered={updateContestsEntered}
+                    updateCurrentWinningEntries={updateCurrentWinningEntries}
                 />
             );
         } else {
@@ -117,6 +119,9 @@ class Main extends React.Component {
                                 expanded={false}
                                 updateUserLikes={updateUserLikes}
                                 updateContestsEntered={updateContestsEntered}
+                                updateCurrentWinningEntries={
+                                    updateCurrentWinningEntries
+                                }
                             />
                         );
                     })}
@@ -145,7 +150,8 @@ Main.propTypes = {
     onMoreClick: PropTypes.func,
     singleContestId: PropTypes.string,
     updateUserLikes: PropTypes.func,
-    updateContestsEntered: PropTypes.func
+    updateContestsEntered: PropTypes.func,
+    updateCurrentWinningEntries: PropTypes.func
 };
 
 export default Main;
