@@ -105,12 +105,30 @@ class Main extends React.Component {
                         onFollowingChange={this.handleFollowingCheck}
                         onRadioChange={this.handleRadioChange}
                     />
+                    {/* // For each contest, grab ONLY the entries for that contest */}
                     {contests.map(contest => {
+                        // First create and array from the object so that it can be filtered
+                        let contestEntries = Object.values(entriesData);
+                        // Then filter it
+                        contestEntries = contestEntries.filter(entry => {
+                            return entry.contestId === contest._id;
+                        });
+                        // Now convert it back to an object
+                        let arrayToObject = (array, keyField) =>
+                            array.reduce((obj, item) => {
+                                obj[item[keyField]] = item;
+                                return obj;
+                            }, {});
+                        const newEntriesData = arrayToObject(
+                            contestEntries,
+                            "_id"
+                        );
+
                         return (
                             <Contest
                                 key={contest._id}
                                 contestData={contest}
-                                entriesData={entriesData}
+                                entriesData={newEntriesData}
                                 userData={userData}
                                 currentUser={currentUser}
                                 onAvatarClick={onAvatarClick}

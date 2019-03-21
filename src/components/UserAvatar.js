@@ -27,11 +27,6 @@ class UserAvatar extends React.Component {
                 >
                     {this.numberWithCommas(likesReceived)}
                 </div>
-                {currentWinners > 0 ? (
-                    <div className="user-winners">{currentWinners}</div>
-                ) : (
-                    ""
-                )}
             </div>
         );
     }

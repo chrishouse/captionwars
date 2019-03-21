@@ -88,21 +88,3 @@ export const updateContestsEntered = (userId, contestId, remove) => {
             });
     }
 };
-
-export const updateCurrentWinningEntries = (
-    oldWinner,
-    newWinner,
-    oldUser,
-    newUser
-) => {
-    return axios
-        .put("/api/users/updatescurrentwinningentries", {
-            oldWinner,
-            newWinner,
-            oldUser,
-            newUser
-        })
-        .then(resp => {
-            resp.data;
-        });
-};

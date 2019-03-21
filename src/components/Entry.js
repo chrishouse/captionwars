@@ -28,6 +28,10 @@ class Entry extends React.Component {
             this.setState({
                 likedByCurrentUser: true
             });
+        } else {
+            this.setState({
+                likedByCurrentUser: false
+            });
         }
     };
 
@@ -35,11 +39,7 @@ class Entry extends React.Component {
         this.checkIfLikedByCurrentUser();
     }
 
-    componentDidUpdate = prevProps => {
-        if (prevProps.entryNumber !== this.props.entryNumber) {
-            // TO DO: Styling here, somehow
-        }
-
+    componentDidUpdate = (prevProps, prevState) => {
         if (prevProps.entry !== this.props.entry) {
             this.checkIfLikedByCurrentUser();
         }
@@ -189,10 +189,6 @@ class Entry extends React.Component {
                                 currentUser={currentUser}
                                 likesReceived={
                                     userData[entry.user].likesReceived.length
-                                }
-                                currentWinners={
-                                    userData[entry.user].currentWinningEntries
-                                        .length
                                 }
                                 onAvatarClick={onAvatarClick}
                             />

@@ -165,8 +165,7 @@ body {
   z-index: 200;
   transform: scale(1.2); }
 
-.user-number,
-.user-winners {
+.user-number {
   font-size: 14px;
   font-weight: 600;
   background: linear-gradient(to right, #b7b7b7, #cccccc);
@@ -176,16 +175,11 @@ body {
   margin-left: -20px;
   position: relative;
   z-index: 100; }
-  .user-number.you,
-  .user-winners.you {
+  .user-number.you {
     background: linear-gradient(to right, #1abb3f, #82d615); }
 
 .user-number {
   padding-left: 28px; }
-
-.user-winners {
-  background: linear-gradient(to right, #eac813, #dcd509);
-  z-index: 0; }
 
 .sidebar {
   flex: 1;
@@ -229,8 +223,6 @@ body {
     font-size: 16px; }
   .user-stat.stat-likes-received {
     background: linear-gradient(to right, #1abb3f, #82d615); }
-  .user-stat.stat-winning {
-    background: linear-gradient(to right, #eac813, #dcd509); }
 
 .main-container {
   display: flex;

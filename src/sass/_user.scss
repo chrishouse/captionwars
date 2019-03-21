@@ -15,8 +15,7 @@
     transform: scale(1.2);
 }
 
-.user-number,
-.user-winners {
+.user-number {
     font-size: 14px;
     font-weight: 600;
     background: $gradGrey;
@@ -33,9 +32,4 @@
 
 .user-number {
     padding-left: 28px;
-}
-
-.user-winners {
-    background: $gradYellow;
-    z-index: 0;
 }

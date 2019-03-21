@@ -20,14 +20,6 @@ class Stats extends React.Component {
                         )}
                     </span>
                 </div>
-                <div className="user-stat stat-winning">
-                    <span>Current winning entries</span>
-                    <span>
-                        {this.numberWithCommas(
-                            userData[currentUser].currentWinningEntries.length
-                        )}
-                    </span>
-                </div>
                 <div className="user-stat">
                     <span>Likes given</span>
                     <span>

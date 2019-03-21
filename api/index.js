@@ -319,38 +319,4 @@ router.delete("/users/deletecontestentered", (req, res) => {
     );
 });
 
-router.put("/users/updatescurrentwinningentries", (req, res) => {
-    let oldWinner;
-    let newWinner;
-
-    if (req.body.oldWinner) {
-        oldWinner = req.body.oldWinner._id;
-    }
-
-    if (req.body.newWinner) {
-        newWinner = req.body.newWinner._id;
-    }
-
-    const oldUser = req.body.oldUser;
-    const newUser = req.body.newUser;
-
-    mdb.collection("users")
-        .updateOne(
-            { _id: ObjectID(oldUser) },
-            { $pull: { currentWinningEntries: oldWinner } }
-        )
-        .then(
-            mdb
-                .collection("users")
-                .updateOne(
-                    { _id: ObjectID(newUser) },
-                    { $push: { currentWinningEntries: newWinner } },
-                    function(err, results) {
-                        assert.equal(null, err);
-                        res.send(results.result);
-                    }
-                )
-        );
-});
-
 export default router;

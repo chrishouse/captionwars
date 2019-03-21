@@ -6,26 +6,13 @@ import PropTypes from "prop-types";
 import * as api from "../api";
 
 class Contest extends React.Component {
-    constructor(props) {
-        super(props);
-
-        // Filter out the initialEntries data to show just this contest's entries
-        function filterInitialEntries() {
-            return Object.values(props.entriesData).filter(entry => {
-                return entry.contestId === props.contestData._id;
-            });
-        }
-
-        this.state = {
-            entriesSortedBy: "entry-newest-first", // Can be "entry-ranking" or "entry-newest-first"
-            expanded: this.props.expanded,
-            contestEntries: { ...filterInitialEntries() },
-            userHasEntered: false,
-            confirmMessage: false,
-            currentWinner: undefined
-        };
-    }
-
+    state = {
+        entriesSortedBy: "entry-newest-first", // Can be "entry-ranking" or "entry-newest-first"
+        expanded: this.props.expanded,
+        contestEntries: this.props.entriesData,
+        userHasEntered: false,
+        confirmMessage: false
+    };
     // Our class-scoped variable that will hold a copy of the entries object
     entries;
 
@@ -113,20 +100,6 @@ class Contest extends React.Component {
         }
     }
 
-    componentDidUpdate = (prevProps, prevState) => {
-        // TO DO: handle when winner changes on like, add, edit, or delete
-        // What I think is the correct process: anything that could change the winner will set the currentWinner state,
-        // and then componentDidUpdate will check if the old winner is different from the new winner (using prevState).
-
-        // ******We're getting there. Still need to handle delete and edit.******
-
-        const oldWinner = prevState.currentWinner;
-        const newWinner = this.state.currentWinner;
-        if (oldWinner !== newWinner) {
-            this.props.updateCurrentWinningEntries(oldWinner, newWinner);
-        }
-    };
-
     // Return the rank (by likes) of an entry regardless of sorting order. If tied return the earliest date.
     getRank = entry => {
         const rankEntries = Array.from(this.entries);
@@ -208,11 +181,8 @@ class Contest extends React.Component {
             ? contestEntriesCopy[entry._id].likes--
             : contestEntriesCopy[entry._id].likes++;
 
-        let newWinner = this.getWinner(false);
-
         this.setState({
-            contestEntries: contestEntriesCopy,
-            currentWinner: newWinner
+            contestEntries: contestEntriesCopy
         });
     };
 
