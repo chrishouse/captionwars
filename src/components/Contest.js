@@ -7,7 +7,7 @@ import * as api from "../api";
 
 class Contest extends React.Component {
     state = {
-        entriesSortedBy: "entry-newest-first", // Can be "entry-ranking" or "entry-newest-first"
+        entriesSortedBy: this.props.entriesSortedBy,
         expanded: this.props.expanded,
         contestEntries: this.props.entriesData,
         userHasEntered: false,
@@ -196,7 +196,10 @@ class Contest extends React.Component {
         if (close === true) {
             this.props.onMoreClick();
         } else {
-            this.props.onMoreClick(this.props.contestData._id);
+            this.props.onMoreClick(
+                this.props.contestData._id,
+                this.state.entriesSortedBy
+            );
         }
     };
 
@@ -399,6 +402,7 @@ Contest.propTypes = {
     onAvatarClick: PropTypes.func,
     onMoreClick: PropTypes.func,
     singleContestId: PropTypes.string,
+    entriesSortedBy: PropTypes.string,
     expanded: PropTypes.bool,
     updateUserLikes: PropTypes.func,
     updateContestsEntered: PropTypes.func,

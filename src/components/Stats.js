@@ -20,7 +20,7 @@ class Stats extends React.Component {
                         )}
                     </span>
                 </div>
-                <div className="user-stat">
+                <div className="user-stat stat-likes-given">
                     <span>Likes given</span>
                     <span>
                         {this.numberWithCommas(

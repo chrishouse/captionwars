@@ -20,10 +20,11 @@ class App extends React.Component {
         contestData: this.props.initialContests.contests,
         entriesData: this.props.initialEntries.entries,
         allUsers: this.props.initialUsers.allUsers,
-        currentUser: "5c8af472cc052bf9a3975b47",
+        currentUser: "5c8af4aacc052bf9a3975b48",
         contestsFollowing: [1, 4],
         profileId: this.props.initialUsers.profileId,
-        singleContestId: this.props.initialContests.singleContestId
+        singleContestId: this.props.initialContests.singleContestId,
+        entriesSortedBy: "entry-newest-first" // Can be "entry-ranking" or "entry-newest-first"
     };
 
     componentDidMount() {
@@ -112,7 +113,7 @@ class App extends React.Component {
     };
 
     // Set the singleContestId state to the id of the contest whose More button was clicked, and change the url
-    fetchContest = singleContestId => {
+    fetchContest = (singleContestId, entriesSortedBy) => {
         if (singleContestId) {
             pushState(
                 { singleContestId: singleContestId },
@@ -123,7 +124,10 @@ class App extends React.Component {
         }
 
         this.setState({
-            singleContestId: singleContestId
+            singleContestId: singleContestId,
+            entriesSortedBy: entriesSortedBy
+                ? entriesSortedBy
+                : "entry-newest-first"
         });
     };
 
@@ -135,7 +139,8 @@ class App extends React.Component {
             contestData,
             contestsFollowing,
             profileId,
-            singleContestId
+            singleContestId,
+            entriesSortedBy
         } = this.state;
 
         // If profileId is set it means a user avatar was clicked and we want to display Profile
@@ -155,6 +160,7 @@ class App extends React.Component {
                     onAvatarClick={this.fetchProfile}
                     onMoreClick={this.fetchContest}
                     singleContestId={singleContestId}
+                    entriesSortedBy={entriesSortedBy}
                     updateUserLikes={this.updateUserLikes}
                     updateContestsEntered={this.updateContestsEntered}
                     updateCurrentWinningEntries={

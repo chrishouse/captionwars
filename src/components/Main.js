@@ -34,7 +34,8 @@ class Main extends React.Component {
             singleContestId,
             updateUserLikes,
             updateContestsEntered,
-            updateCurrentWinningEntries
+            updateCurrentWinningEntries,
+            entriesSortedBy
         } = this.props;
 
         if (id) {
@@ -50,6 +51,7 @@ class Main extends React.Component {
                     onAvatarClick={this.props.onAvatarClick}
                     onMoreClick={this.props.onMoreClick}
                     singleContestId={singleContestId}
+                    entriesSortedBy={entriesSortedBy}
                     expanded={true}
                     updateUserLikes={updateUserLikes}
                     updateContestsEntered={updateContestsEntered}
@@ -134,6 +136,7 @@ class Main extends React.Component {
                                 onAvatarClick={onAvatarClick}
                                 onMoreClick={onMoreClick}
                                 singleContestId={singleContestId}
+                                entriesSortedBy={entriesSortedBy}
                                 expanded={false}
                                 updateUserLikes={updateUserLikes}
                                 updateContestsEntered={updateContestsEntered}
@@ -167,6 +170,7 @@ Main.propTypes = {
     onAvatarClick: PropTypes.func,
     onMoreClick: PropTypes.func,
     singleContestId: PropTypes.string,
+    entriesSortedBy: PropTypes.string,
     updateUserLikes: PropTypes.func,
     updateContestsEntered: PropTypes.func,
     updateCurrentWinningEntries: PropTypes.func

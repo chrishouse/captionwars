@@ -223,6 +223,8 @@ body {
     font-size: 16px; }
   .user-stat.stat-likes-received {
     background: linear-gradient(to right, #1abb3f, #82d615); }
+  .user-stat.stat-likes-given {
+    background: linear-gradient(to right, #eac813, #dcd509); }
 
 .main-container {
   display: flex;
