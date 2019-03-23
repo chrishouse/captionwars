@@ -28,23 +28,13 @@ class Contest extends React.Component {
             this.props.currentUser,
             this.today
         )
-            .then(
-                api.fetchEntries(contest._id).then(entries => {
-                    // Reset the entries variable to a copy of state.contestEntries
-                    this.entries = Object.values(this.state.contestEntries);
-
-                    let newWinner = this.getWinner(false);
-                    if (newWinner === undefined) {
-                        const key = Object.keys(entries)[0];
-                        newWinner = entries[key];
-                    }
-
-                    this.setState({
-                        contestEntries: entries,
-                        currentWinner: newWinner
-                    });
-                })
-            )
+            .then(() => {
+                api.fetchEntries(contest._id).then(newEntries => {
+                    this.setState(() => ({
+                        contestEntries: newEntries
+                    }));
+                });
+            })
             .catch(console.error);
 
         // Add the contest to the user's contestsEntered array
@@ -110,6 +100,10 @@ class Contest extends React.Component {
             });
         }
     }
+
+    componentDidUpdate = () => {
+        console.log("contest updated");
+    };
 
     // Return the rank (by likes) of an entry regardless of sorting order. If tied return the earliest date.
     getRank = entry => {
