@@ -11,7 +11,8 @@ class Contest extends React.Component {
         expanded: this.props.expanded,
         contestEntries: this.props.entriesData,
         userHasEntered: false,
-        confirmMessage: false
+        confirmMessage: false,
+        userIsFollowing: false
     };
     // Our class-scoped variable that will hold a copy of the entries object
     entries;
@@ -96,6 +97,16 @@ class Contest extends React.Component {
         if (currentUsersContests.includes(this.props.contestData._id)) {
             this.setState({
                 userHasEntered: true
+            });
+        }
+
+        // Check if current user is following the contest, set state accordingly
+        const currentUserFollowing = this.props.userData[this.props.currentUser]
+            .contestsFollowing;
+
+        if (currentUserFollowing.includes(this.props.contestData._id)) {
+            this.setState({
+                userIsFollowing: true
             });
         }
     }
@@ -220,6 +231,20 @@ class Contest extends React.Component {
         });
     };
 
+    handleFollowingBtnClick = () => {
+        api.updateContestsFollowing(
+            this.props.currentUser,
+            this.props.contestData._id,
+            this.state.userIsFollowing
+        );
+
+        this.setState(prevState => {
+            return {
+                userIsFollowing: !prevState.userIsFollowing
+            };
+        });
+    };
+
     render() {
         const {
             contestData,
@@ -227,7 +252,12 @@ class Contest extends React.Component {
             currentUser,
             onAvatarClick
         } = this.props;
-        const { entriesSortedBy, userHasEntered, confirmMessage } = this.state;
+        const {
+            entriesSortedBy,
+            userHasEntered,
+            confirmMessage,
+            userIsFollowing
+        } = this.state;
 
         // Reset the entries variable to a copy of state.contestEntries
         this.entries = Object.values(this.state.contestEntries);
@@ -366,9 +396,16 @@ class Contest extends React.Component {
                         ) : null}
                     </div>
 
-                    <div className="follow-btn">
-                        <i className="far fa-arrow-alt-circle-right" />
-                        <span> Follow contest</span>
+                    <div
+                        className={
+                            "follow-btn" + (userIsFollowing ? " following" : "")
+                        }
+                        onClick={this.handleFollowingBtnClick}
+                    >
+                        <span>
+                            {userIsFollowing ? "Following" : "Follow Contest"}
+                        </span>
+                        <i className="far fa-arrow-alt-circle-left" />
                     </div>
 
                     <EntryInput

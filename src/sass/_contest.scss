@@ -63,6 +63,8 @@
     color: $lightBlack;
     .far {
         font-size: 20px;
+        transition: transform 0.2s;
+        padding-left: 3px;
     }
     > * {
         vertical-align: middle;
@@ -70,7 +72,15 @@
     }
     &:hover {
         * {
-            color: $black;
+            color: $green;
+        }
+    }
+    &.following {
+        color: $green;
+        .far {
+            transform: rotate(180deg);
+            padding-left: 0;
+            padding-right: 3px;
         }
     }
 }

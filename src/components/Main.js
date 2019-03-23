@@ -6,13 +6,13 @@ import PropTypes from "prop-types";
 class Main extends React.Component {
     state = {
         radioChecked: "newest-first", // Can be "newest-first", "oldest-first" or "popular-first"
-        following: false
+        followingFilter: false
     };
 
     handleFollowingCheck = () => {
-        this.setState({
-            following: !this.state.following
-        });
+        this.setState(prevState => ({
+            followingFilter: !prevState.followingFilter
+        }));
     };
 
     handleRadioChange = radio => {
@@ -22,7 +22,7 @@ class Main extends React.Component {
     };
 
     displayContests(id) {
-        const { radioChecked, following } = this.state;
+        const { radioChecked, followingFilter } = this.state;
         const {
             contestData,
             entriesData,
@@ -92,18 +92,20 @@ class Main extends React.Component {
             }
 
             // Show only followed contests if the Following checkbox is checked
-            // TO DO make this work with the database. It's currently broken because it's using indexOf
-            if (following) {
+            if (followingFilter) {
+                const contestsUserIsFollowing =
+                    userData[currentUser].contestsFollowing;
                 contests = contests.filter(contest => {
-                    return contestsFollowing.indexOf(contest._id) !== -1;
+                    return contestsUserIsFollowing.includes(contest._id);
                 });
+                console.log(contests);
             }
 
             return (
                 <React.Fragment>
                     <ContestSorter
                         radioChecked={this.state.radioChecked}
-                        following={this.state.following}
+                        followingFilter={this.state.followingFilter}
                         onFollowingChange={this.handleFollowingCheck}
                         onRadioChange={this.handleRadioChange}
                     />

@@ -88,3 +88,26 @@ export const updateContestsEntered = (userId, contestId, remove) => {
             });
     }
 };
+
+export const updateContestsFollowing = (userId, contestId, remove) => {
+    console.log(remove);
+    if (remove === true) {
+        return axios
+            .put("/api/users/deletecontestfollowing", {
+                userId,
+                contestId
+            })
+            .then(resp => {
+                resp.data;
+            });
+    } else {
+        return axios
+            .put("/api/users/addcontestfollowing", {
+                userId,
+                contestId
+            })
+            .then(resp => {
+                resp.data;
+            });
+    }
+};

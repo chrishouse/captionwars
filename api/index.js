@@ -319,4 +319,30 @@ router.delete("/users/deletecontestentered", (req, res) => {
     );
 });
 
+router.put("/users/addcontestfollowing", (req, res) => {
+    const userId = req.body.userId;
+    const contestId = req.body.contestId;
+    mdb.collection("users").updateOne(
+        { _id: ObjectID(userId) },
+        { $push: { contestsFollowing: contestId } },
+        function(err, results) {
+            assert.equal(null, err);
+            res.send(results.result);
+        }
+    );
+});
+
+router.put("/users/deletecontestfollowing", (req, res) => {
+    const userId = req.body.userId;
+    const contestId = req.body.contestId;
+    mdb.collection("users").updateOne(
+        { _id: ObjectID(userId) },
+        { $pull: { contestsFollowing: contestId } },
+        function(err, results) {
+            assert.equal(null, err);
+            res.send(results.result);
+        }
+    );
+});
+
 export default router;

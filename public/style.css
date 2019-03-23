@@ -331,12 +331,20 @@ body {
   font-weight: 600;
   color: #3c3c3c; }
   .follow-btn .far {
-    font-size: 20px; }
+    font-size: 20px;
+    transition: transform 0.2s;
+    padding-left: 3px; }
   .follow-btn > * {
     vertical-align: middle;
     cursor: pointer; }
   .follow-btn:hover * {
-    color: #222222; }
+    color: #1abb3f; }
+  .follow-btn.following {
+    color: #1abb3f; }
+    .follow-btn.following .far {
+      transform: rotate(180deg);
+      padding-left: 0;
+      padding-right: 3px; }
 
 .entry-input-cont {
   width: 100%; }

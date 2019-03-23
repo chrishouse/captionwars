@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 
 const ContestSorter = ({
     radioChecked,
-    following,
+    followingFilter,
     onFollowingChange,
     onRadioChange
 }) => {
@@ -43,7 +43,7 @@ const ContestSorter = ({
                 <input
                     id="only-following"
                     type="checkbox"
-                    checked={following}
+                    checked={followingFilter}
                     onChange={onFollowingChange}
                 />
                 <label htmlFor="only-following">
@@ -56,7 +56,7 @@ const ContestSorter = ({
 
 ContestSorter.propTypes = {
     radioChecked: PropTypes.string,
-    following: PropTypes.bool,
+    followingFilter: PropTypes.bool,
     onFollowingChange: PropTypes.func,
     onRadioChange: PropTypes.func
 };
