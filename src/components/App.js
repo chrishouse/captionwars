@@ -96,6 +96,27 @@ class App extends React.Component {
         });
     };
 
+    handleFollowingBtnClick = (contestId, remove) => {
+        // Make a copy of the user data
+        const userDataCopy = { ...this.state.allUsers };
+
+        const userId = this.state.currentUser;
+
+        if (remove) {
+            // Remove the contest from user's contestsFollowing array
+            userDataCopy[userId].contestsFollowing = userDataCopy[
+                userId
+            ].contestsFollowing.filter(item => contestId != item);
+        } else {
+            // Add the contest to the user's contestsFollowing array
+            userDataCopy[userId].contestsFollowing.push(contestId);
+        }
+
+        this.setState({
+            allUsers: userDataCopy
+        });
+    };
+
     // Set the profileId state to the id of the avatar clicked, change the url, and fetch that user's info from the api
     fetchProfile = userId => {
         pushState({ profileId: userId }, `/profile/${userId}`);
@@ -165,6 +186,7 @@ class App extends React.Component {
                     updateCurrentWinningEntries={
                         this.updateCurrentWinningEntries
                     }
+                    handleFollowingBtnClick={this.handleFollowingBtnClick}
                 />
             </article>
         );

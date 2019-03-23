@@ -21,6 +21,22 @@ class Main extends React.Component {
         });
     };
 
+    getUniqueEntries = contest => {
+        // First create and array from the object so that it can be filtered
+        let contestEntries = Object.values(this.props.entriesData);
+        // Then filter it
+        contestEntries = contestEntries.filter(entry => {
+            return entry.contestId === contest._id;
+        });
+        // Now convert it back to an object
+        let arrayToObject = (array, keyField) =>
+            array.reduce((obj, item) => {
+                obj[item[keyField]] = item;
+                return obj;
+            }, {});
+        return arrayToObject(contestEntries, "_id");
+    };
+
     displayContests(id) {
         const { radioChecked, followingFilter } = this.state;
         const {
@@ -34,7 +50,8 @@ class Main extends React.Component {
             updateUserLikes,
             updateContestsEntered,
             updateCurrentWinningEntries,
-            entriesSortedBy
+            entriesSortedBy,
+            handleFollowingBtnClick
         } = this.props;
 
         if (id) {
@@ -43,7 +60,7 @@ class Main extends React.Component {
             return (
                 <Contest
                     contestData={contest}
-                    entriesData={entriesData}
+                    entriesData={this.getUniqueEntries(contest)}
                     userData={userData}
                     currentUser={this.props.currentUser}
                     handleEntrySubmit={this.props.handleEntrySubmit}
@@ -55,6 +72,7 @@ class Main extends React.Component {
                     updateUserLikes={updateUserLikes}
                     updateContestsEntered={updateContestsEntered}
                     updateCurrentWinningEntries={updateCurrentWinningEntries}
+                    handleFollowingBtnClick={handleFollowingBtnClick}
                 />
             );
         } else {
@@ -124,28 +142,11 @@ class Main extends React.Component {
                     />
                     {/* // For each contest, grab ONLY the entries for that contest */}
                     {contests.map(contest => {
-                        // First create and array from the object so that it can be filtered
-                        let contestEntries = Object.values(entriesData);
-                        // Then filter it
-                        contestEntries = contestEntries.filter(entry => {
-                            return entry.contestId === contest._id;
-                        });
-                        // Now convert it back to an object
-                        let arrayToObject = (array, keyField) =>
-                            array.reduce((obj, item) => {
-                                obj[item[keyField]] = item;
-                                return obj;
-                            }, {});
-                        const newEntriesData = arrayToObject(
-                            contestEntries,
-                            "_id"
-                        );
-
                         return (
                             <Contest
                                 key={contest._id}
                                 contestData={contest}
-                                entriesData={newEntriesData}
+                                entriesData={this.getUniqueEntries(contest)}
                                 userData={userData}
                                 currentUser={currentUser}
                                 onAvatarClick={onAvatarClick}
@@ -157,6 +158,9 @@ class Main extends React.Component {
                                 updateContestsEntered={updateContestsEntered}
                                 updateCurrentWinningEntries={
                                     updateCurrentWinningEntries
+                                }
+                                handleFollowingBtnClick={
+                                    handleFollowingBtnClick
                                 }
                             />
                         );
@@ -188,7 +192,8 @@ Main.propTypes = {
     entriesSortedBy: PropTypes.string,
     updateUserLikes: PropTypes.func,
     updateContestsEntered: PropTypes.func,
-    updateCurrentWinningEntries: PropTypes.func
+    updateCurrentWinningEntries: PropTypes.func,
+    handleFollowingBtnClick: PropTypes.func
 };
 
 export default Main;

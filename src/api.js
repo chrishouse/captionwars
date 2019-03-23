@@ -90,7 +90,6 @@ export const updateContestsEntered = (userId, contestId, remove) => {
 };
 
 export const updateContestsFollowing = (userId, contestId, remove) => {
-    console.log(remove);
     if (remove === true) {
         return axios
             .put("/api/users/deletecontestfollowing", {

@@ -101,10 +101,6 @@ class Contest extends React.Component {
         }
     }
 
-    componentDidUpdate = () => {
-        console.log("contest updated");
-    };
-
     // Return the rank (by likes) of an entry regardless of sorting order. If tied return the earliest date.
     getRank = entry => {
         const rankEntries = Array.from(this.entries);
@@ -228,6 +224,12 @@ class Contest extends React.Component {
     handleFollowingBtnClick = () => {
         api.updateContestsFollowing(
             this.props.currentUser,
+            this.props.contestData._id,
+            this.state.userIsFollowing
+        );
+
+        // This function sets the state for contest sorting
+        this.props.handleFollowingBtnClick(
             this.props.contestData._id,
             this.state.userIsFollowing
         );
@@ -438,7 +440,8 @@ Contest.propTypes = {
     expanded: PropTypes.bool,
     updateUserLikes: PropTypes.func,
     updateContestsEntered: PropTypes.func,
-    updateCurrentWinningEntries: PropTypes.func
+    updateCurrentWinningEntries: PropTypes.func,
+    handleFollowingBtnClick: PropTypes.func
 };
 
 export default Contest;

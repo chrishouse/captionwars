@@ -39,7 +39,7 @@ class Entry extends React.Component {
         this.checkIfLikedByCurrentUser();
     }
 
-    componentDidUpdate = (prevProps, prevState) => {
+    componentDidUpdate = prevProps => {
         if (prevProps.entry !== this.props.entry) {
             this.checkIfLikedByCurrentUser();
         }
@@ -197,7 +197,7 @@ class Entry extends React.Component {
                                     "entry-note" + (entryNote ? " visible" : "")
                                 }
                             >
-                                <p>You can&#39;t like your own entry, bucko.</p>
+                                <p>You can&#39;t like your own entry.</p>
                             </div>
                         </div>
                     </section>

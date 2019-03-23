@@ -13,6 +13,7 @@ const Header = ({ userData, currentUser, onAvatarClick }) => {
                             alt="Caption Wars Logo"
                         />
                     </a>
+                    <h1>The never-ending caption contest</h1>
                 </div>
                 <Auth
                     userData={userData}

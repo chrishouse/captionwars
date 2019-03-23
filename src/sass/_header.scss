@@ -95,3 +95,16 @@
         border-bottom: 10px solid white;
     }
 }
+
+.logo-container {
+    display: flex;
+    h1 {
+        font-size: 13px;
+        font-weight: 200;
+        font-family: "Bitter", Times, serif;
+        align-self: flex-end;
+        margin-left: 10px;
+        color: #eeeeee;
+        font-style: italic;
+    }
+}

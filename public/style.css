@@ -151,6 +151,17 @@ body {
     border-right: 10px solid transparent;
     border-bottom: 10px solid white; }
 
+.logo-container {
+  display: flex; }
+  .logo-container h1 {
+    font-size: 13px;
+    font-weight: 200;
+    font-family: "Bitter", Times, serif;
+    align-self: flex-end;
+    margin-left: 10px;
+    color: #eeeeee;
+    font-style: italic; }
+
 .user-avatar {
   display: flex;
   align-items: center;
