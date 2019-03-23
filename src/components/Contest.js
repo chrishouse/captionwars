@@ -250,7 +250,8 @@ class Contest extends React.Component {
             contestData,
             userData,
             currentUser,
-            onAvatarClick
+            onAvatarClick,
+            singleContestId
         } = this.props;
         const {
             entriesSortedBy,
@@ -380,7 +381,7 @@ class Contest extends React.Component {
                         : null}
 
                     <div className="more-entries-btn-cont">
-                        {this.entries.length > 4 ? (
+                        {this.entries.length > 4 && !singleContestId ? (
                             <React.Fragment>
                                 <button
                                     className="more-entries-btn button"
