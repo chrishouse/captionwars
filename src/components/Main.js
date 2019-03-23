@@ -28,7 +28,6 @@ class Main extends React.Component {
             entriesData,
             userData,
             currentUser,
-            contestsFollowing,
             onAvatarClick,
             onMoreClick,
             singleContestId,
@@ -76,7 +75,22 @@ class Main extends React.Component {
             };
 
             const sortPopular = () => {
-                // TO DO: Sort by popularity
+                // Make an array clone of the entries object
+                const entries = Object.values(entriesData);
+                contests.sort((a, b) => {
+                    // Filter through the entries array to get the number of entries for each contest. Sort accordingly.
+                    const aEntries = entries.filter(entry => {
+                        return entry.contestId === a._id;
+                    });
+                    const bEntries = entries.filter(entry => {
+                        return entry.contestId === b._id;
+                    });
+                    if (aEntries < bEntries) {
+                        return 1;
+                    } else {
+                        return -1;
+                    }
+                });
             };
 
             switch (radioChecked) {
@@ -98,7 +112,6 @@ class Main extends React.Component {
                 contests = contests.filter(contest => {
                     return contestsUserIsFollowing.includes(contest._id);
                 });
-                console.log(contests);
             }
 
             return (
