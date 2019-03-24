@@ -170,7 +170,11 @@ class App extends React.Component {
         // Otherwise display the home page
         return (
             <article className="main-container inner">
-                <Sidebar userData={allUsers} currentUser={currentUser} />
+                <Sidebar
+                    userData={allUsers}
+                    currentUser={currentUser}
+                    onAvatarClick={this.fetchProfile}
+                />
                 <Main
                     contestData={contestData}
                     entriesData={entriesData}

@@ -3,28 +3,23 @@ import Stats from "./Stats";
 import Leaderboard from "./Leaderboard";
 import PropTypes from "prop-types";
 
-const Sidebar = ({ userData, currentUser }) => {
+const Sidebar = ({ userData, currentUser, onAvatarClick }) => {
     return (
         <aside className="sidebar">
-            <header className="sidebar-header">
-                <img
-                    className="sidebar-photo"
-                    src={`/images/users/${currentUser}.jpg`}
-                />
-                <p className="sidebar-username">
-                    {/* This only works while the userId matches the index, which won't be the case once we're using a database */}
-                    {userData[currentUser].userName}
-                </p>
-            </header>
             <Stats userData={userData} currentUser={currentUser} />
-            <Leaderboard />
+            <Leaderboard
+                userData={userData}
+                currentUser={currentUser}
+                onAvatarClick={onAvatarClick}
+            />
         </aside>
     );
 };
 
 Sidebar.propTypes = {
     userData: PropTypes.object,
-    currentUser: PropTypes.string
+    currentUser: PropTypes.string,
+    onAvatarClick: PropTypes.func
 };
 
 export default Sidebar;

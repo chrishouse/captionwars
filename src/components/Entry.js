@@ -188,7 +188,7 @@ class Entry extends React.Component {
                                 user={entry.user}
                                 currentUser={currentUser}
                                 likesReceived={
-                                    userData[entry.user].likesReceived.length
+                                    userData[entry.user].likesReceived
                                 }
                                 onAvatarClick={onAvatarClick}
                             />

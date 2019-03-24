@@ -11,7 +11,7 @@ class UserAvatar extends React.Component {
     };
 
     render() {
-        const { user, currentUser, likesReceived, currentWinners } = this.props;
+        const { user, currentUser, likesReceived } = this.props;
 
         return (
             <div className="user-avatar" onClick={this.handleAvatarClick}>
@@ -25,7 +25,7 @@ class UserAvatar extends React.Component {
                         "user-number" + (currentUser === user ? " you" : "")
                     }
                 >
-                    {this.numberWithCommas(likesReceived)}
+                    {this.numberWithCommas(likesReceived.length)}
                 </div>
             </div>
         );
@@ -34,7 +34,7 @@ class UserAvatar extends React.Component {
 
 UserAvatar.propTypes = {
     user: PropTypes.string.isRequired,
-    likesReceived: PropTypes.number.isRequired,
+    likesReceived: PropTypes.array.isRequired,
     isYou: PropTypes.bool,
     currentWinners: PropTypes.number,
     currentUser: PropTypes.string.isRequired,

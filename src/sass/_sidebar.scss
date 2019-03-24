@@ -1,8 +1,16 @@
 .sidebar {
     flex: 1;
     margin-right: $mainGutter;
+}
+
+.sidebar-section {
     border-radius: $largeBorderRadius;
     background-color: $lightGrey;
+    margin-bottom: $mainGutter;
+    padding-bottom: 30px;
+    &:last-child {
+        margin-bottom: 0;
+    }
 }
 
 .sidebar-header {
@@ -23,6 +31,11 @@
     font-weight: 800;
     color: $lightBlack;
     font-size: 14px;
+}
+
+.sidebar-leaderboard-text {
+    @extend .sidebar-username;
+    padding: 15px 0;
 }
 
 .user-stat {
@@ -47,7 +60,107 @@
     &.stat-likes-received {
         background: $gradGreen;
     }
-    &.stat-likes-given {
-        background: $gradYellow;
+}
+
+.leaderboard-heading {
+    @extend .user-stat;
+    font-size: 14px;
+    background: $gradGreen;
+    width: auto;
+    display: inline-block;
+    margin-bottom: 10px;
+    padding-top: 6px;
+    padding-bottom: 6px;
+    span:last-child {
+        font-size: 14px;
+    }
+}
+
+.leaderboard-username {
+    margin-right: 8px;
+    font-size: 12px;
+    font-weight: 600;
+    color: $darkGrey;
+    cursor: pointer;
+}
+
+.leaderboard-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+    background-color: white;
+    border-radius: 50px;
+    padding: 2px 12px 2px 30px;
+    position: relative;
+    left: -15px;
+    width: 97%;
+}
+
+.leaderboard-item-user {
+    display: flex;
+    align-items: center;
+}
+
+.leaderboard-count {
+    width: 30px;
+    height: 30px;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+}
+
+.leaderboard-item {
+    &:nth-child(1) {
+        .leaderboard-count {
+            background-color: $yellow;
+        }
+    }
+    &:nth-child(2) {
+        .leaderboard-count {
+            background-color: #ead313;
+        }
+    }
+    &:nth-child(3) {
+        .leaderboard-count {
+            background-color: #eae713;
+        }
+    }
+    &:nth-child(4) {
+        .leaderboard-count {
+            background-color: #ddea13;
+        }
+    }
+    &:nth-child(5) {
+        .leaderboard-count {
+            background-color: #c9ea13;
+        }
+    }
+    &:nth-child(6) {
+        .leaderboard-count {
+            background-color: #b5ea13;
+        }
+    }
+    &:nth-child(7) {
+        .leaderboard-count {
+            background-color: #9cea13;
+        }
+    }
+    &:nth-child(8) {
+        .leaderboard-count {
+            background-color: #8cea13;
+        }
+    }
+    &:nth-child(9) {
+        .leaderboard-count {
+            background-color: #7dea13;
+        }
+    }
+    &:nth-child(10) {
+        .leaderboard-count {
+            background-color: #69ea13;
+        }
     }
 }
