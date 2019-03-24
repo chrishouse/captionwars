@@ -82,6 +82,7 @@
     font-weight: 600;
     color: $darkGrey;
     cursor: pointer;
+    word-break: break-all;
 }
 
 .leaderboard-item {
@@ -94,7 +95,7 @@
     padding: 2px 12px 2px 30px;
     position: relative;
     left: -15px;
-    width: 97%;
+    max-width: 97%;
 }
 
 .leaderboard-item-user {
@@ -105,6 +106,9 @@
 .leaderboard-count {
     width: 30px;
     height: 30px;
+    min-width: 30px;
+    max-height: 30px;
+    margin-right: 5px;
     color: white;
     display: flex;
     align-items: center;
@@ -115,52 +119,52 @@
 .leaderboard-item {
     &:nth-child(1) {
         .leaderboard-count {
-            background-color: $yellow;
+            background-image: linear-gradient($yellow, #ddc716);
         }
     }
     &:nth-child(2) {
         .leaderboard-count {
-            background-color: #ead313;
+            background-image: linear-gradient(#ddc716, #cac61a);
         }
     }
     &:nth-child(3) {
         .leaderboard-count {
-            background-color: #eae713;
+            background-image: linear-gradient(#cac61a, #bfc51e);
         }
     }
     &:nth-child(4) {
         .leaderboard-count {
-            background-color: #ddea13;
+            background-image: linear-gradient(#bfc51e, #9cc324);
         }
     }
     &:nth-child(5) {
         .leaderboard-count {
-            background-color: #c9ea13;
+            background-image: linear-gradient(#9cc324, #82c129);
         }
     }
     &:nth-child(6) {
         .leaderboard-count {
-            background-color: #b5ea13;
+            background-image: linear-gradient(#82c129, #68c02e);
         }
     }
     &:nth-child(7) {
         .leaderboard-count {
-            background-color: #9cea13;
+            background-image: linear-gradient(#68c02e, #50be34);
         }
     }
     &:nth-child(8) {
         .leaderboard-count {
-            background-color: #8cea13;
+            background-image: linear-gradient(#50be34, #3abd38);
         }
     }
     &:nth-child(9) {
         .leaderboard-count {
-            background-color: #7dea13;
+            background-image: linear-gradient(#3abd38, #27bc3c);
         }
     }
     &:nth-child(10) {
         .leaderboard-count {
-            background-color: #69ea13;
+            background-image: linear-gradient(#27bc3c, $green);
         }
     }
 }
