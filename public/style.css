@@ -224,7 +224,7 @@ body {
 .sidebar-leaderboard-text {
   padding: 15px 0; }
 
-.user-stat, .leaderboard-heading {
+.user-stat {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -237,23 +237,12 @@ body {
   color: white;
   font-weight: 600;
   margin-top: 15px; }
-  .user-stat span:first-child, .leaderboard-heading span:first-child {
+  .user-stat span:first-child {
     font-size: 14px; }
-  .user-stat span:last-child, .leaderboard-heading span:last-child {
+  .user-stat span:last-child {
     font-size: 16px; }
-  .user-stat.stat-likes-received, .stat-likes-received.leaderboard-heading {
+  .user-stat.stat-likes-received {
     background: linear-gradient(to right, #1abb3f, #82d615); }
-
-.leaderboard-heading {
-  font-size: 14px;
-  background: linear-gradient(to right, #1abb3f, #82d615);
-  width: auto;
-  display: inline-block;
-  margin-bottom: 10px;
-  padding-top: 6px;
-  padding-bottom: 6px; }
-  .leaderboard-heading span:last-child {
-    font-size: 14px; }
 
 .leaderboard-username {
   margin-right: 8px;

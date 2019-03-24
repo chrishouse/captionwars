@@ -62,20 +62,6 @@
     }
 }
 
-.leaderboard-heading {
-    @extend .user-stat;
-    font-size: 14px;
-    background: $gradGreen;
-    width: auto;
-    display: inline-block;
-    margin-bottom: 10px;
-    padding-top: 6px;
-    padding-bottom: 6px;
-    span:last-child {
-        font-size: 14px;
-    }
-}
-
 .leaderboard-username {
     margin-right: 8px;
     font-size: 12px;

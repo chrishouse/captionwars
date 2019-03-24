@@ -20,12 +20,6 @@ const Leaderboard = ({ userData, currentUser, onAvatarClick }) => {
                 </p>
             </header>
             <section className="sidebar-leaderboard">
-                <div className="leaderboard-heading">
-                    <span>
-                        <i className="far fa-thumbs-up" />
-                        &nbsp;&nbsp;Most likes received
-                    </span>
-                </div>
                 <section className="leaderboard">
                     {users.slice(0, 10).map((user, index) => {
                         return (
