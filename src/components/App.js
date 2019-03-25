@@ -165,7 +165,14 @@ class App extends React.Component {
 
         // If profileId is set it means a user avatar was clicked and we want to display Profile
         if (profileId) {
-            return <Profile profileId={profileId} userData={allUsers} />;
+            return (
+                <Profile
+                    profileId={profileId}
+                    userData={allUsers}
+                    currentUser={currentUser}
+                    onAvatarClick={this.fetchProfile}
+                />
+            );
         }
         // Otherwise display the home page
         return (
