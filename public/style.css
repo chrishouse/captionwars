@@ -723,6 +723,15 @@ body {
     color: #007bb5; }
   .profile-content .fa-youtube {
     color: #ff0000; }
+  .profile-content .home-link {
+    position: absolute;
+    top: -18px;
+    left: 0;
+    font-size: 14px;
+    color: #b7b7b7; }
+    .profile-content .home-link .fa-arrow-left {
+      font-size: 12px;
+      margin-right: 3px; }
 
 .profile-header {
   display: flex;

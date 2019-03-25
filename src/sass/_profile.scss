@@ -30,6 +30,17 @@
     .fa-youtube {
         color: #ff0000;
     }
+    .home-link {
+        position: absolute;
+        top: -18px;
+        left: 0;
+        font-size: 14px;
+        color: $grey;
+        .fa-arrow-left {
+            font-size: 12px;
+            margin-right: 3px;
+        }
+    }
 }
 
 .profile-header {

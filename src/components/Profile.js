@@ -37,6 +37,10 @@ class Profile extends React.Component {
                     onAvatarClick={onAvatarClick}
                 />
                 <main className="main profile-content">
+                    <a href="/" className="home-link">
+                        <i className="fas fa-arrow-left" />
+                        <i className="fas fa-home" />
+                    </a>
                     <header className="profile-header">
                         <div className="profile-photo">
                             <img src={`/images/users/${profileId}.jpg`} />
