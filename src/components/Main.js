@@ -34,7 +34,6 @@ class Main extends React.Component {
     // Lazyloading functionality
     handleScroll = this.scrollDebounce(
         e => {
-            // const triggerPoint = el.clientHeight + 1500;
             const el = e.srcElement.body;
             const triggerPoint = el.clientHeight + el.clientHeight * 3;
             const bottom = el.scrollHeight - el.scrollTop <= triggerPoint;
@@ -112,6 +111,8 @@ class Main extends React.Component {
                     updateContestsEntered={updateContestsEntered}
                     updateCurrentWinningEntries={updateCurrentWinningEntries}
                     handleFollowingBtnClick={handleFollowingBtnClick}
+                    handleScroll={this.handleScroll}
+                    scrollDebounce={this.scrollDebounce}
                 />
             );
         } else {
@@ -201,6 +202,7 @@ class Main extends React.Component {
                                 handleFollowingBtnClick={
                                     handleFollowingBtnClick
                                 }
+                                scrollDebounce={this.scrollDebounce}
                             />
                         );
                     })}

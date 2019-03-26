@@ -12,7 +12,8 @@ class Contest extends React.Component {
         contestEntries: this.props.entriesData,
         userHasEntered: false,
         confirmMessage: false,
-        userIsFollowing: false
+        userIsFollowing: false,
+        entriesDisplayed: 9
     };
     // Our class-scoped variable that will hold a copy of the entries object
     entries;
@@ -99,7 +100,27 @@ class Contest extends React.Component {
                 userIsFollowing: true
             });
         }
+
+        if (this.state.expanded) {
+            document.addEventListener("scroll", this.handleScroll);
+        }
     }
+
+    // Lazyloading functionality
+    handleScroll = this.props.scrollDebounce(
+        e => {
+            const el = e.srcElement.body;
+            const triggerPoint = el.clientHeight + el.clientHeight;
+            const bottom = el.scrollHeight - el.scrollTop <= triggerPoint;
+            if (bottom) {
+                this.setState(prevState => ({
+                    entriesDisplayed: prevState.entriesDisplayed + 5
+                }));
+            }
+        },
+        250,
+        false
+    );
 
     // Return the rank (by likes) of an entry regardless of sorting order. If tied return the earliest date.
     getRank = entry => {
@@ -159,7 +180,7 @@ class Contest extends React.Component {
     getSliceArgs = () => {
         let sliceArgs = [];
         if (this.state.expanded) {
-            sliceArgs = [0];
+            sliceArgs = [0, this.state.entriesDisplayed];
         } else {
             sliceArgs = [0, 4];
         }
@@ -441,7 +462,8 @@ Contest.propTypes = {
     updateUserLikes: PropTypes.func,
     updateContestsEntered: PropTypes.func,
     updateCurrentWinningEntries: PropTypes.func,
-    handleFollowingBtnClick: PropTypes.func
+    handleFollowingBtnClick: PropTypes.func,
+    scrollDebounce: PropTypes.func
 };
 
 export default Contest;
