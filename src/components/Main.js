@@ -6,8 +6,47 @@ import PropTypes from "prop-types";
 class Main extends React.Component {
     state = {
         radioChecked: "newest-first", // Can be "newest-first", "oldest-first" or "popular-first"
-        followingFilter: false
+        followingFilter: false,
+        contestsDisplayed: 5
     };
+
+    componentDidMount = () => {
+        document.addEventListener("scroll", this.handleScroll);
+    };
+
+    // Our debounce function (courtesy of David Walsh at https://davidwalsh.name/javascript-debounce-function)
+    scrollDebounce = (func, wait, immediate) => {
+        var timeout;
+        return function() {
+            var context = this,
+                args = arguments;
+            var later = function() {
+                timeout = null;
+                if (!immediate) func.apply(context, args);
+            };
+            var callNow = immediate && !timeout;
+            clearTimeout(timeout);
+            timeout = setTimeout(later, wait);
+            if (callNow) func.apply(context, args);
+        };
+    };
+
+    // Lazyloading functionality
+    handleScroll = this.scrollDebounce(
+        e => {
+            // const triggerPoint = el.clientHeight + 1500;
+            const el = e.srcElement.body;
+            const triggerPoint = el.clientHeight + el.clientHeight * 3;
+            const bottom = el.scrollHeight - el.scrollTop <= triggerPoint;
+            if (bottom) {
+                this.setState(prevState => ({
+                    contestsDisplayed: prevState.contestsDisplayed + 5
+                }));
+            }
+        },
+        250,
+        false
+    );
 
     handleFollowingCheck = () => {
         this.setState(prevState => ({
@@ -38,7 +77,7 @@ class Main extends React.Component {
     };
 
     displayContests(id) {
-        const { radioChecked, followingFilter } = this.state;
+        const { radioChecked, followingFilter, contestsDisplayed } = this.state;
         const {
             contestData,
             entriesData,
@@ -141,7 +180,7 @@ class Main extends React.Component {
                         onRadioChange={this.handleRadioChange}
                     />
                     {/* // For each contest, grab ONLY the entries for that contest */}
-                    {contests.map(contest => {
+                    {contests.slice(0, contestsDisplayed).map(contest => {
                         return (
                             <Contest
                                 key={contest._id}
