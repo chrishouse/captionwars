@@ -20,7 +20,7 @@ class App extends React.Component {
         contestData: this.props.initialContests.contests,
         entriesData: this.props.initialEntries.entries,
         allUsers: this.props.initialUsers.allUsers,
-        currentUser: "5c9970664e51033a5c0b5825",
+        currentUser: "5c7ecf9eb8a7020d42fb850b",
         profileId: this.props.initialUsers.profileId,
         singleContestId: this.props.initialContests.singleContestId,
         entriesSortedBy: "entry-newest-first" // Can be "entry-ranking" or "entry-newest-first"

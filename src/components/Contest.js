@@ -103,6 +103,7 @@ class Contest extends React.Component {
 
         if (this.state.expanded) {
             document.addEventListener("scroll", this.handleScroll);
+            window.scrollTo(0, 0);
         }
     }
 
