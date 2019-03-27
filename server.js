@@ -7,8 +7,9 @@ import bodyParser from "body-parser";
 
 import MongoClient from "mongodb";
 import assert from "assert";
-var exec = require("child_process").exec;
+const exec = require("child_process").exec;
 const fs = require("fs");
+const schedule = require("node-schedule");
 
 const server = express();
 server.use(bodyParser.json());
@@ -102,15 +103,22 @@ MongoClient.connect(config.mongodbUri, (err, client) => {
                                 if (err) {
                                     throw err;
                                 }
-                                console.log(stdout);
+                                console.log(
+                                    "New contest inserted with _id: " + item._id
+                                );
                             });
                         }
                     });
             });
     };
 
-    // TO DO: get this working with node-schedule
+    // Our insertNewContest function will run every Wednesday at 6:00am
+    const rule = new schedule.RecurrenceRule();
+    rule.dayOfWeek = [3];
+    rule.hour = 6;
+    rule.minute = 0;
 
-    // CAUTION: if this function is uncommented it will insert a new contest every time this file is saved
-    // insertNewContest();
+    const j = schedule.scheduleJob(rule, function() {
+        insertNewContest();
+    });
 });
