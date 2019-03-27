@@ -34,7 +34,8 @@ class AuthYes extends React.Component {
                     currentUser={currentUser}
                     onAvatarClick={onAvatarClick}
                 />
-                <UserAlerts />
+                {/* Alerts will be Phase 2 */}
+                {/* <UserAlerts /> */}
                 {this.state.menuIsActive ? (
                     <UserMenu
                         menuToggle={this.handleClick}
