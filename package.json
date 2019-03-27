@@ -6,7 +6,7 @@
     "scripts": {
         "start": "nodemon --exec babel-node server.js --ignore public/",
         "dev": "webpack -wd",
-        "prod": "webpack -wp"
+        "prod": "webpack -p"
     },
     "author": "Chris House",
     "license": "MIT",
