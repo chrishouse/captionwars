@@ -11,6 +11,7 @@ class Main extends React.Component {
     };
 
     componentDidMount = () => {
+        // Add our eventListener for lazyload
         document.addEventListener("scroll", this.handleScroll);
     };
 

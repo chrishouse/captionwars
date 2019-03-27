@@ -102,7 +102,9 @@ class Contest extends React.Component {
         }
 
         if (this.state.expanded) {
+            // Add our eventListener for lazyload
             document.addEventListener("scroll", this.handleScroll);
+            // Scroll to the top of the page
             window.scrollTo(0, 0);
         }
     }
