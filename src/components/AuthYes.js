@@ -1,6 +1,5 @@
 import React from "react";
 import UserAvatar from "./UserAvatar";
-import UserAlerts from "./UserAlerts";
 import UserMenu from "./UserMenu";
 import PropTypes from "prop-types";
 

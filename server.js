@@ -3,6 +3,9 @@ import config from "./config";
 import sassMiddleware from "node-sass-middleware";
 import path from "path";
 import express from "express";
+import jwt from "express-jwt";
+import cors from "cors";
+import jwks from "jwks-rsa";
 import bodyParser from "body-parser";
 
 import MongoClient from "mongodb";
@@ -13,6 +16,8 @@ const schedule = require("node-schedule");
 
 const server = express();
 server.use(bodyParser.json());
+server.use(bodyParser.urlencoded({ extended: true }));
+server.use(cors());
 
 // Use the SASS middleware
 server.use(
