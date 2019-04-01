@@ -579,7 +579,8 @@ body {
   border: solid 1px #e4e4e4;
   margin-bottom: 10px;
   transition: all 0.5s;
-  word-break: break-all; }
+  word-break: break-all;
+  opacity: 1; }
   .entry.winner {
     width: 100%;
     border: solid 1px #eac813;
@@ -592,6 +593,8 @@ body {
       padding-left: 85px; }
   .entry.entry-hidden {
     display: none; }
+  .entry.entering {
+    opacity: 0; }
 
 .entry-number {
   border-top-left-radius: 8px;
@@ -663,7 +666,10 @@ body {
   cursor: pointer; }
   .entry-like-button .far {
     color: #686868;
-    padding-right: 4px; }
+    padding-right: 4px;
+    transition: transform 0.4s; }
+    .entry-like-button .far.just-clicked {
+      transform: scale(1.4); }
   .entry-like-button:hover .far,
   .liked .entry-like-button .far {
     color: #1abb3f; }

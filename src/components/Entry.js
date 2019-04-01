@@ -11,7 +11,9 @@ class Entry extends React.Component {
         editConfirmed: false,
         likedByCurrentUser: false,
         entryNote: false,
-        deleteConfirm: false
+        deleteConfirm: false,
+        isEntering: true,
+        likeJustClicked: false
     };
 
     numberWithCommas = x => {
@@ -37,6 +39,11 @@ class Entry extends React.Component {
 
     componentDidMount() {
         this.checkIfLikedByCurrentUser();
+        setTimeout(() => {
+            this.setState({
+                isEntering: false
+            });
+        }, 0);
     }
 
     componentDidUpdate = prevProps => {
@@ -64,6 +71,18 @@ class Entry extends React.Component {
             this.setState(prevState => ({
                 likedByCurrentUser: !prevState.likedByCurrentUser
             }));
+
+            if (this.state.likedByCurrentUser === false) {
+                this.setState({
+                    likeJustClicked: true
+                });
+
+                setTimeout(() => {
+                    this.setState({
+                        likeJustClicked: false
+                    });
+                }, 400);
+            }
         }
     };
 
@@ -121,7 +140,9 @@ class Entry extends React.Component {
             editConfirmed,
             likedByCurrentUser,
             entryNote,
-            deleteConfirm
+            deleteConfirm,
+            isEntering,
+            likeJustClicked
         } = this.state;
 
         return (
@@ -130,7 +151,8 @@ class Entry extends React.Component {
                     className={
                         "entry" +
                         (isWinner ? " winner" : "") +
-                        (editMode ? " entry-hidden" : "")
+                        (editMode ? " entry-hidden" : "") +
+                        (isEntering ? " entering" : "")
                     }
                 >
                     <div className="entry-number">
@@ -173,7 +195,12 @@ class Entry extends React.Component {
                                 className="entry-like-button"
                                 onClick={this.handleLikeClick}
                             >
-                                <i className="far fa-thumbs-up" />
+                                <i
+                                    className={
+                                        "far fa-thumbs-up" +
+                                        (likeJustClicked ? " just-clicked" : "")
+                                    }
+                                />
                                 <p className="entry-likes">
                                     {this.numberWithCommas(entry.likes)}
                                 </p>
