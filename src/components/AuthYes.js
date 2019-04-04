@@ -16,7 +16,13 @@ class AuthYes extends React.Component {
 
     render() {
         const { menuIsActive } = this.state;
-        const { user, currentUser, onAvatarClick } = this.props;
+        const {
+            user,
+            currentUser,
+            onAvatarClick,
+            onAccountClick,
+            onLogoutClick
+        } = this.props;
 
         return (
             <div className="auth auth-yes">
@@ -40,6 +46,8 @@ class AuthYes extends React.Component {
                         menuToggle={this.handleClick}
                         onAvatarClick={onAvatarClick}
                         currentUser={currentUser}
+                        onAccountClick={onAccountClick}
+                        onLogoutClick={onLogoutClick}
                     />
                 ) : (
                     ""
@@ -52,7 +60,9 @@ class AuthYes extends React.Component {
 AuthYes.propTypes = {
     user: PropTypes.object,
     currentUser: PropTypes.string,
-    onAvatarClick: PropTypes.func
+    onAvatarClick: PropTypes.func,
+    onAccountClick: PropTypes.func,
+    onLogoutClick: PropTypes.func
 };
 
 export default AuthYes;

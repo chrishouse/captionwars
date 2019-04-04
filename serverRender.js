@@ -56,7 +56,7 @@ const getInitialEntriesData = apiEntriesData => {
     };
 };
 
-const serverRender = (userId, contestId) => {
+const serverRender = (userId, contestId, path) => {
     return axios
         .all(getApiData(userId))
         .then(resp => {
@@ -70,6 +70,10 @@ const serverRender = (userId, contestId) => {
                 resp[0].data
             );
             const initialEntriesData = getInitialEntriesData(resp[1].data);
+            let accountPage = false;
+            if (path === "/account") {
+                accountPage = true;
+            }
             return {
                 // We return both the initial markup and the data itself from the AJAX call
                 initialMarkup: ReactDOMServer.renderToString(
@@ -77,11 +81,13 @@ const serverRender = (userId, contestId) => {
                         initialContests={initialContestData}
                         initialUsers={initialUserData}
                         initialEntries={initialEntriesData}
+                        accountPage={accountPage}
                     />
                 ),
                 initialContestData: initialContestData,
                 initialUserData: initialUserData,
-                initialEntriesData: initialEntriesData
+                initialEntriesData: initialEntriesData,
+                accountPage: accountPage
             };
         })
         .catch(console.error);

@@ -14,7 +14,14 @@ class Profile extends React.Component {
     };
 
     render() {
-        const { profileId, userData, currentUser, onAvatarClick } = this.props;
+        const {
+            profileId,
+            userData,
+            currentUser,
+            onAvatarClick,
+            isAuthenticated,
+            onHomeClick
+        } = this.props;
         const {
             userName,
             likesReceived,
@@ -40,10 +47,11 @@ class Profile extends React.Component {
                     userData={userData}
                     currentUser={currentUser}
                     onAvatarClick={onAvatarClick}
+                    isAuthenticated={isAuthenticated}
                 />
                 <main className="main">
                     <section className="profile-content">
-                        <a href="/" className="home-link">
+                        <a className="home-link" onClick={onHomeClick}>
                             <i className="fas fa-arrow-left" />
                             <i className="fas fa-home" />
                         </a>
@@ -195,7 +203,9 @@ Profile.propTypes = {
     profileId: PropTypes.string,
     userData: PropTypes.object,
     currentUser: PropTypes.string,
-    onAvatarClick: PropTypes.func
+    onAvatarClick: PropTypes.func,
+    isAuthenticated: PropTypes.bool,
+    onHomeClick: PropTypes.func
 };
 
 export default Profile;

@@ -3,8 +3,10 @@ import Header from "./Header";
 import Sidebar from "./Sidebar";
 import Main from "./Main";
 import Profile from "./Profile";
+import Account from "./Account";
 import PropTypes from "prop-types";
 import * as api from "../api";
+import Register from "./Register";
 
 const pushState = (obj, url) => {
     window.history.pushState(obj, "", url);
@@ -23,7 +25,18 @@ class App extends React.Component {
         currentUser: "5c7ecf9eb8a7020d42fb850b",
         profileId: this.props.initialUsers.profileId,
         singleContestId: this.props.initialContests.singleContestId,
-        entriesSortedBy: "entry-newest-first" // Can be "entry-ranking" or "entry-newest-first"
+        entriesSortedBy: "entry-newest-first", // Can be "entry-ranking" or "entry-newest-first"
+        accountPage: this.props.accountPage,
+        isAuthenticated: false,
+        checkingAuth: true,
+        register: false
+    };
+
+    // Grab the id from the token payload (this function courtesy of Stackoverflow)
+    parseJwt = token => {
+        var base64Url = token.split(".")[1];
+        var base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
+        return JSON.parse(atob(base64)).id;
     };
 
     componentDidMount() {
@@ -31,8 +44,22 @@ class App extends React.Component {
         onPopState(e => {
             this.setState({
                 profileId: (e.state || {}).profileId,
-                singleContestId: (e.state || {}).singleContestId
+                singleContestId: (e.state || {}).singleContestId,
+                accountPage: (e.state || {}).accountPage
             });
+        });
+
+        if (localStorage.getItem("token")) {
+            const token = localStorage.getItem("token");
+
+            this.setState({
+                currentUser: this.parseJwt(token),
+                isAuthenticated: true
+            });
+        }
+
+        this.setState({
+            checkingAuth: false
         });
     }
 
@@ -124,11 +151,30 @@ class App extends React.Component {
         api.fetchUser(userId).then(user => {
             this.setState({
                 profileId: user._id,
+                accountPage: false,
                 userData: {
                     ...this.state.allUsers, // This part is just for a performance boost, since the componemt can read the data directly from state
                     [user._id]: user
                 }
             });
+        });
+    };
+
+    handleAccountClick = () => {
+        pushState({ accountPage: true }, "/account");
+
+        this.setState({
+            accountPage: true,
+            profileId: null
+        });
+    };
+
+    handleHomeClick = () => {
+        pushState({ homePage: true }, "/");
+        this.setState({
+            profileId: "",
+            singleContestId: "",
+            accountPage: false
         });
     };
 
@@ -151,6 +197,44 @@ class App extends React.Component {
         });
     };
 
+    handleLoginClick = (e, inputUsername, inputPassword) => {
+        e.preventDefault();
+        api.login(inputUsername, inputPassword).then(user => {
+            this.setState({
+                isAuthenticated: true,
+                currentUser: user
+            });
+        });
+    };
+
+    handleLogoutClick = e => {
+        e.preventDefault();
+        localStorage.removeItem("token");
+        this.setState({
+            isAuthenticated: false,
+            currentUser: "5c7ecf9eb8a7020d42fb850b"
+        });
+    };
+
+    handleRegisterClick = () => {
+        this.setState({
+            singleContestId: null,
+            register: true
+        });
+    };
+
+    handleRegisterSuccess = () => {
+        //TO DO: set the currentUser to the user who just registered without needing to refresh
+        // Currently setting currentUser here doesn't work for some reason (it's showing Trump until refresh)
+        const token = localStorage.getItem("token");
+
+        this.setState({
+            register: false,
+            isAuthenticated: true,
+            currentUser: this.parseJwt(token)
+        });
+    };
+
     currentContent() {
         const {
             allUsers,
@@ -160,7 +244,9 @@ class App extends React.Component {
             contestsFollowing,
             profileId,
             singleContestId,
-            entriesSortedBy
+            entriesSortedBy,
+            isAuthenticated,
+            accountPage
         } = this.state;
 
         // If profileId is set it means a user avatar was clicked and we want to display Profile
@@ -171,9 +257,27 @@ class App extends React.Component {
                     userData={allUsers}
                     currentUser={currentUser}
                     onAvatarClick={this.fetchProfile}
+                    isAuthenticated={isAuthenticated}
+                    onHomeClick={this.handleHomeClick}
                 />
             );
+            // If accountPage is true it means the account link was clicked and we want to display Account
+        } else if (accountPage) {
+            if (isAuthenticated) {
+                return (
+                    <Account
+                        userData={allUsers}
+                        onAvatarClick={this.fetchProfile}
+                        isAuthenticated={true}
+                        onHomeClick={this.handleHomeClick}
+                    />
+                );
+                // If the user is not authenticated, send them to /
+            } else {
+                pushState({ homePage: true }, "/");
+            }
         }
+
         // Otherwise display the home page
         return (
             <article className="main-container inner">
@@ -181,6 +285,7 @@ class App extends React.Component {
                     userData={allUsers}
                     currentUser={currentUser}
                     onAvatarClick={this.fetchProfile}
+                    isAuthenticated={isAuthenticated}
                 />
                 <Main
                     contestData={contestData}
@@ -204,18 +309,38 @@ class App extends React.Component {
     }
 
     render() {
-        const { allUsers, currentUser } = this.state;
+        const {
+            allUsers,
+            currentUser,
+            isAuthenticated,
+            checkingAuth,
+            register
+        } = this.state;
 
-        return (
-            <div className="app">
-                <Header
-                    userData={allUsers}
-                    currentUser={currentUser}
-                    onAvatarClick={this.fetchProfile}
-                />
-                {this.currentContent()}
-            </div>
-        );
+        if (!checkingAuth) {
+            return (
+                <div className="app">
+                    <Header
+                        userData={allUsers}
+                        currentUser={currentUser}
+                        onAvatarClick={this.fetchProfile}
+                        onAccountClick={this.handleAccountClick}
+                        onLoginClick={this.handleLoginClick}
+                        isAuthenticated={isAuthenticated}
+                        onHomeClick={this.handleHomeClick}
+                        onLogoutClick={this.handleLogoutClick}
+                        onRegisterClick={this.handleRegisterClick}
+                    />
+                    {/* // Show the register modal */}
+                    {register ? (
+                        <Register
+                            handleRegisterSuccess={this.handleRegisterSuccess}
+                        />
+                    ) : null}
+                    {this.currentContent()}
+                </div>
+            );
+        } else return null;
     }
 }
 
@@ -225,7 +350,8 @@ App.propTypes = {
     initialContests: PropTypes.object,
     initialEntries: PropTypes.object,
     initialUsers: PropTypes.object,
-    singleContestId: PropTypes.string
+    singleContestId: PropTypes.string,
+    accountPage: PropTypes.bool
 };
 
 export default App;

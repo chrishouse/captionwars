@@ -8,6 +8,7 @@ ReactDOM.render(
         initialContests={window.initialContestData}
         initialEntries={window.initialEntriesData}
         initialUsers={window.initialUserData}
+        accountPage={window.accountPage}
     />,
     document.getElementById("root")
 );

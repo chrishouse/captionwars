@@ -2,6 +2,7 @@ import express from "express";
 import { MongoClient, ObjectID } from "mongodb";
 import assert from "assert";
 import config from "../config";
+import auth from "../middleware/auth";
 
 let mdb;
 MongoClient.connect(config.mongodbUri, (err, client) => {
@@ -53,6 +54,16 @@ router.get("/users/:userId", (req, res) => {
     mdb.collection("users")
         .findOne({
             _id: ObjectID(req.params.userId)
+        })
+        .then(user => res.send(user))
+        .catch(console.error);
+});
+
+router.get("/account", auth, (req, res) => {
+    mdb.collection("users")
+        .findOne({
+            // This gets the id from the token itself (passed in through auth)
+            _id: ObjectID(req.user.id)
         })
         .then(user => res.send(user))
         .catch(console.error);

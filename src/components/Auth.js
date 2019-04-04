@@ -4,20 +4,29 @@ import AuthNo from "./AuthNo";
 import PropTypes from "prop-types";
 
 class Auth extends React.Component {
-    state = {
-        authenticated: true
-    };
-
     checkAuth = () => {
-        const { onAvatarClick } = this.props;
-        return this.state.authenticated ? (
+        const {
+            userData,
+            currentUser,
+            onAvatarClick,
+            onAccountClick,
+            onLoginClick,
+            onLogoutClick,
+            onRegisterClick
+        } = this.props;
+        return this.props.isAuthenticated ? (
             <AuthYes
-                user={this.props.userData}
-                currentUser={this.props.currentUser}
+                user={userData}
+                currentUser={currentUser}
                 onAvatarClick={onAvatarClick}
+                onAccountClick={onAccountClick}
+                onLogoutClick={onLogoutClick}
             />
         ) : (
-            <AuthNo />
+            <AuthNo
+                onLoginClick={onLoginClick}
+                onRegisterClick={onRegisterClick}
+            />
         );
     };
 
@@ -29,7 +38,12 @@ class Auth extends React.Component {
 Auth.propTypes = {
     userData: PropTypes.object,
     currentUser: PropTypes.string,
-    onAvatarClick: PropTypes.func
+    onAvatarClick: PropTypes.func,
+    onAccountClick: PropTypes.func,
+    onLoginClick: PropTypes.func,
+    isAuthenticated: PropTypes.bool,
+    onLogoutClick: PropTypes.func,
+    onRegisterClick: PropTypes.func
 };
 
 export default Auth;

@@ -110,3 +110,47 @@ export const updateContestsFollowing = (userId, contestId, remove) => {
             });
     }
 };
+
+export const login = (userName, password) => {
+    return axios
+        .post("/api/login", {
+            userName,
+            password
+        })
+        .then(resp => {
+            localStorage.setItem("token", resp.data.token);
+            return resp.data.user.id;
+        });
+};
+
+export const register = (userName, password, email) => {
+    return axios
+        .post("/api/register", {
+            userName,
+            password,
+            email
+        })
+        .then(resp => {
+            localStorage.setItem("token", resp.data.token);
+            return resp;
+        })
+        .catch(err => {
+            return err.response;
+        });
+};
+
+export const account = token => {
+    return axios
+        .get("/api/account", {
+            headers: {
+                "Content-type": "application/json",
+                "x-auth-token": token
+            }
+        })
+        .then(resp => {
+            return resp;
+        })
+        .catch(err => {
+            return err;
+        });
+};

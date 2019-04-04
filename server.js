@@ -1,4 +1,6 @@
-import apiRouter from "./api";
+import apiRouter from "./api/index";
+import registerRouter from "./api/register";
+import loginRouter from "./api/login";
 import config from "./config";
 import sassMiddleware from "node-sass-middleware";
 import path from "path";
@@ -29,34 +31,41 @@ server.set("view engine", "ejs");
 import serverRender from "./serverRender";
 
 // The express router - the first argument is the path, the second is event handlers (which receives both request and response objects)
-server.get(["/", "/profile/:userId", "/contest/:contestId"], (req, res) => {
-    serverRender(req.params.userId, req.params.contestId) // Call the serverRender function from serverRender.js
-        .then(
-            ({
-                initialMarkup,
-                initialContestData,
-                initialEntriesData,
-                initialUserData
-            }) => {
-                res.render("index", {
-                    initialMarkup, // Render the content returned from the promise
-                    initialContestData, // Render the data returned from the promise
+server.get(
+    ["/", "/profile/:userId", "/contest/:contestId", "/account"],
+    (req, res) => {
+        serverRender(req.params.userId, req.params.contestId, req.path) // Call the serverRender function from serverRender.js
+            .then(
+                ({
+                    initialMarkup,
+                    initialContestData,
                     initialEntriesData,
-                    initialUserData
-                }); // .render looks for a .ejs file within the views directory. Second argument is an object to pass variables into the .ejs template file
-            }
-        )
-        .catch(error => {
-            console.error(error);
-            res.status(404).send("Bad Request");
-        });
-});
+                    initialUserData,
+                    accountPage
+                }) => {
+                    res.render("index", {
+                        initialMarkup, // Render the content returned from the promise
+                        initialContestData, // Render the data returned from the promise
+                        initialEntriesData,
+                        initialUserData,
+                        accountPage
+                    }); // .render looks for a .ejs file within the views directory. Second argument is an object to pass variables into the .ejs template file
+                }
+            )
+            .catch(error => {
+                console.error(error);
+                res.status(404).send("Bad Request");
+            });
+    }
+);
 
 // Express has a middleware for serving static assets (.use is how we add middleware to the express middleware stack). The argument to .static is the directory.
 server.use(express.static("public"));
 
 // Again, only this time using our imported express router
 server.use("/api", apiRouter);
+server.use("/api/register", registerRouter);
+server.use("/api/login", loginRouter);
 
 // The express listen call - the first two arguments are the port and host, the third argument is the success handler
 server.listen(config.port, config.host, () => {

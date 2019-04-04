@@ -2,12 +2,22 @@ import React from "react";
 import Auth from "./Auth";
 import PropTypes from "prop-types";
 
-const Header = ({ userData, currentUser, onAvatarClick }) => {
+const Header = ({
+    userData,
+    currentUser,
+    onAvatarClick,
+    onAccountClick,
+    onLoginClick,
+    isAuthenticated,
+    onHomeClick,
+    onLogoutClick,
+    onRegisterClick
+}) => {
     return (
         <header className="main-header">
             <section className="header-content inner">
                 <div className="logo-container">
-                    <a href="/">
+                    <a onClick={onHomeClick}>
                         <img
                             src="/images/assets/logo.png"
                             alt="Caption Wars Logo"
@@ -19,6 +29,11 @@ const Header = ({ userData, currentUser, onAvatarClick }) => {
                     userData={userData}
                     currentUser={currentUser}
                     onAvatarClick={onAvatarClick}
+                    onAccountClick={onAccountClick}
+                    onLoginClick={onLoginClick}
+                    isAuthenticated={isAuthenticated}
+                    onLogoutClick={onLogoutClick}
+                    onRegisterClick={onRegisterClick}
                 />
             </section>
         </header>
@@ -28,7 +43,13 @@ const Header = ({ userData, currentUser, onAvatarClick }) => {
 Header.propTypes = {
     userData: PropTypes.object,
     currentUser: PropTypes.string,
-    onAvatarClick: PropTypes.func
+    onAvatarClick: PropTypes.func,
+    onAccountClick: PropTypes.func,
+    onLoginClick: PropTypes.func,
+    isAuthenticated: PropTypes.bool,
+    onHomeClick: PropTypes.func,
+    onLogoutClick: PropTypes.func,
+    onRegisterClick: PropTypes.func
 };
 
 export default Header;

@@ -3,10 +3,12 @@ import Stats from "./Stats";
 import Leaderboard from "./Leaderboard";
 import PropTypes from "prop-types";
 
-const Sidebar = ({ userData, currentUser, onAvatarClick }) => {
+const Sidebar = ({ userData, currentUser, onAvatarClick, isAuthenticated }) => {
     return (
         <aside className="sidebar">
-            <Stats userData={userData} currentUser={currentUser} />
+            {isAuthenticated ? (
+                <Stats userData={userData} currentUser={currentUser} />
+            ) : null}
             <Leaderboard
                 userData={userData}
                 currentUser={currentUser}
@@ -19,7 +21,8 @@ const Sidebar = ({ userData, currentUser, onAvatarClick }) => {
 Sidebar.propTypes = {
     userData: PropTypes.object,
     currentUser: PropTypes.string,
-    onAvatarClick: PropTypes.func
+    onAvatarClick: PropTypes.func,
+    isAuthenticated: PropTypes.bool
 };
 
 export default Sidebar;

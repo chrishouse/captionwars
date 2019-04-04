@@ -53,7 +53,7 @@
 .user-menu {
     position: absolute;
     top: 100%;
-    left: -25%;
+    left: -35%;
     margin-top: 12px;
     padding: 5px 0;
     border: solid 1px $lightGrey;
@@ -61,6 +61,7 @@
     border-radius: $smallBorderRadius;
     ul {
         list-style-type: none;
+        white-space: nowrap;
     }
     a {
         display: block;
@@ -98,6 +99,7 @@
 
 .logo-container {
     display: flex;
+    cursor: pointer;
     h1 {
         font-size: 13px;
         font-weight: 200;
@@ -107,4 +109,46 @@
         color: #eeeeee;
         font-style: italic;
     }
+}
+
+.header-links {
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 1.4;
+    a {
+        color: $yellow;
+        cursor: pointer;
+    }
+}
+
+.register-modal {
+    font-size: 14px;
+    .dialog {
+        display: flex;
+        flex-direction: column;
+        width: 20%;
+        padding: 20px 40px 30px 40px;
+    }
+    h3 {
+        font-family: $serif;
+        font-size: 20px;
+        font-weight: 700;
+        margin-bottom: 20px;
+    }
+    label {
+        color: $green;
+        font-weight: 600;
+    }
+    input {
+        font-size: 14px;
+        padding: 5px;
+        margin-right: 5px;
+        margin-bottom: 10px;
+    }
+}
+
+.register-error {
+    color: red;
+    font-weight: 400;
+    padding-bottom: 10px;
 }
