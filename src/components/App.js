@@ -224,14 +224,18 @@ class App extends React.Component {
     };
 
     handleRegisterSuccess = () => {
-        //TO DO: set the currentUser to the user who just registered without needing to refresh
-        // Currently setting currentUser here doesn't work for some reason (it's showing Trump until refresh)
-        const token = localStorage.getItem("token");
+        // Get updated users data to pass to the components (we get errors if this isn't done because the new user isn't in the allUsers state yet)
+        api.fetchAllUsers().then(users => {
+            this.setState({
+                allUsers: users
+            });
+            const token = localStorage.getItem("token");
 
-        this.setState({
-            register: false,
-            isAuthenticated: true,
-            currentUser: this.parseJwt(token)
+            this.setState({
+                register: false,
+                isAuthenticated: true,
+                currentUser: this.parseJwt(token)
+            });
         });
     };
 

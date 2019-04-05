@@ -4,6 +4,10 @@ export const fetchUser = userId => {
     return axios.get(`/api/users/${userId}`).then(resp => resp.data);
 };
 
+export const fetchAllUsers = () => {
+    return axios.get(`/api/users/`).then(resp => resp.data.users);
+};
+
 export const fetchContest = contestId => {
     return axios.get(`/api/contests/${contestId}`).then(resp => resp.data);
 };
