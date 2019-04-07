@@ -12,7 +12,8 @@ class Auth extends React.Component {
             onAccountClick,
             onLoginClick,
             onLogoutClick,
-            onRegisterClick
+            onRegisterClick,
+            loginErrorMessage
         } = this.props;
         return this.props.isAuthenticated ? (
             <AuthYes
@@ -26,6 +27,7 @@ class Auth extends React.Component {
             <AuthNo
                 onLoginClick={onLoginClick}
                 onRegisterClick={onRegisterClick}
+                loginErrorMessage={loginErrorMessage}
             />
         );
     };
@@ -43,7 +45,8 @@ Auth.propTypes = {
     onLoginClick: PropTypes.func,
     isAuthenticated: PropTypes.bool,
     onLogoutClick: PropTypes.func,
-    onRegisterClick: PropTypes.func
+    onRegisterClick: PropTypes.func,
+    loginErrorMessage: PropTypes.string
 };
 
 export default Auth;

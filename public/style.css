@@ -38,6 +38,9 @@ body {
     background-color: #b7b7b7; }
     .button.button-grey:hover {
       background-color: #c4c4c4; }
+  .button[disabled] {
+    background-color: lightGrey;
+    cursor: initial; }
 
 .overlay {
   position: fixed;
@@ -86,7 +89,7 @@ body {
   color: white;
   padding: 11px 0;
   justify-content: space-between;
-  align-items: center; }
+  align-items: flex-end; }
 
 .user-alerts .fa-bell {
   font-size: 20px;
@@ -111,6 +114,50 @@ body {
   .auth-yes .fa-chevron-down.user-menu-open {
     transform: rotate(180deg);
     color: #f3f3f3; }
+
+.auth-no form {
+  display: flex;
+  position: relative; }
+
+.auth-no input[type="text"],
+.auth-no input[type="password"] {
+  border: none;
+  padding: 5px;
+  border: solid 1px #eac813;
+  margin-right: 10px; }
+
+.auth-no input[type="submit"] {
+  border: none;
+  background-color: #eac813;
+  color: white;
+  padding: 0 10px;
+  margin-right: 20px;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-weight: 600; }
+  .auth-no input[type="submit"]:hover {
+    background-color: #eecf29; }
+
+.auth-message {
+  visibility: hidden;
+  opacity: 0;
+  position: absolute;
+  top: 125%;
+  right: 20px;
+  padding: 5px 10px;
+  z-index: 400;
+  white-space: normal;
+  word-break: normal;
+  text-align: right;
+  border: solid 1px #e42a00;
+  background-color: white;
+  border-radius: 4px;
+  color: #e42a00;
+  font-size: 14px;
+  transition: all 0.2s; }
+  .auth-message.visible {
+    visibility: visible;
+    opacity: 1; }
 
 .user-menu {
   position: absolute;
@@ -492,7 +539,8 @@ body {
     .entry-input textarea::placeholder {
       color: #b7b7b7; }
   .entry-input .button {
-    float: right; }
+    float: right;
+    margin-top: 5px; }
     .entry-input .button.button-edit-cancel {
       margin-right: 5px; }
   .entry-input.entry-input-hidden {
@@ -744,6 +792,27 @@ body {
 
 .edit-confirm-buttons .button {
   margin: 5px; }
+
+.like-error {
+  visibility: hidden;
+  opacity: 0;
+  position: absolute;
+  top: 125%;
+  right: 20px;
+  padding: 5px 10px;
+  z-index: 400;
+  white-space: nowrap;
+  word-break: normal;
+  text-align: right;
+  border: solid 1px #e42a00;
+  background-color: white;
+  border-radius: 4px;
+  color: #e42a00;
+  font-size: 14px;
+  transition: all 0.2s; }
+  .like-error.visible {
+    visibility: visible;
+    opacity: 1; }
 
 .profile-content {
   margin-top: 0; }

@@ -69,7 +69,7 @@ class EntryInput extends React.Component {
     };
 
     render() {
-        const { editMode, userHasEntered } = this.props;
+        const { editMode, userHasEntered, isAuthenticated } = this.props;
 
         const {
             inputText,
@@ -86,12 +86,17 @@ class EntryInput extends React.Component {
                     }`}
                 >
                     <textarea
-                        placeholder="Your entry..."
+                        placeholder={
+                            isAuthenticated
+                                ? "Your entry..."
+                                : "Log in or register to submit an entry."
+                        }
                         value={inputText}
                         onChange={this.handleTextChange}
                         maxLength={characterLimit}
                         style={{ height: `${textareaHeight}px` }}
                         onKeyDown={this.handleTextChange}
+                        disabled={!isAuthenticated}
                     />
                     <p className="character-alert">{textareaAlert}</p>
                     {!editMode ? (
@@ -99,6 +104,7 @@ class EntryInput extends React.Component {
                             className="button"
                             type="submit"
                             onClick={this.handleSubmitClick}
+                            disabled={!isAuthenticated}
                         >
                             Submit
                         </button>
@@ -145,7 +151,8 @@ EntryInput.propTypes = {
     entryData: PropTypes.object,
     contestId: PropTypes.number,
     entryText: PropTypes.string,
-    userHasEntered: PropTypes.bool
+    userHasEntered: PropTypes.bool,
+    isAuthenticated: PropTypes.bool
 };
 
 export default EntryInput;

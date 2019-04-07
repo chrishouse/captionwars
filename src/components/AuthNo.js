@@ -20,7 +20,7 @@ class AuthNo extends React.Component {
     };
 
     render() {
-        const { onLoginClick, onRegisterClick } = this.props;
+        const { onLoginClick, onRegisterClick, loginErrorMessage } = this.props;
         return (
             <div className="auth auth-no">
                 <form>
@@ -47,6 +47,14 @@ class AuthNo extends React.Component {
                             )
                         }
                     />
+                    <div
+                        className={
+                            "auth-message" +
+                            (loginErrorMessage ? " visible" : "")
+                        }
+                    >
+                        {loginErrorMessage}
+                    </div>
                 </form>
                 <nav className="header-links">
                     <span>
@@ -63,7 +71,8 @@ class AuthNo extends React.Component {
 
 AuthNo.propTypes = {
     onLoginClick: PropTypes.func,
-    onRegisterClick: PropTypes.func
+    onRegisterClick: PropTypes.func,
+    loginErrorMessage: PropTypes.string
 };
 
 export default AuthNo;

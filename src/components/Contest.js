@@ -13,7 +13,8 @@ class Contest extends React.Component {
         userHasEntered: false,
         confirmMessage: false,
         userIsFollowing: false,
-        entriesDisplayed: 9
+        entriesDisplayed: 9,
+        likeError: false
     };
     // Our class-scoped variable that will hold a copy of the entries object
     entries;
@@ -191,24 +192,30 @@ class Contest extends React.Component {
     };
 
     handleLikeClick = (entry, remove) => {
-        // Call the api
-        this.props.updateUserLikes(
-            entry.user,
-            entry._id,
-            this.state.contestEntries[entry._id].likes,
+        if (this.props.isAuthenticated === true) {
+            // Call the api
+            this.props.updateUserLikes(
+                entry.user,
+                entry._id,
+                this.state.contestEntries[entry._id].likes,
+                remove
+            );
+
+            // Make a copy of the entries data
+            const contestEntriesCopy = { ...this.state.contestEntries };
+
             remove
-        );
+                ? contestEntriesCopy[entry._id].likes--
+                : contestEntriesCopy[entry._id].likes++;
 
-        // Make a copy of the entries data
-        const contestEntriesCopy = { ...this.state.contestEntries };
-
-        remove
-            ? contestEntriesCopy[entry._id].likes--
-            : contestEntriesCopy[entry._id].likes++;
-
-        this.setState({
-            contestEntries: contestEntriesCopy
-        });
+            this.setState({
+                contestEntries: contestEntriesCopy
+            });
+        } else {
+            this.setState({
+                likeError: true
+            });
+        }
     };
 
     handleEntryRadioChange = radio => {
@@ -271,7 +278,8 @@ class Contest extends React.Component {
             userData,
             currentUser,
             onAvatarClick,
-            singleContestId
+            singleContestId,
+            isAuthenticated
         } = this.props;
         const {
             entriesSortedBy,
@@ -368,6 +376,7 @@ class Contest extends React.Component {
                             handleEntryEditSave={this.handleEntryEditSave}
                             onAvatarClick={onAvatarClick}
                             handleDeleteImSure={this.handleDeleteImSure}
+                            isAuthenticated={isAuthenticated}
                         />
                     ) : null}
                     {this.entries.length > 0 ? (
@@ -396,6 +405,7 @@ class Contest extends React.Component {
                                       handleDeleteImSure={
                                           this.handleDeleteImSure
                                       }
+                                      isAuthenticated={isAuthenticated}
                                   />
                               ))
                         : null}
@@ -417,23 +427,29 @@ class Contest extends React.Component {
                         ) : null}
                     </div>
 
-                    <div
-                        className={
-                            "follow-btn" + (userIsFollowing ? " following" : "")
-                        }
-                        onClick={this.handleFollowingBtnClick}
-                    >
-                        <span>
-                            {userIsFollowing ? "Following" : "Follow Contest"}
-                        </span>
-                        <i className="far fa-arrow-alt-circle-left" />
-                    </div>
+                    {isAuthenticated ? (
+                        <div
+                            className={
+                                "follow-btn" +
+                                (userIsFollowing ? " following" : "")
+                            }
+                            onClick={this.handleFollowingBtnClick}
+                        >
+                            <span>
+                                {userIsFollowing
+                                    ? "Following"
+                                    : "Follow Contest"}
+                            </span>
+                            <i className="far fa-arrow-alt-circle-left" />
+                        </div>
+                    ) : null}
 
                     <EntryInput
                         handleSubmit={this.handleEntrySubmit}
                         contestData={contestData}
                         entryText={""}
                         userHasEntered={userHasEntered}
+                        isAuthenticated={isAuthenticated}
                     />
 
                     <div
@@ -466,7 +482,8 @@ Contest.propTypes = {
     updateContestsEntered: PropTypes.func,
     updateCurrentWinningEntries: PropTypes.func,
     handleFollowingBtnClick: PropTypes.func,
-    scrollDebounce: PropTypes.func
+    scrollDebounce: PropTypes.func,
+    isAuthenticated: PropTypes.bool
 };
 
 export default Contest;

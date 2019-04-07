@@ -123,7 +123,10 @@ export const login = (userName, password) => {
         })
         .then(resp => {
             localStorage.setItem("token", resp.data.token);
-            return resp.data.user.id;
+            return resp;
+        })
+        .catch(err => {
+            return err.response;
         });
 };
 

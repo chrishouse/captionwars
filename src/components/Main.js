@@ -90,7 +90,8 @@ class Main extends React.Component {
             updateContestsEntered,
             updateCurrentWinningEntries,
             entriesSortedBy,
-            handleFollowingBtnClick
+            handleFollowingBtnClick,
+            isAuthenticated
         } = this.props;
 
         if (id) {
@@ -114,6 +115,7 @@ class Main extends React.Component {
                     handleFollowingBtnClick={handleFollowingBtnClick}
                     handleScroll={this.handleScroll}
                     scrollDebounce={this.scrollDebounce}
+                    isAuthenticated={isAuthenticated}
                 />
             );
         } else {
@@ -204,6 +206,7 @@ class Main extends React.Component {
                                     handleFollowingBtnClick
                                 }
                                 scrollDebounce={this.scrollDebounce}
+                                isAuthenticated={isAuthenticated}
                             />
                         );
                     })}
@@ -235,7 +238,8 @@ Main.propTypes = {
     updateUserLikes: PropTypes.func,
     updateContestsEntered: PropTypes.func,
     updateCurrentWinningEntries: PropTypes.func,
-    handleFollowingBtnClick: PropTypes.func
+    handleFollowingBtnClick: PropTypes.func,
+    isAuthenticated: PropTypes.bool
 };
 
 export default Main;

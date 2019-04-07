@@ -13,7 +13,8 @@ class Entry extends React.Component {
         entryNote: false,
         deleteConfirm: false,
         isEntering: true,
-        likeJustClicked: false
+        likeJustClicked: false,
+        likeError: null
     };
 
     numberWithCommas = x => {
@@ -53,36 +54,47 @@ class Entry extends React.Component {
     };
 
     handleLikeClick = () => {
-        if (this.props.entry.user === this.props.currentUser) {
+        if (this.props.isAuthenticated) {
+            if (this.props.entry.user === this.props.currentUser) {
+                this.setState({
+                    entryNote: true
+                });
+                setTimeout(() => {
+                    this.setState({
+                        entryNote: false
+                    });
+                }, 4000);
+            } else {
+                this.props.onLikeClick(
+                    this.props.entry,
+                    this.state.likedByCurrentUser
+                );
+
+                this.setState(prevState => ({
+                    likedByCurrentUser: !prevState.likedByCurrentUser
+                }));
+
+                if (this.state.likedByCurrentUser === false) {
+                    this.setState({
+                        likeJustClicked: true
+                    });
+
+                    setTimeout(() => {
+                        this.setState({
+                            likeJustClicked: false
+                        });
+                    }, 400);
+                }
+            }
+        } else {
             this.setState({
-                entryNote: true
+                likeError: true
             });
             setTimeout(() => {
                 this.setState({
-                    entryNote: false
+                    likeError: false
                 });
             }, 4000);
-        } else {
-            this.props.onLikeClick(
-                this.props.entry,
-                this.state.likedByCurrentUser
-            );
-
-            this.setState(prevState => ({
-                likedByCurrentUser: !prevState.likedByCurrentUser
-            }));
-
-            if (this.state.likedByCurrentUser === false) {
-                this.setState({
-                    likeJustClicked: true
-                });
-
-                setTimeout(() => {
-                    this.setState({
-                        likeJustClicked: false
-                    });
-                }, 400);
-            }
         }
     };
 
@@ -132,7 +144,8 @@ class Entry extends React.Component {
             entry,
             currentUser,
             handleEntryEditSave,
-            onAvatarClick
+            onAvatarClick,
+            isAuthenticated
         } = this.props;
 
         const {
@@ -142,7 +155,8 @@ class Entry extends React.Component {
             entryNote,
             deleteConfirm,
             isEntering,
-            likeJustClicked
+            likeJustClicked,
+            likeError
         } = this.state;
 
         return (
@@ -226,6 +240,13 @@ class Entry extends React.Component {
                             >
                                 <p>You can&#39;t like your own entry.</p>
                             </div>
+                            <div
+                                className={
+                                    "like-error" + (likeError ? " visible" : "")
+                                }
+                            >
+                                You must be logged in to like an entry.
+                            </div>
                         </div>
                     </section>
                 </div>
@@ -251,6 +272,7 @@ class Entry extends React.Component {
                             contestData={contest}
                             entryData={entry}
                             handleEntryEditSave={handleEntryEditSave}
+                            isAuthenticated={isAuthenticated}
                         />
                     )
                 ) : (
@@ -272,7 +294,8 @@ Entry.propTypes = {
     onLikeClick: PropTypes.func,
     handleEntryEditSave: PropTypes.func,
     onAvatarClick: PropTypes.func,
-    handleDeleteImSure: PropTypes.func
+    handleDeleteImSure: PropTypes.func,
+    isAuthenticated: PropTypes.bool
 };
 
 export default Entry;

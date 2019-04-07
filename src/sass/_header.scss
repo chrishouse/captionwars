@@ -12,7 +12,7 @@
     color: white;
     padding: 11px 0;
     justify-content: space-between;
-    align-items: center;
+    align-items: flex-end;
 }
 
 .user-alerts {
@@ -47,6 +47,56 @@
             transform: rotate(180deg);
             color: $lightGrey;
         }
+    }
+}
+
+.auth-no {
+    form {
+        display: flex;
+        position: relative;
+    }
+    input[type="text"],
+    input[type="password"] {
+        border: none;
+        padding: 5px;
+        border: solid 1px $yellow;
+        margin-right: 10px;
+    }
+    input[type="submit"] {
+        border: none;
+        background-color: $yellow;
+        color: white;
+        padding: 0 10px;
+        margin-right: 20px;
+        cursor: pointer;
+        transition: all 0.2s;
+        font-weight: 600;
+        &:hover {
+            background-color: lighten($yellow, 5);
+        }
+    }
+}
+
+.auth-message {
+    visibility: hidden;
+    opacity: 0;
+    position: absolute;
+    top: 125%;
+    right: 20px;
+    padding: 5px 10px;
+    z-index: 400;
+    white-space: normal;
+    word-break: normal;
+    text-align: right;
+    border: solid 1px $red;
+    background-color: white;
+    border-radius: 4px;
+    color: $red;
+    font-size: 14px;
+    transition: all 0.2s;
+    &.visible {
+        visibility: visible;
+        opacity: 1;
     }
 }
 

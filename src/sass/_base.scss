@@ -42,6 +42,10 @@ body {
             background-color: lighten($grey, 5);
         }
     }
+    &[disabled] {
+        background-color: lightGrey;
+        cursor: initial;
+    }
 }
 
 .overlay {

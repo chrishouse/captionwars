@@ -20,7 +20,7 @@ router.post("/", (req, res) => {
 
     // Simple validation
     if (!userName || !password) {
-        return res.status(400).json({ msg: "please enter all fields" });
+        return res.status(400).json({ msg: "Please enter both fields." });
     }
 
     // Check for existing user
@@ -30,12 +30,17 @@ router.post("/", (req, res) => {
         })
         .then(user => {
             if (!user)
-                return res.status(400).json({ msg: "user does not exist" });
+                return res.status(400).json({
+                    msg:
+                        "We can't find a user with that name. Please try again."
+                });
 
             // Validate password
             bcrypt.compare(password, user.password).then(isMatch => {
                 if (!isMatch)
-                    return res.status(400).json({ msg: "Invalid credentials" });
+                    return res.status(400).json({
+                        msg: "Incorrect password. Please try again."
+                    });
 
                 jwt.sign(
                     { id: user._id },

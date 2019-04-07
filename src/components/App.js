@@ -29,7 +29,8 @@ class App extends React.Component {
         accountPage: this.props.accountPage,
         isAuthenticated: false,
         checkingAuth: true,
-        register: false
+        register: false,
+        loginErrorMessage: null
     };
 
     // Grab the id from the token payload (this function courtesy of Stackoverflow)
@@ -199,11 +200,18 @@ class App extends React.Component {
 
     handleLoginClick = (e, inputUsername, inputPassword) => {
         e.preventDefault();
-        api.login(inputUsername, inputPassword).then(user => {
-            this.setState({
-                isAuthenticated: true,
-                currentUser: user
-            });
+        api.login(inputUsername, inputPassword).then(resp => {
+            if (resp.status !== 200) {
+                this.setState({
+                    loginErrorMessage: resp.data.msg
+                });
+            } else if (resp.status === 200) {
+                this.setState({
+                    isAuthenticated: true,
+                    currentUser: resp.data.user.id,
+                    loginErrorMessage: null
+                });
+            }
         });
     };
 
@@ -219,7 +227,8 @@ class App extends React.Component {
     handleRegisterClick = () => {
         this.setState({
             singleContestId: null,
-            register: true
+            register: true,
+            loginErrorMessage: null
         });
     };
 
@@ -307,6 +316,7 @@ class App extends React.Component {
                         this.updateCurrentWinningEntries
                     }
                     handleFollowingBtnClick={this.handleFollowingBtnClick}
+                    isAuthenticated={isAuthenticated}
                 />
             </article>
         );
@@ -318,7 +328,8 @@ class App extends React.Component {
             currentUser,
             isAuthenticated,
             checkingAuth,
-            register
+            register,
+            loginErrorMessage
         } = this.state;
 
         if (!checkingAuth) {
@@ -334,6 +345,7 @@ class App extends React.Component {
                         onHomeClick={this.handleHomeClick}
                         onLogoutClick={this.handleLogoutClick}
                         onRegisterClick={this.handleRegisterClick}
+                        loginErrorMessage={loginErrorMessage}
                     />
                     {/* // Show the register modal */}
                     {register ? (

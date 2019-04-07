@@ -11,7 +11,8 @@ const Header = ({
     isAuthenticated,
     onHomeClick,
     onLogoutClick,
-    onRegisterClick
+    onRegisterClick,
+    loginErrorMessage
 }) => {
     return (
         <header className="main-header">
@@ -34,6 +35,7 @@ const Header = ({
                     isAuthenticated={isAuthenticated}
                     onLogoutClick={onLogoutClick}
                     onRegisterClick={onRegisterClick}
+                    loginErrorMessage={loginErrorMessage}
                 />
             </section>
         </header>
@@ -49,7 +51,8 @@ Header.propTypes = {
     isAuthenticated: PropTypes.bool,
     onHomeClick: PropTypes.func,
     onLogoutClick: PropTypes.func,
-    onRegisterClick: PropTypes.func
+    onRegisterClick: PropTypes.func,
+    loginErrorMessage: PropTypes.string
 };
 
 export default Header;
