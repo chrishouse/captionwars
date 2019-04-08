@@ -38,6 +38,7 @@ class Register extends React.Component {
 
     render() {
         const { userName, password, email, error } = this.state;
+        const { onCancelClick } = this.props;
         return (
             <div className="register-modal overlay">
                 <form className="dialog" onSubmit={this.onSubmit}>
@@ -67,104 +68,15 @@ class Register extends React.Component {
                         onChange={this.onChange}
                         value={email}
                     />
-                    {/* <label htmlFor="realName">Your real name</label> */}
-                    {/* <input
-                        type="text"
-                        name="realName"
-                        placeholder="Your real name"
-                        onChange={this.onChange}
-                        value={realName}
-                    />
-                    <label htmlFor="age">Your age</label>
-                    <input
-                        type="text"
-                        name="age"
-                        placeholder="Your age"
-                        onChange={this.onChange}
-                        value={age}
-                    />
-                    <label htmlFor="gender">Your gender</label>
-                    <input
-                        type="text"
-                        name="gender"
-                        placeholder="Your age"
-                        onChange={this.onChange}
-                        value={gender}
-                    />
-                    <label htmlFor="avatar">Avatar</label>
-                    <input
-                        type="text"
-                        name="avatar"
-                        placeholder="Avatar"
-                        onChange={this.onChange}
-                        value={avatar}
-                    />
-                    <label htmlFor="website">Website</label>
-                    <input
-                        type="text"
-                        name="website"
-                        placeholder="website"
-                        onChange={this.onChange}
-                        value={website}
-                    />
-                    <label htmlFor="location">Your location</label>
-                    <input
-                        type="text"
-                        name="location"
-                        placeholder="Your location"
-                        onChange={this.onChange}
-                        value={location}
-                    />
-                    <label htmlFor="facebook">Your Facebook page</label>
-                    <input
-                        type="text"
-                        name="facebook"
-                        placeholder="Your Facebook page"
-                        onChange={this.onChange}
-                        value={facebook}
-                    />
-                    <label htmlFor="twitter">Your Twitter page</label>
-                    <input
-                        type="text"
-                        name="twitter"
-                        placeholder="Your Twitter page"
-                        onChange={this.onChange}
-                        value={twitter}
-                    />
-                    <label htmlFor="instagram">Your Instragram page</label>
-                    <input
-                        type="text"
-                        name="instagram"
-                        placeholder="Your Instragram page"
-                        onChange={this.onChange}
-                        value={instagram}
-                    />
-                    <label htmlFor="pinterest">Your Pinterest page</label>
-                    <input
-                        type="text"
-                        name="pinterest"
-                        placeholder="Your Pinterest page"
-                        onChange={this.onChange}
-                        value={pinterest}
-                    />
-                    <label htmlFor="linkedin">Your LinkedIn page</label>
-                    <input
-                        type="text"
-                        name="linkedin"
-                        placeholder="Your LinkedIn page"
-                        onChange={this.onChange}
-                        value={linkedin}
-                    />
-                    <label htmlFor="youtube">Your YouTube channel</label>
-                    <input
-                        type="text"
-                        name="youtube"
-                        placeholder="Your YouTube channel"
-                        onChange={this.onChange}
-                        value={youtube}
-                    /> */}
-
-                    <input type="submit" />
+                    <div className="register-buttons">
+                        <input className="register-submit" type="submit" />
+                        <button
+                            className="register-cancel"
+                            onClick={onCancelClick}
+                        >
+                            Cancel
+                        </button>
+                    </div>
                 </form>
             </div>
         );
@@ -172,7 +84,8 @@ class Register extends React.Component {
 }
 
 Register.propTypes = {
-    handleRegisterSuccess: PropTypes.func
+    handleRegisterSuccess: PropTypes.func,
+    onCancelClick: PropTypes.func
 };
 
 export default Register;

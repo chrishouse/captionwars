@@ -225,7 +225,7 @@ body {
     display: flex;
     flex-direction: column;
     width: 20%;
-    padding: 20px 40px 30px 40px; }
+    padding: 20px 40px; }
   .register-modal h3 {
     font-family: "Bitter", Times, serif;
     font-size: 20px;
@@ -239,11 +239,37 @@ body {
     padding: 5px;
     margin-right: 5px;
     margin-bottom: 10px; }
+  .register-modal .register-submit, .register-modal .register-cancel {
+    transition: all 0.2s;
+    border: none;
+    background-color: #eac813;
+    color: white;
+    padding: 8px 10px;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-weight: 600;
+    align-self: center; }
+    .register-modal .register-submit:hover, .register-modal .register-cancel:hover {
+      background-color: #eecf29; }
+  .register-modal .register-cancel {
+    font-size: 14px;
+    margin-right: 5px;
+    margin-bottom: 10px;
+    background-color: white;
+    color: #686868;
+    font-weight: 400; }
+    .register-modal .register-cancel:hover {
+      background-color: white; }
 
 .register-error {
   color: red;
   font-weight: 400;
   padding-bottom: 10px; }
+
+.register-buttons {
+  display: flex;
+  justify-content: center;
+  margin-top: 15px; }
 
 .user-avatar {
   display: flex;

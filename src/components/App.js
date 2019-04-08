@@ -248,6 +248,12 @@ class App extends React.Component {
         });
     };
 
+    handleRegisterCancel = () => {
+        this.setState({
+            register: false
+        });
+    };
+
     currentContent() {
         const {
             allUsers,
@@ -351,6 +357,7 @@ class App extends React.Component {
                     {register ? (
                         <Register
                             handleRegisterSuccess={this.handleRegisterSuccess}
+                            onCancelClick={this.handleRegisterCancel}
                         />
                     ) : null}
                     {this.currentContent()}

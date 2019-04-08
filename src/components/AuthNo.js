@@ -26,13 +26,13 @@ class AuthNo extends React.Component {
                 <form>
                     <input
                         type="text"
-                        placeholder="username"
+                        placeholder="Username"
                         onChange={this.handleUsernameChange}
                         value={this.state.inputUsername}
                     />
                     <input
                         type="password"
-                        placeholder="password"
+                        placeholder="Password"
                         onChange={this.handlePasswordChange}
                         value={this.state.inputPassword}
                     />

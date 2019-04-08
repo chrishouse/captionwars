@@ -25,14 +25,16 @@ router.post("/", (req, res) => {
 
     // Check for existing user
     mdb.collection("users")
-        .findOne({
-            userName
-        })
+        .findOne({ $or: [{ userName }, { email }] })
         .then(user => {
-            if (user)
+            if (user && user.userName === userName)
                 return res
                     .status(400)
                     .json({ msg: "That username is already in use" });
+            if (user && user.email === email)
+                return res
+                    .status(400)
+                    .json({ msg: "That email is already in use" });
 
             const newUser = {
                 userName,
