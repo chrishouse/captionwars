@@ -75,6 +75,8 @@ body {
     border-radius: 50px;
     display: flex;
     height: 35px; }
+  .dialog.account-edit-dialog {
+    max-width: 75%; }
 
 .main-header {
   background-color: #222222;
@@ -239,27 +241,6 @@ body {
     padding: 5px;
     margin-right: 5px;
     margin-bottom: 10px; }
-  .register-modal .register-submit, .register-modal .register-cancel {
-    transition: all 0.2s;
-    border: none;
-    background-color: #eac813;
-    color: white;
-    padding: 8px 10px;
-    cursor: pointer;
-    transition: all 0.2s;
-    font-weight: 600;
-    align-self: center; }
-    .register-modal .register-submit:hover, .register-modal .register-cancel:hover {
-      background-color: #eecf29; }
-  .register-modal .register-cancel {
-    font-size: 14px;
-    margin-right: 5px;
-    margin-bottom: 10px;
-    background-color: white;
-    color: #686868;
-    font-weight: 400; }
-    .register-modal .register-cancel:hover {
-      background-color: white; }
 
 .register-error {
   color: red;
@@ -270,6 +251,8 @@ body {
   display: flex;
   justify-content: center;
   margin-top: 15px; }
+  .register-buttons .button {
+    margin: 5px; }
 
 .user-avatar {
   display: flex;
@@ -847,21 +830,6 @@ body {
     color: #222222; }
     .profile-content a:hover {
       color: #1abb3f; }
-  .profile-content .fab {
-    font-size: 22px;
-    padding: 0 8px; }
-  .profile-content .fa-facebook-square {
-    color: #3b5998; }
-  .profile-content .fa-twitter-square {
-    color: #1da1f2; }
-  .profile-content .fa-instagram {
-    color: #c32aa3; }
-  .profile-content .fa-pinterest-square {
-    color: #bd081c; }
-  .profile-content .fa-linkedin {
-    color: #007bb5; }
-  .profile-content .fa-youtube {
-    color: #ff0000; }
   .profile-content .home-link {
     position: absolute;
     top: -18px;
@@ -873,6 +841,41 @@ body {
       font-size: 12px;
       margin-right: 3px;
       cursor: pointer; }
+  .profile-content.account-content .fas {
+    cursor: pointer;
+    font-size: 14px;
+    color: grey; }
+    .profile-content.account-content .fas:hover {
+      color: #1abb3f; }
+
+.profile-content .fab,
+.account-edit-dialog .fab {
+  font-size: 22px;
+  padding: 0 8px; }
+
+.profile-content .fa-facebook-square,
+.account-edit-dialog .fa-facebook-square {
+  color: #3b5998; }
+
+.profile-content .fa-twitter-square,
+.account-edit-dialog .fa-twitter-square {
+  color: #1da1f2; }
+
+.profile-content .fa-instagram,
+.account-edit-dialog .fa-instagram {
+  color: #c32aa3; }
+
+.profile-content .fa-pinterest-square,
+.account-edit-dialog .fa-pinterest-square {
+  color: #bd081c; }
+
+.profile-content .fa-linkedin,
+.account-edit-dialog .fa-linkedin {
+  color: #007bb5; }
+
+.profile-content .fa-youtube,
+.account-edit-dialog .fa-youtube {
+  color: #ff0000; }
 
 .profile-header {
   display: flex;
@@ -891,6 +894,9 @@ body {
     border-radius: 300px;
     width: 100%;
     height: 100%; }
+  .profile-photo.account-photo {
+    display: flex;
+    align-items: center; }
 
 .profile-username {
   font-weight: 600;

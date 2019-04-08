@@ -195,32 +195,6 @@
         margin-right: 5px;
         margin-bottom: 10px;
     }
-    .register-submit {
-        transition: all 0.2s;
-        border: none;
-        background-color: #eac813;
-        color: white;
-        padding: 8px 10px;
-        cursor: pointer;
-        transition: all 0.2s;
-        font-weight: 600;
-        align-self: center;
-        &:hover {
-            background-color: lighten($yellow, 5);
-        }
-    }
-    .register-cancel {
-        @extend .register-submit;
-        font-size: 14px;
-        margin-right: 5px;
-        margin-bottom: 10px;
-        background-color: white;
-        color: $darkGrey;
-        font-weight: 400;
-        &:hover {
-            background-color: white;
-        }
-    }
 }
 
 .register-error {
@@ -233,4 +207,7 @@
     display: flex;
     justify-content: center;
     margin-top: 15px;
+    .button {
+        margin: 5px;
+    }
 }

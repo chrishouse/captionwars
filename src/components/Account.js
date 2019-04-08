@@ -1,5 +1,6 @@
 import React from "react";
 import Sidebar from "./Sidebar";
+import AccountEdit from "./AccountEdit";
 import PropTypes from "prop-types";
 import * as api from "../api";
 
@@ -8,7 +9,9 @@ class Account extends React.Component {
         token: localStorage.getItem("token"),
         authorized: false,
         user: null,
-        error: null
+        error: null,
+        editMode: false,
+        fieldToEdit: {}
     };
 
     componentDidMount = () => {
@@ -32,6 +35,19 @@ class Account extends React.Component {
         });
     };
 
+    handleEditAdd = (prettyField, dataField) => {
+        this.setState({
+            editMode: true,
+            fieldToEdit: { prettyField, dataField }
+        });
+    };
+
+    handleEditAccountCancel = () => {
+        this.setState({
+            editMode: false
+        });
+    };
+
     getContent = authorized => {
         if (authorized) {
             const {
@@ -43,10 +59,6 @@ class Account extends React.Component {
             const {
                 _id,
                 userName,
-                likesReceived,
-                likesGiven,
-                contestsEntered,
-                contestsFollowing,
                 realName,
                 avatar,
                 age,
@@ -63,6 +75,12 @@ class Account extends React.Component {
             } = this.state.user;
             return (
                 <main className="main-container inner">
+                    {this.state.editMode ? (
+                        <AccountEdit
+                            onEditAccountCancel={this.handleEditAccountCancel}
+                            fieldToEdit={this.state.fieldToEdit}
+                        />
+                    ) : null}
                     <Sidebar
                         userData={userData}
                         currentUser={_id}
@@ -70,150 +88,405 @@ class Account extends React.Component {
                         isAuthenticated={isAuthenticated}
                     />
                     <main className="main">
-                        <section className="profile-content">
-                            Account Page
+                        <section className="profile-content account-content">
                             <a className="home-link" onClick={onHomeClick}>
                                 <i className="fas fa-arrow-left" />
                                 <i className="fas fa-home" />
                             </a>
                             <header className="profile-header">
-                                <div className="profile-photo">
+                                <div className="profile-photo account-photo">
                                     <img src={`/images/users/${avatar}`} />
+                                    &nbsp;
+                                    <i
+                                        className="fas fa-pencil-alt"
+                                        onClick={() =>
+                                            this.handleEditAdd(
+                                                "Avatar",
+                                                "avatar"
+                                            )
+                                        }
+                                    />
                                 </div>
-                                <p className="profile-username">{userName}</p>
+                                <p className="profile-username">
+                                    {userName}
+                                    &nbsp;
+                                    <i
+                                        className="fas fa-pencil-alt"
+                                        onClick={() =>
+                                            this.handleEditAdd(
+                                                "Username",
+                                                "userName"
+                                            )
+                                        }
+                                    />
+                                </p>
                             </header>
-                            <section className="profile-stats-container">
-                                <div className="profile-stat profile-stats-likes-received">
-                                    <p>
-                                        Likes
-                                        <br />
-                                        Received
-                                    </p>
-                                    <div className="profile-stat-number">
-                                        {likesReceived.length}
-                                    </div>
-                                </div>
-                                <div className="profile-stat profile-stats-likes-givn">
-                                    <p>
-                                        Likes
-                                        <br />
-                                        Given
-                                    </p>
-                                    <div className="profile-stat-number">
-                                        {likesGiven.length}
-                                    </div>
-                                </div>
-                                <div className="profile-stat profile-stats-contests-entered">
-                                    <p>
-                                        Contests
-                                        <br />
-                                        Entered
-                                    </p>
-                                    <div className="profile-stat-number">
-                                        {contestsEntered.length}
-                                    </div>
-                                </div>
-                                <div className="profile-stat profile-stats-contests-following">
-                                    <p>
-                                        Contests
-                                        <br />
-                                        Following
-                                    </p>
-                                    <div className="profile-stat-number">
-                                        {contestsFollowing.length}
-                                    </div>
-                                </div>
-                            </section>
+
                             <section className="profile-details-container">
-                                {realName ? (
-                                    <div className="profile-detail">
-                                        Real Name: <span>{realName}</span>
-                                    </div>
-                                ) : null}
-                                {age ? (
-                                    <div className="profile-detail">
-                                        Age: <span>{age}</span>
-                                    </div>
-                                ) : null}
-                                {gender ? (
-                                    <div className="profile-detail">
-                                        Gender: <span>{gender}</span>
-                                    </div>
-                                ) : null}
-                                {location ? (
-                                    <div className="profile-detail">
-                                        Location: <span>{location}</span>
-                                    </div>
-                                ) : null}
-                                {email ? (
-                                    <div className="profile-detail">
-                                        Email:{" "}
+                                <div className="profile-detail">
+                                    Password:&nbsp;
+                                    <span>
+                                        <span>********</span>
                                         <span>
-                                            <a href={"mailto:" + email}>
-                                                {email}
-                                            </a>
+                                            {" "}
+                                            <i
+                                                className="fas fa-pencil-alt"
+                                                onClick={() =>
+                                                    this.handleEditAdd(
+                                                        "Password",
+                                                        "password"
+                                                    )
+                                                }
+                                            />
                                         </span>
-                                    </div>
-                                ) : null}
-                                {website ? (
-                                    <div className="profile-detail">
-                                        Website:{" "}
+                                    </span>
+                                </div>
+                                <div className="profile-detail">
+                                    Email:&nbsp;
+                                    <span>
+                                        <a href={"mailto:" + email}>{email}</a>
                                         <span>
-                                            <a href={website}>{website}</a>
+                                            {" "}
+                                            <i
+                                                className="fas fa-pencil-alt"
+                                                onClick={() =>
+                                                    this.handleEditAdd(
+                                                        "Email",
+                                                        "email"
+                                                    )
+                                                }
+                                            />
                                         </span>
-                                    </div>
-                                ) : null}
-                                {facebook ||
-                                twitter ||
-                                instagram ||
-                                pinterest ||
-                                linkedin ||
-                                youtube ? (
-                                    <div className="profile-detail">
-                                        {facebook ? (
+                                    </span>
+                                </div>
+                                <div className="profile-detail">
+                                    Real Name
+                                    <span>
+                                        {realName ? (
                                             <span>
-                                                <a href={facebook}>
-                                                    <i className="fab fa-facebook-square" />
-                                                </a>
+                                                : {realName}{" "}
+                                                <i
+                                                    className="fas fa-pencil-alt"
+                                                    onClick={() =>
+                                                        this.handleEditAdd(
+                                                            "Real Name",
+                                                            "realName"
+                                                        )
+                                                    }
+                                                />
                                             </span>
-                                        ) : null}
-                                        {twitter ? (
+                                        ) : (
                                             <span>
-                                                <a href={twitter}>
-                                                    <i className="fab fa-twitter-square" />
-                                                </a>
+                                                &nbsp;
+                                                <i
+                                                    className="fas fa-plus"
+                                                    onClick={() =>
+                                                        this.handleEditAdd(
+                                                            "Real Name",
+                                                            "realName"
+                                                        )
+                                                    }
+                                                />
                                             </span>
-                                        ) : null}
-                                        {instagram ? (
-                                            <span>
-                                                <a href={instagram}>
-                                                    <i className="fab fa-instagram" />
-                                                </a>
-                                            </span>
-                                        ) : null}
-                                        {pinterest ? (
-                                            <span>
-                                                <a href={pinterest}>
-                                                    <i className="fab fa-pinterest-square" />
-                                                </a>
-                                            </span>
-                                        ) : null}
-                                        {linkedin ? (
-                                            <span>
-                                                <a href={linkedin}>
-                                                    <i className="fab fa-linkedin" />
-                                                </a>
-                                            </span>
-                                        ) : null}
-                                        {youtube ? (
-                                            <span>
-                                                <a href={youtube}>
-                                                    <i className="fab fa-youtube" />
-                                                </a>
-                                            </span>
-                                        ) : null}
-                                    </div>
-                                ) : null}
+                                        )}
+                                    </span>
+                                </div>
+                                <div className="profile-detail">
+                                    Age
+                                    {age ? (
+                                        <span>
+                                            : {age}{" "}
+                                            <i
+                                                className="fas fa-pencil-alt"
+                                                onClick={() =>
+                                                    this.handleEditAdd(
+                                                        "Age",
+                                                        "age"
+                                                    )
+                                                }
+                                            />
+                                        </span>
+                                    ) : (
+                                        <span>
+                                            &nbsp;
+                                            <i
+                                                className="fas fa-plus"
+                                                onClick={() =>
+                                                    this.handleEditAdd(
+                                                        "Age",
+                                                        "age"
+                                                    )
+                                                }
+                                            />
+                                        </span>
+                                    )}
+                                </div>
+                                <div className="profile-detail">
+                                    Gender
+                                    {gender ? (
+                                        <span>
+                                            : {gender}{" "}
+                                            <i
+                                                className="fas fa-pencil-alt"
+                                                onClick={() =>
+                                                    this.handleEditAdd(
+                                                        "Gender",
+                                                        "gender"
+                                                    )
+                                                }
+                                            />
+                                        </span>
+                                    ) : (
+                                        <span>
+                                            &nbsp;
+                                            <i
+                                                className="fas fa-plus"
+                                                onClick={() =>
+                                                    this.handleEditAdd(
+                                                        "Gender",
+                                                        "gender"
+                                                    )
+                                                }
+                                            />
+                                        </span>
+                                    )}
+                                </div>
+                                <div className="profile-detail">
+                                    Location
+                                    {location ? (
+                                        <span>
+                                            : {location}{" "}
+                                            <i
+                                                className="fas fa-pencil-alt"
+                                                onClick={() =>
+                                                    this.handleEditAdd(
+                                                        "Location",
+                                                        "location"
+                                                    )
+                                                }
+                                            />
+                                        </span>
+                                    ) : (
+                                        <span>
+                                            &nbsp;
+                                            <i
+                                                className="fas fa-plus"
+                                                onClick={() =>
+                                                    this.handleEditAdd(
+                                                        "Location",
+                                                        "location"
+                                                    )
+                                                }
+                                            />
+                                        </span>
+                                    )}
+                                </div>
+
+                                <div className="profile-detail">
+                                    Website
+                                    {website ? (
+                                        <span>
+                                            : <a href={website}>{website}</a>
+                                            <i
+                                                className="fas fa-pencil-alt"
+                                                onClick={() =>
+                                                    this.handleEditAdd(
+                                                        "Website",
+                                                        "website"
+                                                    )
+                                                }
+                                            />
+                                        </span>
+                                    ) : (
+                                        <span>
+                                            &nbsp;
+                                            <i
+                                                className="fas fa-plus"
+                                                onClick={() =>
+                                                    this.handleEditAdd(
+                                                        "Website",
+                                                        "website"
+                                                    )
+                                                }
+                                            />
+                                        </span>
+                                    )}
+                                </div>
+
+                                <div className="profile-detail">
+                                    <i className="fab fa-facebook-square" />
+                                    {facebook ? (
+                                        <span>
+                                            {facebook}{" "}
+                                            <i
+                                                className="fas fa-pencil-alt"
+                                                onClick={() =>
+                                                    this.handleEditAdd(
+                                                        "fab fa-facebook-square",
+                                                        "facebook"
+                                                    )
+                                                }
+                                            />
+                                        </span>
+                                    ) : (
+                                        <span>
+                                            <i
+                                                className="fas fa-plus"
+                                                onClick={() =>
+                                                    this.handleEditAdd(
+                                                        "fab fa-facebook-square",
+                                                        "facebook"
+                                                    )
+                                                }
+                                            />
+                                        </span>
+                                    )}
+                                </div>
+                                <div className="profile-detail">
+                                    <i className="fab fa-twitter-square" />
+                                    {twitter ? (
+                                        <span>
+                                            {twitter}{" "}
+                                            <i
+                                                className="fas fa-pencil-alt"
+                                                onClick={() =>
+                                                    this.handleEditAdd(
+                                                        "fab fa-twitter-square",
+                                                        "twitter"
+                                                    )
+                                                }
+                                            />
+                                        </span>
+                                    ) : (
+                                        <span>
+                                            <i
+                                                className="fas fa-plus"
+                                                onClick={() =>
+                                                    this.handleEditAdd(
+                                                        "fab fa-twitter-square",
+                                                        "twitter"
+                                                    )
+                                                }
+                                            />
+                                        </span>
+                                    )}
+                                </div>
+                                <div className="profile-detail">
+                                    <i className="fab fa-instagram" />
+                                    {instagram ? (
+                                        <span>
+                                            {instagram}{" "}
+                                            <i
+                                                className="fas fa-pencil-alt"
+                                                onClick={() =>
+                                                    this.handleEditAdd(
+                                                        "fab fa-instagram",
+                                                        "instagram"
+                                                    )
+                                                }
+                                            />
+                                        </span>
+                                    ) : (
+                                        <span>
+                                            <i
+                                                className="fas fa-plus"
+                                                onClick={() =>
+                                                    this.handleEditAdd(
+                                                        "fab fa-instagram",
+                                                        "instagram"
+                                                    )
+                                                }
+                                            />
+                                        </span>
+                                    )}
+                                </div>
+                                <div className="profile-detail">
+                                    <i className="fab fa-pinterest-square" />
+                                    {pinterest ? (
+                                        <span>
+                                            {pinterest}{" "}
+                                            <i
+                                                className="fas fa-pencil-alt"
+                                                onClick={() =>
+                                                    this.handleEditAdd(
+                                                        "fab fa-pinterest-square",
+                                                        "pinterest"
+                                                    )
+                                                }
+                                            />
+                                        </span>
+                                    ) : (
+                                        <span>
+                                            <i
+                                                className="fas fa-plus"
+                                                onClick={() =>
+                                                    this.handleEditAdd(
+                                                        "fab fa-pinterest-square",
+                                                        "pinterest"
+                                                    )
+                                                }
+                                            />
+                                        </span>
+                                    )}
+                                </div>
+                                <div className="profile-detail">
+                                    <i className="fab fa-linkedin" />
+                                    {linkedin ? (
+                                        <span>
+                                            {linkedin}{" "}
+                                            <i
+                                                className="fas fa-pencil-alt"
+                                                onClick={() =>
+                                                    this.handleEditAdd(
+                                                        "fab fa-linkedin",
+                                                        "linkedin"
+                                                    )
+                                                }
+                                            />
+                                        </span>
+                                    ) : (
+                                        <span>
+                                            <i
+                                                className="fas fa-plus"
+                                                onClick={() =>
+                                                    this.handleEditAdd(
+                                                        "fab fa-linkedin",
+                                                        "linkedin"
+                                                    )
+                                                }
+                                            />
+                                        </span>
+                                    )}
+                                </div>
+                                <div className="profile-detail">
+                                    <i className="fab fa-youtube" />
+                                    {youtube ? (
+                                        <span>
+                                            {youtube}{" "}
+                                            <i
+                                                className="fas fa-pencil-alt"
+                                                onClick={() =>
+                                                    this.handleEditAdd(
+                                                        "fab fa-youtube",
+                                                        "youtube"
+                                                    )
+                                                }
+                                            />
+                                        </span>
+                                    ) : (
+                                        <span>
+                                            <i
+                                                className="fas fa-plus"
+                                                onClick={() =>
+                                                    this.handleEditAdd(
+                                                        "fab fa-youtube",
+                                                        "youtube"
+                                                    )
+                                                }
+                                            />
+                                        </span>
+                                    )}
+                                </div>
                             </section>
                         </section>
                     </main>

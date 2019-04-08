@@ -43,7 +43,8 @@ router.post("/", (req, res) => {
                 likesReceived: [],
                 likesGiven: [],
                 contestsEntered: [],
-                contestsFollowing: []
+                contestsFollowing: [],
+                avatar: "no-avatar.png"
             };
 
             // Create salt & hash

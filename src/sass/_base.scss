@@ -83,4 +83,7 @@ body {
         display: flex;
         height: 35px;
     }
+    &.account-edit-dialog {
+        max-width: 75%;
+    }
 }

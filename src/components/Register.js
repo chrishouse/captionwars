@@ -69,12 +69,14 @@ class Register extends React.Component {
                         value={email}
                     />
                     <div className="register-buttons">
-                        <input className="register-submit" type="submit" />
                         <button
-                            className="register-cancel"
+                            className="button button-grey"
                             onClick={onCancelClick}
                         >
                             Cancel
+                        </button>
+                        <button className="button" type="submit">
+                            Submit
                         </button>
                     </div>
                 </form>

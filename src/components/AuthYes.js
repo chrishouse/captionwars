@@ -14,15 +14,23 @@ class AuthYes extends React.Component {
         });
     };
 
+    onAvatarClick = currentUser => {
+        this.setState({
+            menuIsActive: false
+        });
+        this.props.onAvatarClick(currentUser);
+    };
+
+    onAccountClick = currentUser => {
+        this.setState({
+            menuIsActive: false
+        });
+        this.props.onAccountClick(currentUser);
+    };
+
     render() {
         const { menuIsActive } = this.state;
-        const {
-            user,
-            currentUser,
-            onAvatarClick,
-            onAccountClick,
-            onLogoutClick
-        } = this.props;
+        const { user, currentUser, onAvatarClick, onLogoutClick } = this.props;
 
         return (
             <div className="auth auth-yes">
@@ -45,9 +53,9 @@ class AuthYes extends React.Component {
                 {this.state.menuIsActive ? (
                     <UserMenu
                         menuToggle={this.handleClick}
-                        onAvatarClick={onAvatarClick}
+                        onAvatarClick={this.onAvatarClick}
                         currentUser={currentUser}
-                        onAccountClick={onAccountClick}
+                        onAccountClick={this.onAccountClick}
                         onLogoutClick={onLogoutClick}
                     />
                 ) : (

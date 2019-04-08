@@ -166,7 +166,7 @@ class App extends React.Component {
 
         this.setState({
             accountPage: true,
-            profileId: null
+            profileId: ""
         });
     };
 
@@ -280,7 +280,7 @@ class App extends React.Component {
                     onHomeClick={this.handleHomeClick}
                 />
             );
-            // If accountPage is true it means the account link was clicked and we want to display Account
+            // If accountPage is true we want to display Account
         } else if (accountPage) {
             if (isAuthenticated) {
                 return (
@@ -291,7 +291,7 @@ class App extends React.Component {
                         onHomeClick={this.handleHomeClick}
                     />
                 );
-                // If the user is not authenticated, send them to /
+                // If the user is not authenticated, send them to the home page
             } else {
                 pushState({ homePage: true }, "/");
             }
