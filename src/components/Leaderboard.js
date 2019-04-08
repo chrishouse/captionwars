@@ -39,6 +39,7 @@ const Leaderboard = ({ userData, currentUser, onAvatarClick }) => {
                                         currentUser={currentUser}
                                         likesReceived={user.likesReceived}
                                         onAvatarClick={onAvatarClick}
+                                        avatar={user.avatar}
                                     />
                                 </div>
                             </div>

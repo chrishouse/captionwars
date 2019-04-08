@@ -11,13 +11,13 @@ class UserAvatar extends React.Component {
     };
 
     render() {
-        const { user, currentUser, likesReceived } = this.props;
+        const { user, currentUser, likesReceived, avatar } = this.props;
 
         return (
             <div className="user-avatar" onClick={this.handleAvatarClick}>
                 <img
                     className="user-avatar-image"
-                    src={`/images/users/${user}.jpg`}
+                    src={`/images/users/${avatar}`}
                     alt="name goes here"
                 />
                 <div
@@ -38,7 +38,8 @@ UserAvatar.propTypes = {
     isYou: PropTypes.bool,
     currentWinners: PropTypes.number,
     currentUser: PropTypes.string.isRequired,
-    onAvatarClick: PropTypes.func.isRequired
+    onAvatarClick: PropTypes.func.isRequired,
+    avatar: PropTypes.string
 };
 
 export default UserAvatar;

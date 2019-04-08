@@ -37,6 +37,7 @@ class AuthYes extends React.Component {
                     user={currentUser}
                     likesReceived={user[currentUser].likesReceived}
                     currentUser={currentUser}
+                    avatar={user[currentUser].avatar}
                     onAvatarClick={onAvatarClick}
                 />
                 {/* Alerts will be Phase 2 */}

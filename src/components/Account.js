@@ -48,6 +48,7 @@ class Account extends React.Component {
                 contestsEntered,
                 contestsFollowing,
                 realName,
+                avatar,
                 age,
                 gender,
                 location,
@@ -77,7 +78,7 @@ class Account extends React.Component {
                             </a>
                             <header className="profile-header">
                                 <div className="profile-photo">
-                                    <img src={`/images/users/${_id}.jpg`} />
+                                    <img src={`/images/users/${avatar}`} />
                                 </div>
                                 <p className="profile-username">{userName}</p>
                             </header>

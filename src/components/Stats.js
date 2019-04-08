@@ -14,7 +14,7 @@ class Stats extends React.Component {
                 <header className="sidebar-header">
                     <img
                         className="sidebar-photo"
-                        src={`/images/users/${currentUser}.jpg`}
+                        src={`/images/users/${userData[currentUser].avatar}`}
                     />
                     <p className="sidebar-username">
                         {userData[currentUser].userName}

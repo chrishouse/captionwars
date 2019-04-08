@@ -231,6 +231,7 @@ class Entry extends React.Component {
                                 likesReceived={
                                     userData[entry.user].likesReceived
                                 }
+                                avatar={userData[entry.user].avatar}
                                 onAvatarClick={onAvatarClick}
                             />
                             <div
