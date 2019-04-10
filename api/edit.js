@@ -38,9 +38,7 @@ router.post("/", auth, (req, res) => {
                                 { _id: ObjectID(_id) },
                                 { $set: { userName: newValue } }
                             )
-                            .then(resp => {
-                                return resp;
-                            });
+                            .then(() => res.send());
                     });
             } else if (fieldToUpdate === "email") {
                 // Check if email already exists
@@ -56,9 +54,7 @@ router.post("/", auth, (req, res) => {
                                 { _id: ObjectID(_id) },
                                 { $set: { email: newValue } }
                             )
-                            .then(resp => {
-                                return resp;
-                            });
+                            .then(() => res.send());
                     });
             } else {
                 if (fieldToUpdate === "password") {
@@ -76,9 +72,7 @@ router.post("/", auth, (req, res) => {
                         { _id: ObjectID(_id) },
                         { $set: { [fieldToUpdate]: newValue } }
                     )
-                    .then(resp => {
-                        return resp;
-                    });
+                    .then(() => res.send());
             }
         });
 });

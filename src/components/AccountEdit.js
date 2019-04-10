@@ -30,15 +30,11 @@ class AccountEdit extends React.Component {
         }
         api.edit(this.props.token, dataField, this.state.fieldInput).then(
             resp => {
-                console.log(resp.status);
                 if (resp.status == 400) {
                     this.setState({
                         error: resp.data.msg
                     });
                 } else {
-                    // TO DO: this isn't working:
-
-                    console.log("success");
                     this.props.onEditSuccess();
                 }
             }

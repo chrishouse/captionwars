@@ -67,8 +67,6 @@ export const deleteEntry = (entryId, currentUser) => {
         });
 };
 
-// TO DO: This function probably needs to be consolidated with the addEntry function somehow
-
 export const updateContestsEntered = (userId, contestId, remove) => {
     if (remove) {
         return axios

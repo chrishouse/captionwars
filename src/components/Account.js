@@ -11,7 +11,8 @@ class Account extends React.Component {
         user: null,
         error: null,
         editMode: false,
-        fieldToEdit: {}
+        fieldToEdit: {},
+        editConfirm: false
     };
 
     loadUser = () => {
@@ -54,6 +55,20 @@ class Account extends React.Component {
         });
     };
 
+    handleEditSuccess = () => {
+        this.loadUser();
+        setTimeout(() => {
+            this.setState({
+                editConfirm: true
+            });
+        }, 500);
+        setTimeout(() => {
+            this.setState({
+                editConfirm: false
+            });
+        }, 4500);
+    };
+
     getContent = authorized => {
         if (authorized) {
             const {
@@ -87,7 +102,7 @@ class Account extends React.Component {
                             fieldToEdit={this.state.fieldToEdit}
                             user={_id}
                             token={this.state.token}
-                            onEditSuccess={this.loadUser}
+                            onEditSuccess={this.handleEditSuccess}
                         />
                     ) : null}
                     <Sidebar
@@ -96,8 +111,16 @@ class Account extends React.Component {
                         onAvatarClick={onAvatarClick}
                         isAuthenticated={isAuthenticated}
                     />
-                    <main className="main">
+                    <main className="main account-main">
                         <section className="profile-content account-content">
+                            <div
+                                className={
+                                    "edit-confirm-message" +
+                                    (this.state.editConfirm ? " visible" : "")
+                                }
+                            >
+                                Your information has been saved.
+                            </div>
                             <a className="home-link" onClick={onHomeClick}>
                                 <i className="fas fa-arrow-left" />
                                 <i className="fas fa-home" />
