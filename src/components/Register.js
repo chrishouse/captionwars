@@ -72,6 +72,7 @@ class Register extends React.Component {
                         <button
                             className="button button-grey"
                             onClick={onCancelClick}
+                            tabIndex="-1"
                         >
                             Cancel
                         </button>
