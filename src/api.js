@@ -179,3 +179,23 @@ export const edit = (token, fieldToUpdate, newValue) => {
             return err.response;
         });
 };
+
+export const upload = (token, avatar) => {
+    return axios
+        .post(
+            "/api/upload",
+            { avatar },
+            {
+                headers: {
+                    "Content-type": "application/json",
+                    "x-auth-token": token
+                }
+            }
+        )
+        .then(resp => {
+            return resp;
+        })
+        .catch(err => {
+            return err.response;
+        });
+};

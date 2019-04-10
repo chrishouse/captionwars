@@ -11,6 +11,7 @@ class AccountEdit extends React.Component {
 
     handleEditAccountSubmit = (e, dataField) => {
         e.preventDefault();
+
         // Check if the confirm field was filled out (for email and password) and make sure the values match
         if (
             e.target["confirm"] &&
@@ -28,17 +29,33 @@ class AccountEdit extends React.Component {
             });
             return;
         }
-        api.edit(this.props.token, dataField, this.state.fieldInput).then(
-            resp => {
-                if (resp.status == 400) {
-                    this.setState({
-                        error: resp.data.msg
-                    });
-                } else {
-                    this.props.onEditSuccess();
+        // For avatar
+        if (dataField === "avatar") {
+            api.upload(this.props.token, e.target["avatar"].value).then(
+                resp => {
+                    if (resp.status === 400) {
+                        this.setState({
+                            error: resp.data.msg
+                        });
+                    } else {
+                        this.props.onEditSuccess();
+                    }
                 }
-            }
-        );
+            );
+        } else {
+            // For everything else
+            api.edit(this.props.token, dataField, this.state.fieldInput).then(
+                resp => {
+                    if (resp.status === 400) {
+                        this.setState({
+                            error: resp.data.msg
+                        });
+                    } else {
+                        this.props.onEditSuccess();
+                    }
+                }
+            );
+        }
     };
 
     handleChange = e => {
@@ -129,7 +146,10 @@ class AccountEdit extends React.Component {
                                 prettyField + ": "
                             )}
                         </label>
-                        {dataField === "gender" ? (
+
+                        {dataField === "avatar" ? (
+                            <input name="avatar" type="file" />
+                        ) : dataField === "gender" ? (
                             <select
                                 name="gender-select"
                                 onChange={this.handleChange}
