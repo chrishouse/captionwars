@@ -14,25 +14,31 @@ class Account extends React.Component {
         fieldToEdit: {}
     };
 
-    componentDidMount = () => {
-        // Scroll to the top of the page
-        window.scrollTo(0, 0);
-
-        // Check token and load user
+    loadUser = () => {
+        // Check token, load user and set editMode to false (in case this is firing from a successful edit)
         api.account(this.state.token).then(resp => {
             if (resp.status === 200) {
                 this.setState({
                     authorized: true,
-                    user: resp.data
+                    user: resp.data,
+                    editMode: false
                 });
             } else {
                 this.setState({
                     authorized: false,
                     user: null,
-                    error: resp
+                    error: resp,
+                    editMode: false
                 });
             }
         });
+    };
+
+    componentDidMount = () => {
+        // Scroll to the top of the page
+        window.scrollTo(0, 0);
+
+        this.loadUser();
     };
 
     handleEditAdd = (prettyField, dataField) => {
@@ -79,6 +85,9 @@ class Account extends React.Component {
                         <AccountEdit
                             onEditAccountCancel={this.handleEditAccountCancel}
                             fieldToEdit={this.state.fieldToEdit}
+                            user={_id}
+                            token={this.state.token}
+                            onEditSuccess={this.loadUser}
                         />
                     ) : null}
                     <Sidebar
@@ -286,7 +295,7 @@ class Account extends React.Component {
                                     Website
                                     {website ? (
                                         <span>
-                                            : <a href={website}>{website}</a>
+                                            : <a href={website}>{website}</a>{" "}
                                             <i
                                                 className="fas fa-pencil-alt"
                                                 onClick={() =>
@@ -317,7 +326,13 @@ class Account extends React.Component {
                                     <i className="fab fa-facebook-square" />
                                     {facebook ? (
                                         <span>
-                                            {facebook}{" "}
+                                            {
+                                                <a
+                                                    href={`https://www.facebook.com/${facebook}`}
+                                                >
+                                                    {facebook}
+                                                </a>
+                                            }{" "}
                                             <i
                                                 className="fas fa-pencil-alt"
                                                 onClick={() =>
@@ -346,7 +361,13 @@ class Account extends React.Component {
                                     <i className="fab fa-twitter-square" />
                                     {twitter ? (
                                         <span>
-                                            {twitter}{" "}
+                                            {
+                                                <a
+                                                    href={`https://twitter.com/${twitter}`}
+                                                >
+                                                    {twitter}
+                                                </a>
+                                            }{" "}
                                             <i
                                                 className="fas fa-pencil-alt"
                                                 onClick={() =>
@@ -375,7 +396,13 @@ class Account extends React.Component {
                                     <i className="fab fa-instagram" />
                                     {instagram ? (
                                         <span>
-                                            {instagram}{" "}
+                                            {
+                                                <a
+                                                    href={`https://www.instagram.com/${instagram}`}
+                                                >
+                                                    {instagram}
+                                                </a>
+                                            }{" "}
                                             <i
                                                 className="fas fa-pencil-alt"
                                                 onClick={() =>
@@ -404,7 +431,13 @@ class Account extends React.Component {
                                     <i className="fab fa-pinterest-square" />
                                     {pinterest ? (
                                         <span>
-                                            {pinterest}{" "}
+                                            {
+                                                <a
+                                                    href={`https://www.pinterest.com/${pinterest}`}
+                                                >
+                                                    {pinterest}
+                                                </a>
+                                            }{" "}
                                             <i
                                                 className="fas fa-pencil-alt"
                                                 onClick={() =>
@@ -433,7 +466,13 @@ class Account extends React.Component {
                                     <i className="fab fa-linkedin" />
                                     {linkedin ? (
                                         <span>
-                                            {linkedin}{" "}
+                                            {
+                                                <a
+                                                    href={`https://www.linkedin.com/${linkedin}`}
+                                                >
+                                                    {linkedin}
+                                                </a>
+                                            }{" "}
                                             <i
                                                 className="fas fa-pencil-alt"
                                                 onClick={() =>
@@ -462,7 +501,13 @@ class Account extends React.Component {
                                     <i className="fab fa-youtube" />
                                     {youtube ? (
                                         <span>
-                                            {youtube}{" "}
+                                            {
+                                                <a
+                                                    href={`https://www.youtube.com/${youtube}`}
+                                                >
+                                                    {youtube}
+                                                </a>
+                                            }{" "}
                                             <i
                                                 className="fas fa-pencil-alt"
                                                 onClick={() =>

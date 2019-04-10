@@ -1,6 +1,7 @@
 import apiRouter from "./api/index";
 import registerRouter from "./api/register";
 import loginRouter from "./api/login";
+import editRouter from "./api/edit";
 import config from "./config";
 import sassMiddleware from "node-sass-middleware";
 import path from "path";
@@ -66,6 +67,7 @@ server.use(express.static("public"));
 server.use("/api", apiRouter);
 server.use("/api/register", registerRouter);
 server.use("/api/login", loginRouter);
+server.use("/api/edit", editRouter);
 
 // The express listen call - the first two arguments are the port and host, the third argument is the success handler
 server.listen(config.port, config.host, () => {

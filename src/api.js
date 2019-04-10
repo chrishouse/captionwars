@@ -161,3 +161,23 @@ export const account = token => {
             return err;
         });
 };
+
+export const edit = (token, fieldToUpdate, newValue) => {
+    return axios
+        .post(
+            "/api/edit",
+            { fieldToUpdate, newValue },
+            {
+                headers: {
+                    "Content-type": "application/json",
+                    "x-auth-token": token
+                }
+            }
+        )
+        .then(resp => {
+            return resp;
+        })
+        .catch(err => {
+            return err.response;
+        });
+};
