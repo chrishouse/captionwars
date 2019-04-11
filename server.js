@@ -2,21 +2,23 @@ import apiRouter from "./api/index";
 import registerRouter from "./api/register";
 import loginRouter from "./api/login";
 import editRouter from "./api/edit";
-import uploadRouter from "./api/upload";
 import config from "./config";
 import sassMiddleware from "node-sass-middleware";
 import path from "path";
 import express from "express";
 import bodyParser from "body-parser";
-
 import MongoClient from "mongodb";
 import assert from "assert";
+
+const fileUpload = require("express-fileupload");
+const sharp = require("sharp");
 const exec = require("child_process").exec;
 const fs = require("fs");
 const schedule = require("node-schedule");
 
 const server = express();
 server.use(bodyParser.json());
+server.use(fileUpload());
 
 // Use the SASS middleware
 server.use(
@@ -61,6 +63,39 @@ server.get(
     }
 );
 
+// Upload the avatar using express-fileupload
+server.post("/api/upload", (req, res) => {
+    const user = req.body.user;
+
+    if (Object.keys(req.files).length == 0) {
+        return res.status(400).send("No files were uploaded.");
+    }
+
+    let avatar = req.files.avatar;
+
+    // Use the mv() method to place the file in the correct directory
+    avatar.mv(`src/images/users/${user}-temp.jpg`, function(err) {
+        if (err) return res.status(500).send(err);
+        // Then resize the image with sharp
+        sharp(`src/images/users/${user}-temp.jpg`)
+            .resize(250, 250)
+            .toFile(`src/images/users/${user}.jpg`, () => {
+                // Then delete the temp file
+                exec(`rm src/images/users/${user}-temp.jpg`, () => {
+                    // Then run webkit to execute imagemin and move the new image to the public/images directory
+                    exec("npm run prod", function(err) {
+                        if (err) {
+                            return res.status(500).send(err);
+                        } else {
+                            console.log("worked");
+                            return res.send();
+                        }
+                    });
+                });
+            });
+    });
+});
+
 // Express has a middleware for serving static assets (.use is how we add middleware to the express middleware stack). The argument to .static is the directory.
 server.use(express.static("public"));
 
@@ -69,7 +104,6 @@ server.use("/api", apiRouter);
 server.use("/api/register", registerRouter);
 server.use("/api/login", loginRouter);
 server.use("/api/edit", editRouter);
-server.use("/api/upload", uploadRouter);
 
 // The express listen call - the first two arguments are the port and host, the third argument is the success handler
 server.listen(config.port, config.host, () => {
@@ -111,7 +145,7 @@ MongoClient.connect(config.mongodbUri, (err, client) => {
                                 }
                             );
 
-                            // Run webkit to exectute imagemin and move the new image to the public/images directory
+                            // Run webkit to execute imagemin and move the new image to the public/images directory
                             exec("npm run prod", function(err, stdout) {
                                 if (err) {
                                     throw err;

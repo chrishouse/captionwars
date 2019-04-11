@@ -1,16 +1,22 @@
 import React from "react";
 import PropTypes from "prop-types";
+import Loading from "./Loading";
 import * as api from "../api";
 
 class AccountEdit extends React.Component {
     state = {
         fieldInput: "",
         confirmInput: "",
-        error: null
+        error: null,
+        loading: false
     };
 
     handleEditAccountSubmit = (e, dataField) => {
         e.preventDefault();
+
+        this.setState({
+            loading: true
+        });
 
         // Check if the confirm field was filled out (for email and password) and make sure the values match
         if (
@@ -28,33 +34,57 @@ class AccountEdit extends React.Component {
                 error: "That username is too long"
             });
             return;
-        }
-        // For avatar
-        if (dataField === "avatar") {
-            api.upload(this.props.token, e.target["avatar"].value).then(
-                resp => {
-                    if (resp.status === 400) {
-                        this.setState({
-                            error: resp.data.msg
-                        });
-                    } else {
-                        this.props.onEditSuccess();
-                    }
-                }
-            );
         } else {
-            // For everything else
-            api.edit(this.props.token, dataField, this.state.fieldInput).then(
-                resp => {
+            // If it's an avatar call the upload api
+            if (dataField === "avatar") {
+                const formData = new FormData();
+                formData.append("avatar", this.uploadInput.files[0]);
+                formData.append("user", this.props.user);
+                // Upload the file
+                api.avatarUpload(formData).then(resp => {
                     if (resp.status === 400) {
                         this.setState({
                             error: resp.data.msg
                         });
                     } else {
+                        // Then set the new file as the user's avatar
+                        api.edit(
+                            this.props.token,
+                            "avatar",
+                            `${this.props.user}.jpg`
+                        ).then(resp => {
+                            if (resp.status === 400) {
+                                this.setState({
+                                    error: resp.data.msg
+                                });
+                            } else {
+                                this.setState({
+                                    loading: false
+                                });
+                                this.props.onEditSuccess();
+                            }
+                        });
+                    }
+                });
+            } else {
+                // For everything else
+                api.edit(
+                    this.props.token,
+                    dataField,
+                    this.state.fieldInput
+                ).then(resp => {
+                    if (resp.status === 400) {
+                        this.setState({
+                            error: resp.data.msg
+                        });
+                    } else {
+                        this.setState({
+                            loading: false
+                        });
                         this.props.onEditSuccess();
                     }
-                }
-            );
+                });
+            }
         }
     };
 
@@ -125,6 +155,8 @@ class AccountEdit extends React.Component {
                         onSubmit={e =>
                             this.handleEditAccountSubmit(e, dataField)
                         }
+                        method="post"
+                        encType="multipart/form-data"
                     >
                         <p
                             className={
@@ -148,7 +180,14 @@ class AccountEdit extends React.Component {
                         </label>
 
                         {dataField === "avatar" ? (
-                            <input name="avatar" type="file" />
+                            <input
+                                name={"avatar"}
+                                type="file"
+                                ref={ref => {
+                                    this.uploadInput = ref;
+                                }}
+                                required
+                            />
                         ) : dataField === "gender" ? (
                             <select
                                 name="gender-select"
@@ -189,6 +228,11 @@ class AccountEdit extends React.Component {
                             </span>
                         )}
                         <div className="edit-confirm-buttons">
+                            {this.state.loading ? (
+                                <div className="avatar-loading">
+                                    <Loading />
+                                </div>
+                            ) : null}
                             <button
                                 className="button button-grey"
                                 type="submit"
@@ -197,9 +241,11 @@ class AccountEdit extends React.Component {
                             >
                                 Cancel
                             </button>
-                            <button className="button" type="submit">
-                                Save
-                            </button>
+                            <input
+                                className="button"
+                                type="submit"
+                                value="Save"
+                            />
                         </div>
                     </form>
                 </div>

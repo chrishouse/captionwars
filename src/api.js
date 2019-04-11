@@ -180,18 +180,13 @@ export const edit = (token, fieldToUpdate, newValue) => {
         });
 };
 
-export const upload = (token, avatar) => {
+export const avatarUpload = formData => {
     return axios
-        .post(
-            "/api/upload",
-            { avatar },
-            {
-                headers: {
-                    "Content-type": "application/json",
-                    "x-auth-token": token
-                }
+        .post("/api/upload", formData, {
+            headers: {
+                "Content-Type": "multipart/form-data"
             }
-        )
+        })
         .then(resp => {
             return resp;
         })

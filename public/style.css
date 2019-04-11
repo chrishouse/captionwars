@@ -1011,3 +1011,8 @@ body {
   .edit-confirm-message.visible {
     visibility: visible;
     opacity: 1; }
+
+.avatar-loading {
+  position: absolute;
+  left: 20px;
+  bottom: 20px; }

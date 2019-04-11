@@ -42,36 +42,29 @@ router.post("/", (req, res) => {
                         msg: "Incorrect password. Please try again."
                     });
 
-                jwt.sign(
-                    { id: user._id },
-                    config.jwtSecret,
-                    {
-                        expiresIn: 3600
-                    },
-                    (err, token) => {
-                        if (err) throw err;
-                        res.json({
-                            token,
-                            user: {
-                                id: user._id,
-                                realName: user.realName,
-                                userName: user.userName,
-                                email: user.email,
-                                gender: user.gender,
-                                age: user.age,
-                                avatar: user.avatar,
-                                website: user.website,
-                                location: user.location,
-                                facebook: user.facebook,
-                                twitter: user.twitter,
-                                instagram: user.instagram,
-                                pinterest: user.pinterest,
-                                linkedin: user.linkedin,
-                                youtube: user.youtube
-                            }
-                        });
-                    }
-                );
+                jwt.sign({ id: user._id }, config.jwtSecret, (err, token) => {
+                    if (err) throw err;
+                    res.json({
+                        token,
+                        user: {
+                            id: user._id,
+                            realName: user.realName,
+                            userName: user.userName,
+                            email: user.email,
+                            gender: user.gender,
+                            age: user.age,
+                            avatar: user.avatar,
+                            website: user.website,
+                            location: user.location,
+                            facebook: user.facebook,
+                            twitter: user.twitter,
+                            instagram: user.instagram,
+                            pinterest: user.pinterest,
+                            linkedin: user.linkedin,
+                            youtube: user.youtube
+                        }
+                    });
+                });
             });
         });
 });

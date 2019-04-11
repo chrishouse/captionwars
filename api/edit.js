@@ -62,17 +62,22 @@ router.post("/", auth, (req, res) => {
                     bcrypt.genSalt(10, (err, salt) => {
                         bcrypt.hash(newValue, salt, (err, hash) => {
                             if (err) throw err;
-                            newValue = hash;
+                            mdb.collection("users")
+                                .update(
+                                    { _id: ObjectID(_id) },
+                                    { $set: { [fieldToUpdate]: hash } }
+                                )
+                                .then(() => res.send());
                         });
                     });
+                } else {
+                    mdb.collection("users")
+                        .update(
+                            { _id: ObjectID(_id) },
+                            { $set: { [fieldToUpdate]: newValue } }
+                        )
+                        .then(() => res.send());
                 }
-
-                mdb.collection("users")
-                    .update(
-                        { _id: ObjectID(_id) },
-                        { $set: { [fieldToUpdate]: newValue } }
-                    )
-                    .then(() => res.send());
             }
         });
 });
