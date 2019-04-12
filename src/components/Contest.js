@@ -82,24 +82,28 @@ class Contest extends React.Component {
     componentDidMount() {
         this.getUpdatedEntries();
 
-        // Check if current user has entered this contest, set state accordingly
-        const currentUsersContests = this.props.userData[this.props.currentUser]
-            .contestsEntered;
+        if (this.props.currentUser) {
+            // Check if current user has entered this contest, set state accordingly
+            const currentUsersContests = this.props.userData[
+                this.props.currentUser
+            ].contestsEntered;
 
-        if (currentUsersContests.includes(this.props.contestData._id)) {
-            this.setState({
-                userHasEntered: true
-            });
-        }
+            if (currentUsersContests.includes(this.props.contestData._id)) {
+                this.setState({
+                    userHasEntered: true
+                });
+            }
 
-        // Check if current user is following the contest, set state accordingly
-        const currentUserFollowing = this.props.userData[this.props.currentUser]
-            .contestsFollowing;
+            // Check if current user is following the contest, set state accordingly
+            const currentUserFollowing = this.props.userData[
+                this.props.currentUser
+            ].contestsFollowing;
 
-        if (currentUserFollowing.includes(this.props.contestData._id)) {
-            this.setState({
-                userIsFollowing: true
-            });
+            if (currentUserFollowing.includes(this.props.contestData._id)) {
+                this.setState({
+                    userIsFollowing: true
+                });
+            }
         }
 
         if (this.state.expanded) {

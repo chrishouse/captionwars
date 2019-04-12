@@ -22,19 +22,21 @@ class Entry extends React.Component {
     };
 
     checkIfLikedByCurrentUser = () => {
-        // If the current user has liked this entry, set the state of likedByCurrentUser to true
-        const currentUserLikesGiven = this.props.userData[
-            this.props.currentUser
-        ].likesGiven;
+        if (this.props.currentUser) {
+            // If the current user has liked this entry, set the state of likedByCurrentUser to true
+            const currentUserLikesGiven = this.props.userData[
+                this.props.currentUser
+            ].likesGiven;
 
-        if (currentUserLikesGiven.includes(this.props.entry._id)) {
-            this.setState({
-                likedByCurrentUser: true
-            });
-        } else {
-            this.setState({
-                likedByCurrentUser: false
-            });
+            if (currentUserLikesGiven.includes(this.props.entry._id)) {
+                this.setState({
+                    likedByCurrentUser: true
+                });
+            } else {
+                this.setState({
+                    likedByCurrentUser: false
+                });
+            }
         }
     };
 
