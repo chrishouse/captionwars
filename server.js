@@ -79,20 +79,29 @@ server.post("/api/upload", (req, res) => {
     // Use the mv() method to place the file in the correct directory
     avatar.mv(`src/images/users/${user}-temp.jpg`, function(err) {
         if (err) return res.status(500).send(err);
+
         // Then resize the image with sharp
         sharp(`src/images/users/${user}-temp.jpg`)
-            .resize(250, 250)
-            .toFile(`src/images/users/${user}.jpg`, () => {
-                // Then delete the temp file
-                exec(`rm src/images/users/${user}-temp.jpg`, () => {
-                    // Then run webkit to execute imagemin and move the new image to the public/images directory
-                    exec("npm run prod", function(err) {
-                        if (err) {
-                            return res.status(500).send(err);
-                        } else {
-                            return res.send();
-                        }
+            .resize(125, 125)
+            .toFile(`src/images/users/${user}.jpg`, err => {
+                if (err)
+                    return res.status(400).json({
+                        msg: "That's not a valid image file"
                     });
+                // Then delete the temp file
+                fs.unlink(`src/images/users/${user}-temp.jpg`, () => {
+                    // Then move the new image to the public/images directory
+                    fs.rename(
+                        `src/images/users/${user}.jpg`,
+                        `public/images/users/${user}.jpg`,
+                        function(err) {
+                            if (err) {
+                                return res.status(500).send(err);
+                            } else {
+                                return res.send();
+                            }
+                        }
+                    );
                 });
             });
     });
