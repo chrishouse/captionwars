@@ -1,5 +1,6 @@
 import React from "react";
 import Auth from "./Auth";
+import Contact from "./Contact";
 import PropTypes from "prop-types";
 
 const Header = ({
@@ -37,6 +38,7 @@ const Header = ({
                     onRegisterClick={onRegisterClick}
                     loginErrorMessage={loginErrorMessage}
                 />
+                <Contact />
             </section>
         </header>
     );

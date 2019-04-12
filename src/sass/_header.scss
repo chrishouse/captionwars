@@ -7,6 +7,39 @@
     z-index: 500;
 }
 
+.header-contact {
+    top: 20px;
+    position: absolute;
+    right: 20px;
+    color: $lightBlack;
+    .fa-envelope {
+        cursor: pointer;
+        color: $darkGrey;
+        font-size: 20px;
+        &:hover {
+            color: $lightGrey;
+        }
+    }
+    .dialog {
+        max-width: 50%;
+        .fa-times {
+            position: absolute;
+            top: -15px;
+            right: -15px;
+            font-size: 23px;
+            color: white;
+            background-color: $black;
+            width: 35px;
+            justify-content: center;
+            align-items: center;
+            border-radius: 50px;
+            display: flex;
+            height: 35px;
+            cursor: pointer;
+        }
+    }
+}
+
 .header-content {
     display: flex;
     color: white;

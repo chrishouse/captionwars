@@ -86,6 +86,34 @@ body {
   top: 0;
   z-index: 500; }
 
+.header-contact {
+  top: 20px;
+  position: absolute;
+  right: 20px;
+  color: #3c3c3c; }
+  .header-contact .fa-envelope {
+    cursor: pointer;
+    color: #686868;
+    font-size: 20px; }
+    .header-contact .fa-envelope:hover {
+      color: #f3f3f3; }
+  .header-contact .dialog {
+    max-width: 50%; }
+    .header-contact .dialog .fa-times {
+      position: absolute;
+      top: -15px;
+      right: -15px;
+      font-size: 23px;
+      color: white;
+      background-color: #222222;
+      width: 35px;
+      justify-content: center;
+      align-items: center;
+      border-radius: 50px;
+      display: flex;
+      height: 35px;
+      cursor: pointer; }
+
 .header-content {
   display: flex;
   color: white;
