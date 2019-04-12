@@ -16,6 +16,9 @@ const exec = require("child_process").exec;
 const fs = require("fs");
 const schedule = require("node-schedule");
 
+// Prevent sharp cache from messing things up
+sharp.cache(false);
+
 const server = express();
 server.use(bodyParser.json());
 server.use(fileUpload());
@@ -87,7 +90,6 @@ server.post("/api/upload", (req, res) => {
                         if (err) {
                             return res.status(500).send(err);
                         } else {
-                            console.log("worked");
                             return res.send();
                         }
                     });
