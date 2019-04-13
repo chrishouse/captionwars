@@ -150,42 +150,54 @@ class Profile extends React.Component {
                                 <div className="profile-detail">
                                     {facebook ? (
                                         <span>
-                                            <a href={facebook}>
+                                            <a
+                                                href={`https://www.facebook.com/${facebook}`}
+                                            >
                                                 <i className="fab fa-facebook-square" />
                                             </a>
                                         </span>
                                     ) : null}
                                     {twitter ? (
                                         <span>
-                                            <a href={twitter}>
+                                            <a
+                                                href={`https://twitter.com/${twitter}`}
+                                            >
                                                 <i className="fab fa-twitter-square" />
                                             </a>
                                         </span>
                                     ) : null}
                                     {instagram ? (
                                         <span>
-                                            <a href={instagram}>
+                                            <a
+                                                href={`https://www.instagram.com/${instagram}`}
+                                            >
                                                 <i className="fab fa-instagram" />
                                             </a>
                                         </span>
                                     ) : null}
                                     {pinterest ? (
                                         <span>
-                                            <a href={pinterest}>
+                                            <a
+                                                href={`https://www.pinterest.com/${pinterest}`}
+                                            >
                                                 <i className="fab fa-pinterest-square" />
                                             </a>
                                         </span>
                                     ) : null}
                                     {linkedin ? (
                                         <span>
-                                            <a href={linkedin}>
+                                            <a
+                                                href={`https://www.linkedin.com/${linkedin}`}
+                                            >
                                                 <i className="fab fa-linkedin" />
                                             </a>
                                         </span>
                                     ) : null}
                                     {youtube ? (
                                         <span>
-                                            <a href={youtube}>
+                                            <a
+                                                href={`https://www.youtube.com/${youtube}`}
+                                            >
                                                 <i className="fab fa-youtube" />
                                             </a>
                                         </span>
