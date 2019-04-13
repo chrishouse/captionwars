@@ -22,21 +22,6 @@
     }
     .dialog {
         max-width: 50%;
-        .fa-times {
-            position: absolute;
-            top: -15px;
-            right: -15px;
-            font-size: 23px;
-            color: white;
-            background-color: $black;
-            width: 35px;
-            justify-content: center;
-            align-items: center;
-            border-radius: 50px;
-            display: flex;
-            height: 35px;
-            cursor: pointer;
-        }
     }
 }
 

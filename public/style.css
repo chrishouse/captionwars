@@ -77,6 +77,20 @@ body {
     height: 35px; }
   .dialog.account-edit-dialog {
     max-width: 75%; }
+  .dialog .fa-times {
+    position: absolute;
+    top: -15px;
+    right: -15px;
+    font-size: 23px;
+    color: white;
+    background-color: #222222;
+    width: 35px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50px;
+    display: flex;
+    height: 35px;
+    cursor: pointer; }
 
 .main-header {
   background-color: #222222;
@@ -99,20 +113,6 @@ body {
       color: #f3f3f3; }
   .header-contact .dialog {
     max-width: 50%; }
-    .header-contact .dialog .fa-times {
-      position: absolute;
-      top: -15px;
-      right: -15px;
-      font-size: 23px;
-      color: white;
-      background-color: #222222;
-      width: 35px;
-      justify-content: center;
-      align-items: center;
-      border-radius: 50px;
-      display: flex;
-      height: 35px;
-      cursor: pointer; }
 
 .header-content {
   display: flex;
@@ -528,29 +528,41 @@ body {
 .more-entries-btn {
   margin-bottom: 1px; }
 
-.follow-btn {
+.contestShareFollowBtns {
+  display: flex;
   position: relative;
   top: -20px;
   right: 25px;
-  align-self: flex-end;
-  font-size: 12px;
-  font-weight: 600;
-  color: #3c3c3c; }
-  .follow-btn .far {
-    font-size: 20px;
-    transition: transform 0.2s;
-    padding-left: 3px; }
-  .follow-btn > * {
-    vertical-align: middle;
-    cursor: pointer; }
-  .follow-btn:hover * {
-    color: #1abb3f; }
-  .follow-btn.following {
-    color: #1abb3f; }
-    .follow-btn.following .far {
-      transform: rotate(180deg);
-      padding-left: 0;
-      padding-right: 3px; }
+  align-self: flex-end; }
+  .contestShareFollowBtns .follow-btn {
+    margin-right: 15px; }
+  .contestShareFollowBtns .follow-btn,
+  .contestShareFollowBtns .share-btn {
+    font-size: 12px;
+    font-weight: 600;
+    color: #3c3c3c; }
+    .contestShareFollowBtns .follow-btn .far,
+    .contestShareFollowBtns .follow-btn .fas,
+    .contestShareFollowBtns .share-btn .far,
+    .contestShareFollowBtns .share-btn .fas {
+      font-size: 20px;
+      transition: transform 0.2s;
+      padding-left: 3px; }
+    .contestShareFollowBtns .follow-btn > *,
+    .contestShareFollowBtns .share-btn > * {
+      vertical-align: middle;
+      cursor: pointer; }
+    .contestShareFollowBtns .follow-btn:hover *,
+    .contestShareFollowBtns .share-btn:hover * {
+      color: #1abb3f; }
+    .contestShareFollowBtns .follow-btn.following,
+    .contestShareFollowBtns .share-btn.following {
+      color: #1abb3f; }
+      .contestShareFollowBtns .follow-btn.following .far,
+      .contestShareFollowBtns .share-btn.following .far {
+        transform: rotate(180deg);
+        padding-left: 0;
+        padding-right: 3px; }
 
 .entry-input-cont {
   width: 100%; }
@@ -694,6 +706,20 @@ body {
   .confirm-message.visible {
     visibility: visible;
     opacity: 1; }
+
+.share-dialog {
+  max-width: 15%; }
+
+.share-dialog-buttons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap; }
+  .share-dialog-buttons span {
+    width: 100%;
+    text-align: center; }
+  .share-dialog-buttons * {
+    padding-right: 2px; }
 
 .entry {
   width: 94%;

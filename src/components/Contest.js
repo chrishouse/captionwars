@@ -2,6 +2,7 @@ import React from "react";
 import Entry from "./Entry";
 import EntrySorter from "./EntrySorter";
 import EntryInput from "./EntryInput";
+import Share from "./Share";
 import PropTypes from "prop-types";
 import * as api from "../api";
 
@@ -14,7 +15,8 @@ class Contest extends React.Component {
         confirmMessage: false,
         userIsFollowing: false,
         entriesDisplayed: 9,
-        likeError: false
+        likeError: false,
+        sharing: false
     };
     // Our class-scoped variable that will hold a copy of the entries object
     entries;
@@ -276,6 +278,18 @@ class Contest extends React.Component {
         });
     };
 
+    handleShareBtnClick = () => {
+        this.setState({
+            sharing: true
+        });
+    };
+
+    handleShareBtnCancelClick = () => {
+        this.setState({
+            sharing: false
+        });
+    };
+
     render() {
         const {
             contestData,
@@ -289,7 +303,8 @@ class Contest extends React.Component {
             entriesSortedBy,
             userHasEntered,
             confirmMessage,
-            userIsFollowing
+            userIsFollowing,
+            sharing
         } = this.state;
 
         // Reset the entries variable to a copy of state.contestEntries
@@ -432,19 +447,34 @@ class Contest extends React.Component {
                     </div>
 
                     {isAuthenticated ? (
-                        <div
-                            className={
-                                "follow-btn" +
-                                (userIsFollowing ? " following" : "")
-                            }
-                            onClick={this.handleFollowingBtnClick}
-                        >
-                            <span>
-                                {userIsFollowing
-                                    ? "Following"
-                                    : "Follow Contest"}
-                            </span>
-                            <i className="far fa-arrow-alt-circle-left" />
+                        <div className="contestShareFollowBtns">
+                            <div
+                                className={
+                                    "follow-btn" +
+                                    (userIsFollowing ? " following" : "")
+                                }
+                                onClick={this.handleFollowingBtnClick}
+                            >
+                                <span>
+                                    {userIsFollowing ? "Following" : "Follow"}
+                                </span>
+                                <i className="far fa-arrow-alt-circle-left" />
+                            </div>
+                            <div
+                                className="share-btn"
+                                onClick={this.handleShareBtnClick}
+                            >
+                                <span>Share</span>
+                                <i className="fas fa-share-alt" />
+                            </div>
+                            {sharing ? (
+                                <Share
+                                    contestData={contestData}
+                                    handleCancelClick={
+                                        this.handleShareBtnCancelClick
+                                    }
+                                />
+                            ) : null}
                         </div>
                     ) : null}
 
