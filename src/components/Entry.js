@@ -161,7 +161,7 @@ class Entry extends React.Component {
             likeError
         } = this.state;
 
-        return (
+        return userData[entry.user] ? ( // Make sure the user of the entry exists in the data before attemping to render the entry, to prevent an error
             <React.Fragment>
                 <div
                     className={
@@ -282,6 +282,8 @@ class Entry extends React.Component {
                     ""
                 )}
             </React.Fragment>
+        ) : (
+            ""
         );
     }
 }
