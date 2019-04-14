@@ -8,14 +8,16 @@ class AccountEdit extends React.Component {
         fieldInput: "",
         confirmInput: "",
         error: null,
-        loading: false
+        loading: false,
+        submitDisabled: false
     };
 
     handleEditAccountSubmit = (e, dataField) => {
         e.preventDefault();
 
         this.setState({
-            loading: true
+            loading: true,
+            submitDisabled: true
         });
 
         // Check if the confirm field was filled out (for email and password) and make sure the values match
@@ -246,6 +248,7 @@ class AccountEdit extends React.Component {
                                 className="button"
                                 type="submit"
                                 value="Save"
+                                disabled={this.state.submitDisabled}
                             />
                         </div>
                     </form>

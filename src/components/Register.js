@@ -9,7 +9,9 @@ class Register extends React.Component {
         email: "",
         confirm: "",
         realName: "",
-        error: null
+        avatar: null,
+        error: null,
+        submitDisabled: false
     };
 
     onChange = e => {
@@ -22,6 +24,9 @@ class Register extends React.Component {
 
     onSubmit = e => {
         e.preventDefault();
+        this.setState({
+            submitDisabled: true
+        });
         api.register(
             e.target.userName.value,
             e.target.password.value,
@@ -35,7 +40,37 @@ class Register extends React.Component {
                         error: resp.data.msg
                     });
                 } else if (resp.status === 200) {
-                    this.props.handleRegisterSuccess();
+                    // If avatar is chosen call the upload api
+                    if (this.state.avatar) {
+                        const user = resp.data.user.id;
+                        const token = resp.data.token;
+                        const formData = new FormData();
+                        formData.append("avatar", this.uploadInput.files[0]);
+                        formData.append("user", user);
+                        // Upload the file
+                        api.avatarUpload(formData).then(resp => {
+                            if (resp.status === 400 || resp.status === 500) {
+                                this.setState({
+                                    error: resp.data.msg
+                                });
+                            } else {
+                                // Then set the new file as the user's avatar
+                                api.edit(token, "avatar", `${user}.jpg`).then(
+                                    resp => {
+                                        if (resp.status === 400) {
+                                            this.setState({
+                                                error: resp.data.msg
+                                            });
+                                        } else {
+                                            this.props.handleRegisterSuccess();
+                                        }
+                                    }
+                                );
+                            }
+                        });
+                    } else {
+                        this.props.handleRegisterSuccess();
+                    }
                 }
             }
         });
@@ -56,6 +91,7 @@ class Register extends React.Component {
                         placeholder="Username"
                         onChange={this.onChange}
                         value={userName}
+                        required
                     />
                     <label htmlFor="password">Password</label>
                     <input
@@ -64,6 +100,7 @@ class Register extends React.Component {
                         placeholder="Password"
                         onChange={this.onChange}
                         value={password}
+                        required
                     />
                     <label htmlFor="email">Your email</label>
                     <input
@@ -72,14 +109,25 @@ class Register extends React.Component {
                         placeholder="Your email"
                         onChange={this.onChange}
                         value={email}
+                        required
                     />
-                    <label htmlFor="confirm">Confirm email: </label>
+                    <label htmlFor="confirm">Confirm email</label>
                     <input
                         type="email"
                         name="confirm"
                         placeholder="Your email"
                         onChange={this.onChange}
                         value={confirm}
+                        required
+                    />
+                    <label htmlFor="avatar">Avatar</label>
+                    <input
+                        type="file"
+                        name="avatar"
+                        onChange={this.onChange}
+                        ref={ref => {
+                            this.uploadInput = ref;
+                        }}
                     />
                     <div className="register-buttons">
                         <button
@@ -89,7 +137,11 @@ class Register extends React.Component {
                         >
                             Cancel
                         </button>
-                        <button className="button" type="submit">
+                        <button
+                            className="button"
+                            type="submit"
+                            disabled={this.state.submitDisabled}
+                        >
                             Submit
                         </button>
                     </div>
