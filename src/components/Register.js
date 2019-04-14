@@ -7,6 +7,7 @@ class Register extends React.Component {
         userName: "",
         password: "",
         email: "",
+        confirm: "",
         realName: "",
         error: null
     };
@@ -26,18 +27,22 @@ class Register extends React.Component {
             e.target.password.value,
             e.target.email.value
         ).then(resp => {
-            if (resp.status !== 200) {
-                this.setState({
-                    error: resp.data.msg
-                });
-            } else if (resp.status === 200) {
-                this.props.handleRegisterSuccess();
+            if (this.state.email !== this.state.confirm) {
+                this.setState({ error: "Email values do not match" });
+            } else {
+                if (resp.status !== 200) {
+                    this.setState({
+                        error: resp.data.msg
+                    });
+                } else if (resp.status === 200) {
+                    this.props.handleRegisterSuccess();
+                }
             }
         });
     };
 
     render() {
-        const { userName, password, email, error } = this.state;
+        const { userName, password, email, confirm, error } = this.state;
         const { onCancelClick } = this.props;
         return (
             <div className="register-modal overlay">
@@ -67,6 +72,14 @@ class Register extends React.Component {
                         placeholder="Your email"
                         onChange={this.onChange}
                         value={email}
+                    />
+                    <label htmlFor="confirm">Confirm email: </label>
+                    <input
+                        type="email"
+                        name="confirm"
+                        placeholder="Your email"
+                        onChange={this.onChange}
+                        value={confirm}
                     />
                     <div className="register-buttons">
                         <button
