@@ -5,7 +5,8 @@ const ContestSorter = ({
     radioChecked,
     followingFilter,
     onFollowingChange,
-    onRadioChange
+    onRadioChange,
+    isAuthenticated
 }) => {
     const handleRadioChange = e => {
         onRadioChange(e.target.id);
@@ -39,17 +40,19 @@ const ContestSorter = ({
                 />
                 <label htmlFor="popular-first">Most popular first</label>
             </div>
-            <div className="contest-sort-checkbox">
-                <input
-                    id="only-following"
-                    type="checkbox"
-                    checked={followingFilter}
-                    onChange={onFollowingChange}
-                />
-                <label htmlFor="only-following">
-                    Only show contests I&#39;m following
-                </label>
-            </div>
+            {isAuthenticated ? (
+                <div className="contest-sort-checkbox">
+                    <input
+                        id="only-following"
+                        type="checkbox"
+                        checked={followingFilter}
+                        onChange={onFollowingChange}
+                    />
+                    <label htmlFor="only-following">
+                        Only show contests I&#39;m following
+                    </label>
+                </div>
+            ) : null}
         </section>
     );
 };
@@ -58,7 +61,8 @@ ContestSorter.propTypes = {
     radioChecked: PropTypes.string,
     followingFilter: PropTypes.bool,
     onFollowingChange: PropTypes.func,
-    onRadioChange: PropTypes.func
+    onRadioChange: PropTypes.func,
+    isAuthenticated: PropTypes.bool
 };
 
 export default ContestSorter;

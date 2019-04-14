@@ -182,6 +182,7 @@ class Main extends React.Component {
                         followingFilter={this.state.followingFilter}
                         onFollowingChange={this.handleFollowingCheck}
                         onRadioChange={this.handleRadioChange}
+                        isAuthenticated={isAuthenticated}
                     />
                     {/* // For each contest, grab ONLY the entries for that contest */}
                     {contests.slice(0, contestsDisplayed).map(contest => {

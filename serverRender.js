@@ -9,8 +9,6 @@ import jwt from "jsonwebtoken";
 
 const apptoken = jwt.sign({ id: "app-token" }, config.jwtSecret);
 
-console.log(apptoken);
-
 // We need the contests and users api for every request, but we only need the single user api if the URL param contains a userId (for the profile page).
 const getApiData = userId => {
     if (userId) {

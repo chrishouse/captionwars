@@ -902,12 +902,16 @@ body {
       margin-right: 3px;
       cursor: pointer; }
   .profile-content .fa-pencil-alt,
-  .account-content .fa-pencil-alt {
+  .profile-content .fa-plus,
+  .account-content .fa-pencil-alt,
+  .account-content .fa-plus {
     cursor: pointer;
     font-size: 14px;
     color: grey; }
     .profile-content .fa-pencil-alt:hover,
-    .account-content .fa-pencil-alt:hover {
+    .profile-content .fa-plus:hover,
+    .account-content .fa-pencil-alt:hover,
+    .account-content .fa-plus:hover {
       color: #1abb3f; }
   .profile-content .edit-confirm-buttons,
   .account-content .edit-confirm-buttons {
