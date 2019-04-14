@@ -1,4 +1,5 @@
-.profile-content {
+.profile-content,
+.account-content {
     @extend .contest;
     margin-top: 0;
     a {
@@ -22,18 +23,16 @@
             cursor: pointer;
         }
     }
-    &.account-content {
-        .fas {
-            cursor: pointer;
-            font-size: 14px;
-            color: grey;
-            &:hover {
-                color: $green;
-            }
+    .fa-pencil-alt {
+        cursor: pointer;
+        font-size: 14px;
+        color: grey;
+        &:hover {
+            color: $green;
         }
-        .edit-confirm-buttons {
-            margin-top: 10px;
-        }
+    }
+    .edit-confirm-buttons {
+        margin-top: 10px;
     }
 }
 

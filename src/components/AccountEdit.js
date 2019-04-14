@@ -43,11 +43,12 @@ class AccountEdit extends React.Component {
                 formData.append("avatar", this.uploadInput.files[0]);
                 formData.append("user", this.props.user);
                 // Upload the file
-                api.avatarUpload(formData).then(resp => {
+                api.avatarUpload(this.props.token, formData).then(resp => {
                     if (resp.status === 400 || resp.status === 500) {
                         this.setState({
                             error: resp.data.msg,
-                            loading: false
+                            loading: false,
+                            submitDisabled: false
                         });
                     } else {
                         // Then set the new file as the user's avatar
@@ -58,11 +59,13 @@ class AccountEdit extends React.Component {
                         ).then(resp => {
                             if (resp.status === 400) {
                                 this.setState({
-                                    error: resp.data.msg
+                                    error: resp.data.msg,
+                                    submitDisabled: false
                                 });
                             } else {
                                 this.setState({
-                                    loading: false
+                                    loading: false,
+                                    submitDisabled: false
                                 });
                                 this.props.onEditSuccess();
                             }
@@ -190,6 +193,7 @@ class AccountEdit extends React.Component {
                                     this.uploadInput = ref;
                                 }}
                                 required
+                                accept="image/*"
                             />
                         ) : dataField === "gender" ? (
                             <select

@@ -5,21 +5,50 @@ import App from "./src/components/App";
 
 import config from "./config";
 import axios from "axios";
+import jwt from "jsonwebtoken";
+
+const apptoken = jwt.sign({ id: "app-token" }, config.jwtSecret);
+
+console.log(apptoken);
 
 // We need the contests and users api for every request, but we only need the single user api if the URL param contains a userId (for the profile page).
 const getApiData = userId => {
     if (userId) {
         return [
-            axios.get(`${config.serverUrl}/api/contests`),
-            axios.get(`${config.serverUrl}/api/entries`),
-            axios.get(`${config.serverUrl}/api/users`),
+            axios.get(`${config.serverUrl}/api/contests`, {
+                headers: {
+                    "x-auth-token": apptoken
+                }
+            }),
+            axios.get(`${config.serverUrl}/api/entries`, {
+                headers: {
+                    "x-auth-token": apptoken
+                }
+            }),
+            axios.get(`${config.serverUrl}/api/users`, {
+                headers: {
+                    "x-auth-token": apptoken
+                }
+            }),
             axios.get(`${config.serverUrl}/api/users/${userId}`)
         ];
     }
     return [
-        axios.get(`${config.serverUrl}/api/contests`),
-        axios.get(`${config.serverUrl}/api/entries`),
-        axios.get(`${config.serverUrl}/api/users`)
+        axios.get(`${config.serverUrl}/api/contests`, {
+            headers: {
+                "x-auth-token": apptoken
+            }
+        }),
+        axios.get(`${config.serverUrl}/api/entries`, {
+            headers: {
+                "x-auth-token": apptoken
+            }
+        }),
+        axios.get(`${config.serverUrl}/api/users`, {
+            headers: {
+                "x-auth-token": apptoken
+            }
+        })
     ];
 };
 

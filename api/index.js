@@ -13,7 +13,7 @@ MongoClient.connect(config.mongodbUri, (err, client) => {
 
 const router = express.Router();
 
-router.get("/contests", (req, res) => {
+router.get("/contests", auth, (req, res) => {
     let contests = {};
     mdb.collection("contests")
         .find({})
@@ -36,7 +36,7 @@ router.get("/contests/:contestId", (req, res) => {
         .catch(console.error);
 });
 
-router.get("/users", (req, res) => {
+router.get("/users", auth, (req, res) => {
     let users = {};
     mdb.collection("users")
         .find({})
@@ -55,7 +55,18 @@ router.get("/users/:userId", (req, res) => {
         .findOne({
             _id: ObjectID(req.params.userId)
         })
-        .then(user => res.send(user))
+        .then(user =>
+            res.send({
+                _id: user._id,
+                userName: user.userName,
+                email: user.email,
+                likesReceived: user.likesReceived,
+                likesGiven: user.likesGiven,
+                contestsEntered: user.contestsEntered,
+                contestsFollowing: user.contestsFollowing,
+                avatar: user.avatar
+            })
+        )
         .catch(console.error);
 });
 
@@ -69,7 +80,7 @@ router.get("/account", auth, (req, res) => {
         .catch(console.error);
 });
 
-router.get("/entries", (req, res) => {
+router.get("/entries", auth, (req, res) => {
     let entries = {};
     mdb.collection("entries")
         .find({})

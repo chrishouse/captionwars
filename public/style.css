@@ -483,7 +483,8 @@ body {
 .contest-sort-checkbox input:before {
   border-radius: 0; }
 
-.contest, .profile-content {
+.contest, .profile-content,
+.account-content {
   border-radius: 8px;
   background-color: #f3f3f3;
   margin-top: 15px;
@@ -492,7 +493,7 @@ body {
   flex-direction: column;
   align-items: center;
   position: relative; }
-  .contest .fa-times-circle, .profile-content .fa-times-circle {
+  .contest .fa-times-circle, .profile-content .fa-times-circle, .account-content .fa-times-circle {
     display: none;
     position: sticky;
     top: 122px;
@@ -877,31 +878,39 @@ body {
     visibility: visible;
     opacity: 1; }
 
-.profile-content {
+.profile-content,
+.account-content {
   margin-top: 0; }
-  .profile-content a {
+  .profile-content a,
+  .account-content a {
     text-decoration: none;
     color: #222222; }
-    .profile-content a:hover {
+    .profile-content a:hover,
+    .account-content a:hover {
       color: #1abb3f; }
-  .profile-content .home-link {
+  .profile-content .home-link,
+  .account-content .home-link {
     position: absolute;
     top: -18px;
     left: 0;
     font-size: 14px;
     color: #b7b7b7;
     cursor: pointer; }
-    .profile-content .home-link .fa-arrow-left {
+    .profile-content .home-link .fa-arrow-left,
+    .account-content .home-link .fa-arrow-left {
       font-size: 12px;
       margin-right: 3px;
       cursor: pointer; }
-  .profile-content.account-content .fas {
+  .profile-content .fa-pencil-alt,
+  .account-content .fa-pencil-alt {
     cursor: pointer;
     font-size: 14px;
     color: grey; }
-    .profile-content.account-content .fas:hover {
+    .profile-content .fa-pencil-alt:hover,
+    .account-content .fa-pencil-alt:hover {
       color: #1abb3f; }
-  .profile-content.account-content .edit-confirm-buttons {
+  .profile-content .edit-confirm-buttons,
+  .account-content .edit-confirm-buttons {
     margin-top: 10px; }
 
 .profile-content .fab,

@@ -9,6 +9,7 @@ import express from "express";
 import bodyParser from "body-parser";
 import MongoClient from "mongodb";
 import assert from "assert";
+import auth from "./middleware/auth";
 
 const fileUpload = require("express-fileupload");
 const sharp = require("sharp");
@@ -21,7 +22,11 @@ sharp.cache(false);
 
 const server = express();
 server.use(bodyParser.json());
-server.use(fileUpload());
+server.use(
+    fileUpload({
+        limits: { fileSize: 10000000 } //10MB
+    })
+);
 
 // Use the SASS middleware
 server.use(
@@ -67,8 +72,15 @@ server.get(
 );
 
 // Upload the avatar using express-fileupload
-server.post("/api/upload", (req, res) => {
+server.post("/api/upload", auth, (req, res) => {
     const user = req.body.user;
+    const mime = req.files.avatar.mimetype;
+
+    if (mime.indexOf("image") === -1) {
+        return res.status(400).json({
+            msg: "Either that's not a valid image file or it's too large"
+        });
+    }
 
     if (Object.keys(req.files).length == 0) {
         return res.status(400).send("No files were uploaded.");
@@ -84,10 +96,13 @@ server.post("/api/upload", (req, res) => {
         sharp(`src/images/users/${user}-temp.jpg`)
             .resize(125, 125)
             .toFile(`src/images/users/${user}.jpg`, err => {
-                if (err)
+                if (err) {
+                    fs.unlink(`src/images/users/${user}-temp.jpg`, () => {});
                     return res.status(400).json({
-                        msg: "That's not a valid image file"
+                        msg:
+                            "Either that's not a valid image file or it's too large"
                     });
+                }
                 // Then delete the temp file
                 fs.unlink(`src/images/users/${user}-temp.jpg`, () => {
                     // Then move the new image to the public/images directory
