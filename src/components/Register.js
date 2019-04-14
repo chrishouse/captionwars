@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import * as api from "../api";
+import Recaptcha from "react-recaptcha";
 
 class Register extends React.Component {
     state = {
@@ -129,6 +130,7 @@ class Register extends React.Component {
                             this.uploadInput = ref;
                         }}
                     />
+                    <Recaptcha sitekey="6LfHJJ4UAAAAAL_ke8QA4fLwYDnXaV8nB4BCYdIC" />
                     <div className="register-buttons">
                         <button
                             className="button button-grey"

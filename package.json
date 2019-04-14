@@ -24,6 +24,7 @@
         "prop-types": "^15.7.1",
         "react": "^16.7.0",
         "react-dom": "^16.7.0",
+        "react-recaptcha": "^2.3.10",
         "react-share": "^2.4.0",
         "sharp": "^0.22.0"
     },
