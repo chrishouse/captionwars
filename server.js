@@ -2,6 +2,7 @@ import apiRouter from "./api/index";
 import registerRouter from "./api/register";
 import loginRouter from "./api/login";
 import editRouter from "./api/edit";
+import passwordResetRouter from "./api/passwordReset";
 import config from "./config";
 import sassMiddleware from "node-sass-middleware";
 import path from "path";
@@ -22,6 +23,7 @@ sharp.cache(false);
 
 const server = express();
 server.use(bodyParser.json());
+server.use(bodyParser.urlencoded({ extended: true }));
 server.use(
     fileUpload({
         limits: { fileSize: 10000000 } //10MB
@@ -125,11 +127,12 @@ server.post("/api/upload", auth, (req, res) => {
 // Express has a middleware for serving static assets (.use is how we add middleware to the express middleware stack). The argument to .static is the directory.
 server.use(express.static("public"));
 
-// Again, only this time using our imported express router
+// Again, only this time using our imported express routers
 server.use("/api", apiRouter);
 server.use("/api/register", registerRouter);
 server.use("/api/login", loginRouter);
 server.use("/api/edit", editRouter);
+server.use("/api/passwordreset", passwordResetRouter);
 
 // The express listen call - the first two arguments are the port and host, the third argument is the success handler
 server.listen(config.port, config.host, () => {

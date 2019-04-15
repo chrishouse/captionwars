@@ -203,3 +203,14 @@ export const avatarUpload = (token, formData) => {
             return err.response;
         });
 };
+
+export const passwordReset = email => {
+    return axios
+        .post("/api/passwordreset", { email })
+        .then(resp => {
+            return resp;
+        })
+        .catch(err => {
+            return err.respnse;
+        });
+};

@@ -172,8 +172,8 @@ body {
   visibility: hidden;
   opacity: 0;
   position: absolute;
-  top: 125%;
-  right: 20px;
+  top: 175%;
+  right: -180px;
   padding: 5px 10px;
   z-index: 400;
   white-space: normal;
@@ -249,22 +249,28 @@ body {
     color: #eac813;
     cursor: pointer; }
 
-.register-modal {
+.register-modal,
+.forgot-password-modal {
   font-size: 14px; }
-  .register-modal .dialog {
+  .register-modal .dialog,
+  .forgot-password-modal .dialog {
     display: flex;
     flex-direction: column;
     width: 20%;
     padding: 20px 40px; }
-  .register-modal h3 {
+  .register-modal h3,
+  .forgot-password-modal h3 {
     font-family: "Bitter", Times, serif;
     font-size: 20px;
     font-weight: 700;
-    margin-bottom: 20px; }
-  .register-modal label {
+    margin-bottom: 20px;
+    color: #3c3c3c; }
+  .register-modal label,
+  .forgot-password-modal label {
     color: #1abb3f;
     font-weight: 600; }
-  .register-modal input {
+  .register-modal input,
+  .forgot-password-modal input {
     font-size: 14px;
     padding: 5px;
     margin-right: 5px;
@@ -275,12 +281,31 @@ body {
   font-weight: 400;
   padding-bottom: 10px; }
 
-.register-buttons {
+.register-buttons,
+.forgot-password-buttons {
   display: flex;
   justify-content: center;
   margin-top: 15px; }
-  .register-buttons .button {
+  .register-buttons .button,
+  .forgot-password-buttons .button {
     margin: 5px; }
+
+.forgot-password-link {
+  color: #eac813;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-bottom: -5px;
+  float: right;
+  padding-right: 90px; }
+
+.forgot-password-confirm {
+  color: #1abb3f;
+  font-size: 16px;
+  text-align: center; }
+
+.confirm-dialog {
+  align-items: center; }
 
 .user-avatar {
   display: flex;

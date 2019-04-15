@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import ForgotPassword from "./ForgotPassword";
 
 class AuthNo extends React.Component {
     state = {
@@ -23,39 +24,42 @@ class AuthNo extends React.Component {
         const { onLoginClick, onRegisterClick, loginErrorMessage } = this.props;
         return (
             <div className="auth auth-no">
-                <form>
-                    <input
-                        type="text"
-                        placeholder="Username"
-                        onChange={this.handleUsernameChange}
-                        value={this.state.inputUsername}
-                    />
-                    <input
-                        type="password"
-                        placeholder="Password"
-                        onChange={this.handlePasswordChange}
-                        value={this.state.inputPassword}
-                    />
-                    <input
-                        type="submit"
-                        value="Log in"
-                        onClick={e =>
-                            onLoginClick(
-                                e,
-                                this.state.inputUsername,
-                                this.state.inputPassword
-                            )
-                        }
-                    />
-                    <div
-                        className={
-                            "auth-message" +
-                            (loginErrorMessage ? " visible" : "")
-                        }
-                    >
-                        {loginErrorMessage}
-                    </div>
-                </form>
+                <div>
+                    <form>
+                        <input
+                            type="text"
+                            placeholder="Username"
+                            onChange={this.handleUsernameChange}
+                            value={this.state.inputUsername}
+                        />
+                        <input
+                            type="password"
+                            placeholder="Password"
+                            onChange={this.handlePasswordChange}
+                            value={this.state.inputPassword}
+                        />
+                        <input
+                            type="submit"
+                            value="Log in"
+                            onClick={e =>
+                                onLoginClick(
+                                    e,
+                                    this.state.inputUsername,
+                                    this.state.inputPassword
+                                )
+                            }
+                        />
+                        <div
+                            className={
+                                "auth-message" +
+                                (loginErrorMessage ? " visible" : "")
+                            }
+                        >
+                            {loginErrorMessage}
+                        </div>
+                    </form>
+                    <ForgotPassword />
+                </div>
                 <nav className="header-links">
                     <span>
                         New to Caption Wars?
