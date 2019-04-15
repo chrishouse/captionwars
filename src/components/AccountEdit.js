@@ -242,7 +242,7 @@ class AccountEdit extends React.Component {
                             ) : null}
                             <button
                                 className="button button-grey"
-                                type="submit"
+                                type="button"
                                 onClick={this.props.onEditAccountCancel}
                                 tabIndex="-1"
                             >
