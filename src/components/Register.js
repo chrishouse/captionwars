@@ -13,7 +13,8 @@ class Register extends React.Component {
         realName: "",
         avatar: null,
         error: null,
-        submitDisabled: false
+        submitDisabled: false,
+        recaptchaVerified: false
     };
 
     onChange = e => {
@@ -21,6 +22,12 @@ class Register extends React.Component {
         const text = e.target.value;
         this.setState({
             [name]: text
+        });
+    };
+
+    verifyRecaptcha = () => {
+        this.setState({
+            recaptchaVerified: true
         });
     };
 
@@ -37,6 +44,11 @@ class Register extends React.Component {
         } else if (this.state.email !== this.state.confirmEmail) {
             this.setState({
                 error: "Emails do not match",
+                submitDisabled: false
+            });
+        } else if (!this.state.recaptchaVerified) {
+            this.setState({
+                error: "Please check the Recaptcha",
                 submitDisabled: false
             });
         } else {
@@ -156,7 +168,10 @@ class Register extends React.Component {
                             this.uploadInput = ref;
                         }}
                     />
-                    <Recaptcha sitekey="6LfHJJ4UAAAAAL_ke8QA4fLwYDnXaV8nB4BCYdIC" />
+                    <Recaptcha
+                        sitekey="6LfHJJ4UAAAAAL_ke8QA4fLwYDnXaV8nB4BCYdIC"
+                        verifyCallback={this.verifyRecaptcha}
+                    />
                     <div className="register-buttons">
                         <button
                             className="button button-grey"
