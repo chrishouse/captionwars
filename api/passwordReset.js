@@ -82,21 +82,21 @@ router.get("/:id/:token", (req, res) => {
             let payload;
             try {
                 payload = jwt.verify(req.params.token, secret);
+                res.send(
+                    '<form action="/api/passwordreset/reset" method="POST">' +
+                        '<input type="hidden" name="id" value="' +
+                        payload.id +
+                        '" />' +
+                        '<input type="hidden" name="token" value="' +
+                        req.params.token +
+                        '" />' +
+                        '<input type="password" name="password" value="" placeholder="Enter your new password..." />' +
+                        '<input type="submit" value="Reset Password" />' +
+                        "</form>"
+                );
             } catch (e) {
-                res.status(400).json({ msg: "URL is not valid" });
+                res.send("That link is no longer valid.");
             }
-            res.send(
-                '<form action="/api/passwordreset/reset" method="POST">' +
-                    '<input type="hidden" name="id" value="' +
-                    payload.id +
-                    '" />' +
-                    '<input type="hidden" name="token" value="' +
-                    req.params.token +
-                    '" />' +
-                    '<input type="password" name="password" value="" placeholder="Enter your new password..." />' +
-                    '<input type="submit" value="Reset Password" />' +
-                    "</form>"
-            );
         });
 });
 
@@ -105,28 +105,27 @@ router.post("/reset", (req, res) => {
         .findOne({ _id: ObjectID(req.body.id) })
         .then(user => {
             const secret = user.password + "-" + config.jwtSecret;
-            let payload;
             try {
-                payload = jwt.verify(req.body.token, secret);
-            } catch (e) {
-                res.status(400).json({ msg: "URL is not valid" });
-            }
-            // Create salt & hash
-            bcrypt.genSalt(10, (err, salt) => {
-                bcrypt.hash(req.body.password, salt, (err, hash) => {
-                    if (err) throw err;
-                    mdb.collection("users")
-                        .update(
-                            { _id: ObjectID(req.body.id) },
-                            { $set: { password: hash } }
-                        )
-                        .then(() =>
-                            res.send(
-                                "Your password has been successfully changed.<br /><a href='/'>Return to the Caption Wars home page to log in.</a>"
+                jwt.verify(req.body.token, secret);
+                // Create salt & hash
+                bcrypt.genSalt(10, (err, salt) => {
+                    bcrypt.hash(req.body.password, salt, (err, hash) => {
+                        if (err) throw err;
+                        mdb.collection("users")
+                            .update(
+                                { _id: ObjectID(req.body.id) },
+                                { $set: { password: hash } }
                             )
-                        );
+                            .then(() =>
+                                res.send(
+                                    "Your password has been successfully changed.<br /><a href='/'>Return to the Caption Wars home page to log in.</a>"
+                                )
+                            );
+                    });
                 });
-            });
+            } catch (e) {
+                res.send("An error occurred.");
+            }
         });
 });
 
