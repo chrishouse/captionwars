@@ -26,6 +26,7 @@ class Contest extends React.Component {
     handleEntrySubmit = (contest, entryText) => {
         // Construct the new entry and call the api
         api.addEntry(
+            localStorage.getItem("token"),
             contest._id,
             entryText,
             0,

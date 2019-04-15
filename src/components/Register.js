@@ -8,7 +8,8 @@ class Register extends React.Component {
         userName: "",
         password: "",
         email: "",
-        confirm: "",
+        confirmEmail: "",
+        confirmPassword: "",
         realName: "",
         avatar: null,
         error: null,
@@ -28,17 +29,26 @@ class Register extends React.Component {
         this.setState({
             submitDisabled: true
         });
-        api.register(
-            e.target.userName.value,
-            e.target.password.value,
-            e.target.email.value
-        ).then(resp => {
-            if (this.state.email !== this.state.confirm) {
-                this.setState({ error: "Email values do not match" });
-            } else {
+        if (this.state.password !== this.state.confirmPassword) {
+            this.setState({
+                error: "Passwords do not match",
+                submitDisabled: false
+            });
+        } else if (this.state.email !== this.state.confirmEmail) {
+            this.setState({
+                error: "Emails do not match",
+                submitDisabled: false
+            });
+        } else {
+            api.register(
+                e.target.userName.value,
+                e.target.password.value,
+                e.target.email.value
+            ).then(resp => {
                 if (resp.status !== 200) {
                     this.setState({
-                        error: resp.data.msg
+                        error: resp.data.msg,
+                        submitDisabled: false
                     });
                 } else if (resp.status === 200) {
                     // If avatar is chosen call the upload api
@@ -73,12 +83,19 @@ class Register extends React.Component {
                         this.props.handleRegisterSuccess();
                     }
                 }
-            }
-        });
+            });
+        }
     };
 
     render() {
-        const { userName, password, email, confirm, error } = this.state;
+        const {
+            userName,
+            password,
+            email,
+            confirmEmail,
+            confirmPassword,
+            error
+        } = this.state;
         const { onCancelClick } = this.props;
         return (
             <div className="register-modal overlay">
@@ -103,6 +120,15 @@ class Register extends React.Component {
                         value={password}
                         required
                     />
+                    <label htmlFor="confirmPassword">Confirm password</label>
+                    <input
+                        type="password"
+                        name="confirmPassword"
+                        placeholder="Password"
+                        onChange={this.onChange}
+                        value={confirmPassword}
+                        required
+                    />
                     <label htmlFor="email">Your email</label>
                     <input
                         type="email"
@@ -112,13 +138,13 @@ class Register extends React.Component {
                         value={email}
                         required
                     />
-                    <label htmlFor="confirm">Confirm email</label>
+                    <label htmlFor="confirmEmail">Confirm email</label>
                     <input
                         type="email"
-                        name="confirm"
+                        name="confirmEmail"
                         placeholder="Your email"
                         onChange={this.onChange}
-                        value={confirm}
+                        value={confirmEmail}
                         required
                     />
                     <label htmlFor="avatar">Avatar</label>

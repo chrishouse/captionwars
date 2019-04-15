@@ -22,15 +22,23 @@ export const fetchEntries = contestId => {
         .then(resp => resp.data);
 };
 
-export const addEntry = (contestId, text, likes, user, date) => {
+export const addEntry = (token, contestId, text, likes, user, date) => {
     return axios
-        .post("/api/entries", {
-            contestId,
-            text,
-            likes,
-            user,
-            date
-        })
+        .post(
+            "/api/entries",
+            {
+                contestId,
+                text,
+                likes,
+                user,
+                date
+            },
+            {
+                headers: {
+                    "x-auth-token": token
+                }
+            }
+        )
         .then(resp => {
             resp.data;
         });

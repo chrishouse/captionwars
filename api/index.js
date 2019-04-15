@@ -13,7 +13,7 @@ MongoClient.connect(config.mongodbUri, (err, client) => {
 
 const router = express.Router();
 
-router.get("/contests", auth, (req, res) => {
+router.get("/contests", (req, res) => {
     let contests = {};
     mdb.collection("contests")
         .find({})
@@ -36,7 +36,7 @@ router.get("/contests/:contestId", (req, res) => {
         .catch(console.error);
 });
 
-router.get("/users", auth, (req, res) => {
+router.get("/users", (req, res) => {
     let users = {};
     mdb.collection("users")
         .find({})
@@ -46,7 +46,26 @@ router.get("/users", auth, (req, res) => {
                 res.send({ users });
                 return;
             }
-            users[user._id] = user;
+            users[user._id] = {
+                _id: user._id,
+                userName: user.userName,
+                realName: user.realName,
+                likesReceived: user.likesReceived,
+                likesGiven: user.likesGiven,
+                contestsEntered: user.contestsEntered,
+                contestsFollowing: user.contestsFollowing,
+                avatar: user.avatar,
+                website: user.website,
+                location: user.location,
+                facebook: user.facebook,
+                twitter: user.twitter,
+                instagram: user.instagram,
+                pinterest: user.pinterest,
+                linkedin: user.linkedin,
+                youtube: user.youtube,
+                gender: user.gender,
+                age: user.age
+            };
         });
 });
 
@@ -57,14 +76,7 @@ router.get("/users/:userId", (req, res) => {
         })
         .then(user =>
             res.send({
-                _id: user._id,
-                userName: user.userName,
-                email: user.email,
-                likesReceived: user.likesReceived,
-                likesGiven: user.likesGiven,
-                contestsEntered: user.contestsEntered,
-                contestsFollowing: user.contestsFollowing,
-                avatar: user.avatar
+                _id: user._id
             })
         )
         .catch(console.error);
@@ -80,7 +92,7 @@ router.get("/account", auth, (req, res) => {
         .catch(console.error);
 });
 
-router.get("/entries", auth, (req, res) => {
+router.get("/entries", (req, res) => {
     let entries = {};
     mdb.collection("entries")
         .find({})
@@ -119,7 +131,7 @@ router.get("/entries/contest/:contestId", (req, res) => {
         });
 });
 
-router.post("/entries", (req, res) => {
+router.post("/entries", auth, (req, res) => {
     const contestId = req.body.contestId;
     const text = req.body.text;
     const likes = req.body.likes;
