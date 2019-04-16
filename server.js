@@ -11,12 +11,13 @@ import bodyParser from "body-parser";
 import MongoClient from "mongodb";
 import assert from "assert";
 import auth from "./middleware/auth";
+import compression from "compression";
+import fileUpload from "express-fileupload";
+import sharp from "sharp";
+import fs from "fs";
+import schedule from "node-schedule";
 
-const fileUpload = require("express-fileupload");
-const sharp = require("sharp");
 const exec = require("child_process").exec;
-const fs = require("fs");
-const schedule = require("node-schedule");
 
 // Prevent sharp cache from messing things up
 sharp.cache(false);
@@ -37,6 +38,9 @@ server.use(
         dest: path.join(__dirname, "public")
     })
 );
+
+// Compression middleware
+server.use(compression({ level: -1 }));
 
 // This sets the view engine to be EJS, a useful JS templating language. Express looks for .ejs files inside the views directory
 server.set("view engine", "ejs");

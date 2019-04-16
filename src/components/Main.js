@@ -7,7 +7,7 @@ class Main extends React.Component {
     state = {
         radioChecked: "newest-first", // Can be "newest-first", "oldest-first" or "popular-first"
         followingFilter: false,
-        contestsDisplayed: 5
+        contestsDisplayed: 2
     };
 
     componentDidMount = () => {
@@ -40,7 +40,7 @@ class Main extends React.Component {
             const bottom = el.scrollHeight - el.scrollTop <= triggerPoint;
             if (bottom) {
                 this.setState(prevState => ({
-                    contestsDisplayed: prevState.contestsDisplayed + 5
+                    contestsDisplayed: prevState.contestsDisplayed + 2
                 }));
             }
         },
