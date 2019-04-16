@@ -15,6 +15,11 @@ class Main extends React.Component {
         document.addEventListener("scroll", this.handleScroll);
     };
 
+    componentWillUnmount = () => {
+        // Remove the scroll eventListener when Main unmounts (to prevent memory leak)
+        document.removeEventListener("scroll", this.handleScroll);
+    };
+
     // Our debounce function (courtesy of David Walsh at https://davidwalsh.name/javascript-debounce-function)
     scrollDebounce = (func, wait, immediate) => {
         var timeout;

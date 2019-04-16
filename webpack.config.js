@@ -6,7 +6,8 @@ module.exports = {
     entry: "./src/index.js",
     output: {
         path: path.resolve("public"),
-        filename: "bundle.js"
+        filename: "bundle.js",
+        chunkFilename: "[name].bundle.js"
     },
     module: {
         rules: [
