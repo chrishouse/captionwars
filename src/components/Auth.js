@@ -1,9 +1,7 @@
-import React, { Suspense } from "react";
+import React from "react";
 import PropTypes from "prop-types";
-
-// Our dynamic imports:
-const AuthYes = React.lazy(() => import("./AuthYes"));
-const AuthNo = React.lazy(() => import("./AuthNo"));
+import AuthYes from "./AuthYes";
+import AuthNo from "./AuthNo";
 
 class Auth extends React.Component {
     checkAuth = () => {
@@ -18,23 +16,19 @@ class Auth extends React.Component {
             loginErrorMessage
         } = this.props;
         return this.props.isAuthenticated ? (
-            <Suspense fallback={<div />}>
-                <AuthYes
-                    user={userData}
-                    currentUser={currentUser}
-                    onAvatarClick={onAvatarClick}
-                    onAccountClick={onAccountClick}
-                    onLogoutClick={onLogoutClick}
-                />
-            </Suspense>
+            <AuthYes
+                user={userData}
+                currentUser={currentUser}
+                onAvatarClick={onAvatarClick}
+                onAccountClick={onAccountClick}
+                onLogoutClick={onLogoutClick}
+            />
         ) : (
-            <Suspense fallback={<div />}>
-                <AuthNo
-                    onLoginClick={onLoginClick}
-                    onRegisterClick={onRegisterClick}
-                    loginErrorMessage={loginErrorMessage}
-                />
-            </Suspense>
+            <AuthNo
+                onLoginClick={onLoginClick}
+                onRegisterClick={onRegisterClick}
+                loginErrorMessage={loginErrorMessage}
+            />
         );
     };
 

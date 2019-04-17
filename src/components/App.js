@@ -1,14 +1,12 @@
-import React, { Suspense } from "react";
+import React from "react";
 import Header from "./Header";
 import Sidebar from "./Sidebar";
+import Account from "./Account";
+import Register from "./Register";
 import Main from "./Main";
 import Profile from "./Profile";
 import PropTypes from "prop-types";
 import * as api from "../api";
-
-// Our dynamic imports:
-const Account = React.lazy(() => import("./Account"));
-const Register = React.lazy(() => import("./Register"));
 
 const pushState = (obj, url) => {
     window.history.pushState(obj, "", url);
@@ -286,14 +284,12 @@ class App extends React.Component {
         } else if (accountPage) {
             if (isAuthenticated) {
                 return (
-                    <Suspense fallback={<div />}>
-                        <Account
-                            userData={allUsers}
-                            onAvatarClick={this.fetchProfile}
-                            isAuthenticated={true}
-                            onHomeClick={this.handleHomeClick}
-                        />
-                    </Suspense>
+                    <Account
+                        userData={allUsers}
+                        onAvatarClick={this.fetchProfile}
+                        isAuthenticated={true}
+                        onHomeClick={this.handleHomeClick}
+                    />
                 );
                 // If the user is not authenticated, send them to the home page
             } else {
@@ -359,14 +355,10 @@ class App extends React.Component {
                     />
                     {/* // Show the register modal */}
                     {register ? (
-                        <Suspense fallback={<div />}>
-                            <Register
-                                handleRegisterSuccess={
-                                    this.handleRegisterSuccess
-                                }
-                                onCancelClick={this.handleRegisterCancel}
-                            />
-                        </Suspense>
+                        <Register
+                            handleRegisterSuccess={this.handleRegisterSuccess}
+                            onCancelClick={this.handleRegisterCancel}
+                        />
                     ) : null}
                     {this.currentContent()}
                 </div>
