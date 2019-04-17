@@ -71,7 +71,7 @@ class Register extends React.Component {
                         formData.append("avatar", this.uploadInput.files[0]);
                         formData.append("user", user);
                         // Upload the file
-                        api.avatarUpload(formData).then(resp => {
+                        api.avatarUpload(token, formData).then(resp => {
                             if (resp.status === 400 || resp.status === 500) {
                                 this.setState({
                                     error: resp.data.msg
