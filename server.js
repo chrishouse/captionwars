@@ -16,8 +16,28 @@ import fileUpload from "express-fileupload";
 import sharp from "sharp";
 import fs from "fs";
 import schedule from "node-schedule";
+import https from "https";
 
 const exec = require("child_process").exec;
+
+// Certificate
+const privateKey = fs.readFileSync(
+    "/etc/letsencrypt/live/captionwars.com/privkey.pem",
+    "utf8"
+);
+const certificate = fs.readFileSync(
+    "/etc/letsencrypt/live/captionwars.com/cert.pem",
+    "utf8"
+);
+const ca = fs.readFileSync(
+    "/etc/letsencrypt/live/captionwars.com/chain.pem",
+    "utf8"
+);
+const credentials = {
+    key: privateKey,
+    cert: certificate,
+    ca: ca
+};
 
 // Prevent sharp cache from messing things up
 sharp.cache(false);
@@ -30,6 +50,7 @@ server.use(
         limits: { fileSize: 10000000 } //10MB
     })
 );
+server.use(express.static(__dirname, { dotfiles: "allow" }));
 
 // Use the SASS middleware
 server.use(
@@ -141,6 +162,14 @@ server.use("/api/passwordreset", passwordResetRouter);
 // The express listen call - the first two arguments are the port and host, the third argument is the success handler
 server.listen(config.port, config.host, () => {
     console.log(`Express is listening on port ${config.port}`);
+});
+
+// Starting the https server
+const httpsServer = https.createServer(credentials, server);
+
+// Using HTTPS
+httpsServer.listen(443, () => {
+    console.log("HTTPS server running on port 443");
 });
 
 MongoClient.connect(config.mongodbUri, (err, client) => {
