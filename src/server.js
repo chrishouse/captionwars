@@ -21,23 +21,23 @@ import https from "https";
 const exec = require("child_process").exec;
 
 // Certificate
-const privateKey = fs.readFileSync(
-    "/etc/letsencrypt/live/captionwars.com/privkey.pem",
-    "utf8"
-);
-const certificate = fs.readFileSync(
-    "/etc/letsencrypt/live/captionwars.com/cert.pem",
-    "utf8"
-);
-const ca = fs.readFileSync(
-    "/etc/letsencrypt/live/captionwars.com/chain.pem",
-    "utf8"
-);
-const credentials = {
-    key: privateKey,
-    cert: certificate,
-    ca: ca
-};
+// const privateKey = fs.readFileSync(
+//     "/etc/letsencrypt/live/captionwars.com/privkey.pem",
+//     "utf8"
+// );
+// const certificate = fs.readFileSync(
+//     "/etc/letsencrypt/live/captionwars.com/cert.pem",
+//     "utf8"
+// );
+// const ca = fs.readFileSync(
+//     "/etc/letsencrypt/live/captionwars.com/chain.pem",
+//     "utf8"
+// );
+// const credentials = {
+//     key: privateKey,
+//     cert: certificate,
+//     ca: ca
+// };
 
 // Prevent sharp cache from messing things up
 sharp.cache(false);
@@ -165,12 +165,12 @@ server.listen(config.port, config.host, () => {
 });
 
 // Starting the https server
-const httpsServer = https.createServer(credentials, server);
+// const httpsServer = https.createServer(credentials, server);
 
-// Using HTTPS
-httpsServer.listen(443, () => {
-    console.log("HTTPS server running on port 443");
-});
+// // Using HTTPS
+// httpsServer.listen(443, () => {
+//     console.log("HTTPS server running on port 443");
+// });
 
 MongoClient.connect(config.mongodbUri, (err, client) => {
     assert.equal(null, err);
