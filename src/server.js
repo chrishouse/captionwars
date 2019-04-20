@@ -152,25 +152,11 @@ server.post("/api/upload", auth, (req, res) => {
     });
 });
 
-// Express has a middleware for serving static assets (.use is how we add middleware to the express middleware stack). The argument to .static is the directory.
-server.use(express.static("public"));
-
-// Again, only this time using our imported express routers
-server.use("/api", apiRouter);
-server.use("/api/register", registerRouter);
-server.use("/api/login", loginRouter);
-server.use("/api/edit", editRouter);
-server.use("/api/passwordreset", passwordResetRouter);
-
-// The express listen call - the first two arguments are the port and host, the third argument is the success handler
-server.listen(config.port, config.host, () => {
-    console.log(`Express is listening on port ${config.port}`);
-});
-
 // HTTPS
+let httpsServer;
 if (nodeEnv === "production") {
     // Starting the https server
-    const httpsServer = https.createServer(credentials, server);
+    httpsServer = https.createServer(credentials, server);
 
     // Using HTTPS
     httpsServer.listen(443, () => {
@@ -186,6 +172,21 @@ if (nodeEnv === "production") {
     // This may be neccessary for proxies and firewalls
     server.enable("trust proxy");
 }
+
+// Express has a middleware for serving static assets (.use is how we add middleware to the express middleware stack). The argument to .static is the directory.
+server.use(express.static("public"));
+
+// Again, only this time using our imported express routers
+server.use("/api", apiRouter);
+server.use("/api/register", registerRouter);
+server.use("/api/login", loginRouter);
+server.use("/api/edit", editRouter);
+server.use("/api/passwordreset", passwordResetRouter);
+
+// The express listen call - the first two arguments are the port and host, the third argument is the success handler
+server.listen(config.port, config.host, () => {
+    console.log(`Express is listening on port ${config.port}`);
+});
 
 MongoClient.connect(config.mongodbUri, (err, client) => {
     assert.equal(null, err);
