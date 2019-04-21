@@ -76,6 +76,10 @@ import serverRender from "./serverRender";
 server.get(
     ["/", "/profile/:userId", "/contest/:contestId", "/account"],
     (req, res) => {
+        // Redirect to HTTPS if needed
+        if (!req.secure && nodeEnv === "production") {
+            res.redirect("https://" + req.headers.host + req.url);
+        }
         serverRender(req.params.userId, req.params.contestId, req.path) // Call the serverRender function from serverRender.js
             .then(
                 ({
@@ -161,13 +165,6 @@ if (nodeEnv === "production") {
     // Using HTTPS
     httpsServer.listen(443, () => {
         console.log("HTTPS server running on port 443");
-    });
-
-    // Redirect to HTTPS
-    server.use(function(req, res) {
-        if (!req.secure) {
-            res.redirect("https://" + req.headers.host + req.url);
-        }
     });
     // This may be neccessary for proxies and firewalls
     server.enable("trust proxy");
