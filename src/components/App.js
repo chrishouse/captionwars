@@ -28,6 +28,7 @@ class App extends React.Component {
         entriesSortedBy: "entry-newest-first", // Can be "entry-ranking" or "entry-newest-first"
         accountPage: this.props.accountPage,
         isAuthenticated: false,
+        checkingAuth: true,
         register: false,
         loginErrorMessage: null
     };
@@ -57,6 +58,10 @@ class App extends React.Component {
                 isAuthenticated: true
             });
         }
+
+        this.setState({
+            checkingAuth: false
+        });
     }
 
     componentWillUnmount() {
@@ -328,34 +333,37 @@ class App extends React.Component {
             allUsers,
             currentUser,
             isAuthenticated,
+            checkingAuth,
             register,
             loginErrorMessage
         } = this.state;
 
-        return (
-            <div className="app">
-                <Header
-                    userData={allUsers}
-                    currentUser={currentUser}
-                    onAvatarClick={this.fetchProfile}
-                    onAccountClick={this.handleAccountClick}
-                    onLoginClick={this.handleLoginClick}
-                    isAuthenticated={isAuthenticated}
-                    onHomeClick={this.handleHomeClick}
-                    onLogoutClick={this.handleLogoutClick}
-                    onRegisterClick={this.handleRegisterClick}
-                    loginErrorMessage={loginErrorMessage}
-                />
-                {/* // Show the register modal */}
-                {register ? (
-                    <Register
-                        handleRegisterSuccess={this.handleRegisterSuccess}
-                        onCancelClick={this.handleRegisterCancel}
+        if (!checkingAuth) {
+            return (
+                <div className="app">
+                    <Header
+                        userData={allUsers}
+                        currentUser={currentUser}
+                        onAvatarClick={this.fetchProfile}
+                        onAccountClick={this.handleAccountClick}
+                        onLoginClick={this.handleLoginClick}
+                        isAuthenticated={isAuthenticated}
+                        onHomeClick={this.handleHomeClick}
+                        onLogoutClick={this.handleLogoutClick}
+                        onRegisterClick={this.handleRegisterClick}
+                        loginErrorMessage={loginErrorMessage}
                     />
-                ) : null}
-                {this.currentContent()}
-            </div>
-        );
+                    {/* // Show the register modal */}
+                    {register ? (
+                        <Register
+                            handleRegisterSuccess={this.handleRegisterSuccess}
+                            onCancelClick={this.handleRegisterCancel}
+                        />
+                    ) : null}
+                    {this.currentContent()}
+                </div>
+            );
+        } else return null;
     }
 }
 
