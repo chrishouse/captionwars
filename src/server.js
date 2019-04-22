@@ -211,24 +211,24 @@ MongoClient.connect(config.mongodbUri, (err, client) => {
 
                         // Ensure the image to rename starts with an exclamation point (we don't want to rename anything else)
                         if (firstLetter === "!") {
-                            // Then change its filename to the id of the newly created contest
-                            fs.rename(
-                                "src/images/contests/" + imageToRename,
-                                "src/images/contests/" + item._id + ".jpg",
-                                function(err) {
-                                    if (err) console.log("ERROR: " + err);
-                                }
-                            );
-
-                            // Run webkit to execute imagemin and move the new image to the public/images directory
-                            exec("npm run prod", function(err, stdout) {
-                                if (err) {
-                                    throw err;
-                                }
-                                console.log(
-                                    "New contest inserted with _id: " + item._id
+                            // Then resize the image with sharp
+                            sharp("src/images/contests/" + imageToRename)
+                                .resize(700, 400)
+                                .toFile(
+                                    "public/images/contests/" +
+                                        item._id +
+                                        ".jpg",
+                                    err => {
+                                        if (err) throw err;
+                                        fs.unlink(
+                                            "src/images/contests/" +
+                                                imageToRename,
+                                            err => {
+                                                if (err) throw err;
+                                            }
+                                        );
+                                    }
                                 );
-                            });
                         }
                     });
             });
@@ -236,9 +236,9 @@ MongoClient.connect(config.mongodbUri, (err, client) => {
 
     // Our insertNewContest function will run every Wednesday at 6:00am
     const rule = new schedule.RecurrenceRule();
-    rule.dayOfWeek = [3];
-    rule.hour = 6;
-    rule.minute = 0;
+    rule.dayOfWeek = [new schedule.Range(0, 6)];
+    rule.hour = 21;
+    rule.minute = 19;
 
     const j = schedule.scheduleJob(rule, function() {
         insertNewContest();
