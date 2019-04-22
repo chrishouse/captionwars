@@ -8,7 +8,7 @@ let mdb;
 MongoClient.connect(config.mongodbUri, (err, client) => {
     assert.equal(null, err);
 
-    mdb = client.db("test");
+    mdb = client.db("captionwars");
 });
 
 const router = express.Router();

@@ -188,7 +188,7 @@ server.listen(config.port, config.host, () => {
 MongoClient.connect(config.mongodbUri, (err, client) => {
     assert.equal(null, err);
 
-    let mdb = client.db("test");
+    let mdb = client.db("captionwars");
 
     const insertNewContest = () => {
         mdb.collection("contests")
