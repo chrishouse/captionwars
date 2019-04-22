@@ -1,12 +1,14 @@
 {
     "name": "caption-wars",
     "version": "1.0.0",
-    "description": "The web's never-ending caption contest",
+    "description": "The never-ending caption contest",
     "main": "index.js",
     "scripts": {
-        "start": "nodemon --exec babel-node server.js --ignore public/",
+        "start": "nodemon --exec babel-node src/server.js --ignore public/",
         "dev": "webpack -wd",
-        "prod": "webpack -p"
+        "prod": "webpack -p",
+        "build": "babel src -d build",
+        "serve": "node build/server.js"
     },
     "author": "Chris House",
     "license": "MIT",
@@ -31,12 +33,13 @@
         "sharp": "^0.22.0"
     },
     "devDependencies": {
+        "@babel/cli": "^7.4.3",
         "@babel/core": "^7.3.4",
         "@babel/node": "^7.2.2",
         "@babel/plugin-proposal-class-properties": "^7.3.0",
+        "@babel/plugin-syntax-dynamic-import": "^7.2.0",
         "@babel/preset-env": "^7.3.1",
         "@babel/preset-react": "^7.0.0",
-        "@babel/plugin-syntax-dynamic-import": "^7.2.0",
         "babel-eslint": "^10.0.1",
         "babel-loader": "^8.0.5",
         "eslint": "^5.13.0",

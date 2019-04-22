@@ -3,7 +3,7 @@ import registerRouter from "./api/register";
 import loginRouter from "./api/login";
 import editRouter from "./api/edit";
 import passwordResetRouter from "./api/passwordReset";
-import config from "./config";
+import config, { nodeEnv } from "./config";
 import sassMiddleware from "node-sass-middleware";
 import path from "path";
 import express from "express";
@@ -20,24 +20,27 @@ import https from "https";
 
 const exec = require("child_process").exec;
 
-// Certificate
-const privateKey = fs.readFileSync(
-    "/etc/letsencrypt/live/captionwars.com/privkey.pem",
-    "utf8"
-);
-const certificate = fs.readFileSync(
-    "/etc/letsencrypt/live/captionwars.com/cert.pem",
-    "utf8"
-);
-const ca = fs.readFileSync(
-    "/etc/letsencrypt/live/captionwars.com/chain.pem",
-    "utf8"
-);
-const credentials = {
-    key: privateKey,
-    cert: certificate,
-    ca: ca
-};
+let credentials;
+if (nodeEnv === "production") {
+    // Certificate
+    const privateKey = fs.readFileSync(
+        "/etc/letsencrypt/live/captionwars.com/privkey.pem",
+        "utf8"
+    );
+    const certificate = fs.readFileSync(
+        "/etc/letsencrypt/live/captionwars.com/cert.pem",
+        "utf8"
+    );
+    const ca = fs.readFileSync(
+        "/etc/letsencrypt/live/captionwars.com/chain.pem",
+        "utf8"
+    );
+    credentials = {
+        key: privateKey,
+        cert: certificate,
+        ca: ca
+    };
+}
 
 // Prevent sharp cache from messing things up
 sharp.cache(false);
@@ -73,6 +76,10 @@ import serverRender from "./serverRender";
 server.get(
     ["/", "/profile/:userId", "/contest/:contestId", "/account"],
     (req, res) => {
+        // Redirect to HTTPS if needed
+        if (!req.secure && nodeEnv === "production") {
+            res.redirect("https://" + req.headers.host + req.url);
+        }
         serverRender(req.params.userId, req.params.contestId, req.path) // Call the serverRender function from serverRender.js
             .then(
                 ({
@@ -149,6 +156,20 @@ server.post("/api/upload", auth, (req, res) => {
     });
 });
 
+// HTTPS
+let httpsServer;
+if (nodeEnv === "production") {
+    // Starting the https server
+    httpsServer = https.createServer(credentials, server);
+
+    // Using HTTPS
+    httpsServer.listen(443, () => {
+        console.log("HTTPS server running on port 443");
+    });
+    // This may be neccessary for proxies and firewalls
+    server.enable("trust proxy");
+}
+
 // Express has a middleware for serving static assets (.use is how we add middleware to the express middleware stack). The argument to .static is the directory.
 server.use(express.static("public"));
 
@@ -162,14 +183,6 @@ server.use("/api/passwordreset", passwordResetRouter);
 // The express listen call - the first two arguments are the port and host, the third argument is the success handler
 server.listen(config.port, config.host, () => {
     console.log(`Express is listening on port ${config.port}`);
-});
-
-// Starting the https server
-const httpsServer = https.createServer(credentials, server);
-
-// Using HTTPS
-httpsServer.listen(443, () => {
-    console.log("HTTPS server running on port 443");
 });
 
 MongoClient.connect(config.mongodbUri, (err, client) => {
