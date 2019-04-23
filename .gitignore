@@ -41,3 +41,4 @@ jspm_packages
 build
 .well-known
 src/config.js
+**/images/**/*.jpg
