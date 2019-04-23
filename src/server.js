@@ -18,8 +18,6 @@ import fs from "fs";
 import schedule from "node-schedule";
 import https from "https";
 
-const exec = require("child_process").exec;
-
 let credentials;
 if (nodeEnv === "production") {
     // Certificate
@@ -58,8 +56,8 @@ server.use(express.static(__dirname, { dotfiles: "allow" }));
 // Use the SASS middleware
 server.use(
     sassMiddleware({
-        src: path.join(__dirname, "src/sass"),
-        dest: path.join(__dirname, "public")
+        src: path.join(__dirname, "sass"),
+        dest: path.join(__dirname, "../public")
     })
 );
 
@@ -234,11 +232,11 @@ MongoClient.connect(config.mongodbUri, (err, client) => {
             });
     };
 
-    // Our insertNewContest function will run every Wednesday at 6:00am
+    // Our insertNewContest function
     const rule = new schedule.RecurrenceRule();
     rule.dayOfWeek = [new schedule.Range(0, 6)];
-    rule.hour = 8;
-    rule.minute = 0;
+    rule.hour = 20;
+    rule.minute = 15;
 
     const j = schedule.scheduleJob(rule, function() {
         insertNewContest();
