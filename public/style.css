@@ -56,7 +56,7 @@ body {
   align-items: center; }
 
 .dialog {
-  max-width: 20%;
+  max-width: 75%;
   position: relative;
   padding: 40px;
   background-color: white;
@@ -98,7 +98,10 @@ body {
   margin-bottom: 30px;
   position: sticky;
   top: 0;
-  z-index: 500; }
+  z-index: 400; }
+  @media (max-width: 1200px) {
+    .main-header {
+      position: relative; } }
 
 .header-contact {
   top: 20px;
@@ -113,13 +116,31 @@ body {
       color: #f3f3f3; }
   .header-contact .dialog {
     max-width: 50%; }
+    @media (max-width: 950px) {
+      .header-contact .dialog {
+        max-width: 75%; } }
+    @media (max-width: 450px) {
+      .header-contact .dialog {
+        max-width: 90%; } }
 
 .header-content {
   display: flex;
   color: white;
-  padding: 11px 0;
+  padding: 11px 15px;
   justify-content: space-between;
   align-items: flex-end; }
+  @media (max-width: 1200px) {
+    .header-content {
+      flex-direction: column;
+      align-items: center; } }
+
+@media (max-width: 700px) {
+  .header-auth {
+    width: 65%; } }
+
+@media (max-width: 450px) {
+  .header-auth {
+    width: 100%; } }
 
 .user-alerts .fa-bell {
   font-size: 20px;
@@ -133,6 +154,9 @@ body {
   display: flex;
   align-items: center;
   position: relative; }
+  @media (max-width: 1200px) {
+    .auth {
+      margin: 15px 0 5px 0; } }
 
 .auth-yes .fa-chevron-down {
   color: #686868;
@@ -144,6 +168,13 @@ body {
   .auth-yes .fa-chevron-down.user-menu-open {
     transform: rotate(180deg);
     color: #f3f3f3; }
+  @media (max-width: 700px) {
+    .auth-yes .fa-chevron-down {
+      margin-right: 20px; } }
+
+@media (max-width: 700px) {
+  .auth-yes {
+    justify-content: center; } }
 
 .auth-no form {
   display: flex;
@@ -155,6 +186,11 @@ body {
   padding: 5px;
   border: solid 1px #eac813;
   margin-right: 10px; }
+  @media (max-width: 700px) {
+    .auth-no input[type="text"],
+    .auth-no input[type="password"] {
+      margin: 5px 0;
+      width: 100%; } }
 
 .auth-no input[type="submit"] {
   border: none;
@@ -167,6 +203,19 @@ body {
   font-weight: 600; }
   .auth-no input[type="submit"]:hover {
     background-color: #eecf29; }
+  @media (max-width: 700px) {
+    .auth-no input[type="submit"] {
+      margin: 5px 0;
+      width: 50%;
+      height: 30px; } }
+
+@media (max-width: 700px) {
+  .auth-no > div {
+    width: 100%; } }
+
+@media (max-width: 700px) {
+  .auth-no {
+    flex-direction: column; } }
 
 .auth-message {
   visibility: hidden;
@@ -188,6 +237,10 @@ body {
   .auth-message.visible {
     visibility: visible;
     opacity: 1; }
+  @media (max-width: 1200px) {
+    .auth-message {
+      top: 185%;
+      right: 0; } }
 
 .user-menu {
   position: absolute;
@@ -228,6 +281,9 @@ body {
     border-left: 10px solid transparent;
     border-right: 10px solid transparent;
     border-bottom: 10px solid white; }
+  @media (max-width: 700px) {
+    .user-menu {
+      left: auto; } }
 
 .logo-container {
   display: flex;
@@ -240,6 +296,12 @@ body {
     margin-left: 10px;
     color: #eeeeee;
     font-style: italic; }
+    @media (max-width: 950px) {
+      .logo-container h1 {
+        margin: 6px 0 0 0; } }
+  @media (max-width: 950px) {
+    .logo-container {
+      flex-direction: column; } }
 
 .header-links {
   font-size: 12px;
@@ -248,6 +310,21 @@ body {
   .header-links a {
     color: #eac813;
     cursor: pointer; }
+  @media (max-width: 700px) {
+    .header-links > span > br {
+      display: none; } }
+
+@media (max-width: 700px) {
+  .login-form {
+    flex-direction: column;
+    align-items: center; } }
+
+@media (max-width: 1200px) {
+  .register-modal.overlay {
+    position: absolute;
+    bottom: auto;
+    padding: 40px 0;
+    min-height: 100vh; } }
 
 .register-modal,
 .forgot-password-modal {
@@ -256,8 +333,18 @@ body {
   .forgot-password-modal .dialog {
     display: flex;
     flex-direction: column;
-    width: 20%;
     padding: 20px 40px; }
+    @media (max-width: 950px) {
+      .register-modal .dialog,
+      .forgot-password-modal .dialog {
+        max-width: 75%;
+        width: 75%; } }
+    @media (max-width: 450px) {
+      .register-modal .dialog,
+      .forgot-password-modal .dialog {
+        max-width: 90%;
+        width: 90%;
+        padding: 20px 10px; } }
   .register-modal h3,
   .forgot-password-modal h3 {
     font-family: "Bitter", Times, serif;
@@ -298,6 +385,11 @@ body {
   margin-bottom: -5px;
   float: right;
   padding-right: 90px; }
+  @media (max-width: 700px) {
+    .forgot-password-link {
+      padding: 15px 0 25px 0;
+      float: none;
+      text-align: center; } }
 
 .forgot-password-confirm {
   color: #1abb3f;
@@ -340,7 +432,34 @@ body {
 
 .sidebar {
   flex: 1;
-  margin-right: 15px; }
+  margin-right: 15px;
+  transition: left 0.5s; }
+  .sidebar.sidebar-mobile {
+    position: absolute;
+    margin: 0;
+    z-index: 500;
+    width: 100%;
+    max-width: 300px;
+    top: 150px; }
+  .sidebar.sidebar-expanded {
+    left: 45px !important; }
+
+.sidebar-chevron.fa-chevron-right.fas {
+  display: none;
+  position: sticky;
+  top: 10px;
+  margin: 20px 5px 0 0;
+  color: #b7b7b7;
+  padding: 15px 2px;
+  background-color: #b7b7b7;
+  color: white;
+  font-size: 13px;
+  z-index: 600; }
+  .sidebar-chevron.fa-chevron-right.fas.visible {
+    display: block; }
+  .sidebar-chevron.fa-chevron-right.fas.active {
+    background-color: #1abb3f;
+    transform: rotate(180deg); }
 
 .sidebar-section {
   border-radius: 8px;
@@ -460,6 +579,12 @@ body {
 .main-container {
   display: flex;
   align-items: flex-start; }
+  @media (max-width: 1200px) {
+    .main-container {
+      padding-left: 25px; } }
+  @media (max-width: 950px) {
+    .main-container {
+      padding: 0 15px 0 0; } }
 
 .main {
   flex: 3; }
@@ -470,7 +595,8 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 1.2rem 2rem; }
+  padding: 0 2rem 1.2rem 2rem;
+  flex-wrap: wrap; }
   .contest-sorter label {
     font-size: 12px;
     font-weight: 800;
@@ -479,7 +605,8 @@ body {
 .contest-sort-radios,
 .contest-sort-checkbox {
   display: flex;
-  align-items: center; }
+  align-items: center;
+  padding-top: 1.2rem; }
   .contest-sort-radios input,
   .contest-sort-checkbox input {
     margin-right: 9px;
@@ -505,6 +632,12 @@ body {
     .contest-sort-checkbox input:checked:before {
       background: #1abb3f; }
 
+.contest-sort-radios {
+  margin-right: 20px; }
+  @media (max-width: 450px) {
+    .contest-sort-radios {
+      margin-right: 0; } }
+
 .contest-sort-checkbox input:before {
   border-radius: 0; }
 
@@ -526,6 +659,10 @@ body {
     font-size: 32px;
     margin-right: -850px;
     cursor: pointer; }
+  @media (max-width: 700px) {
+    .contest, .profile-content,
+    .account-content {
+      padding: 1.5rem 0.5rem; } }
 
 .contest-date {
   font-family: "Bitter", Times, serif;
@@ -537,6 +674,9 @@ body {
 .contest-photo {
   width: 97%;
   border-radius: 8px; }
+  @media (max-width: 700px) {
+    .contest-photo {
+      width: 100%; } }
 
 .more-entries-btn-cont {
   display: flex;
@@ -734,7 +874,7 @@ body {
     opacity: 1; }
 
 .share-dialog {
-  max-width: 15%; }
+  max-width: 90%; }
 
 .share-dialog-buttons {
   display: flex;
@@ -766,6 +906,9 @@ body {
       padding: 8px 20px; }
     .entry.winner .entry-text {
       padding-left: 85px; }
+      @media (max-width: 700px) {
+        .entry.winner .entry-text {
+          padding-left: 15px; } }
   .entry.entry-hidden {
     display: none; }
   .entry.entering {
@@ -794,11 +937,19 @@ body {
   color: #3c3c3c;
   line-height: 1.4;
   padding: 0 30px 0 60px; }
+  @media (max-width: 700px) {
+    .entry-text {
+      padding: 10px 15px 0 15px; } }
 
 .entry-info {
   display: flex;
   justify-content: space-between;
   align-items: flex-end; }
+  @media (max-width: 700px) {
+    .entry-info {
+      flex-direction: column;
+      align-items: flex-end;
+      padding-right: 15px; } }
 
 .entry-date {
   font-family: "Open Sans", Arial, sans-serif;
@@ -806,6 +957,11 @@ body {
   font-weight: 600;
   color: #b7b7b7;
   margin: 0 0 8px 8px; }
+  @media (max-width: 700px) {
+    .entry-date {
+      margin-top: 25px;
+      margin-left: 0;
+      padding-right: 15px; } }
 
 .entry-user-likes {
   display: flex;
@@ -815,6 +971,10 @@ body {
   border-radius: 50px;
   padding: 2px 12px;
   position: relative; }
+  @media (max-width: 700px) {
+    .entry-user-likes {
+      margin-top: 0;
+      margin-right: 0; } }
 
 .entry-note {
   visibility: hidden;

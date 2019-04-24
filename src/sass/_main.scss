@@ -1,6 +1,12 @@
 .main-container {
     display: flex;
     align-items: flex-start;
+    @include breakpoint(large) {
+        padding-left: 25px;
+    }
+    @include breakpoint(medium) {
+        padding: 0 15px 0 0;
+    }
 }
 
 .main {
@@ -13,7 +19,8 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 1.2rem 2rem;
+    padding: 0 2rem 1.2rem 2rem;
+    flex-wrap: wrap;
     label {
         font-size: 12px;
         font-weight: 800;
@@ -25,6 +32,7 @@
 .contest-sort-checkbox {
     display: flex;
     align-items: center;
+    padding-top: 1.2rem;
     input {
         margin-right: 9px;
         visibility: hidden;
@@ -48,6 +56,13 @@
         &:checked:before {
             background: $green;
         }
+    }
+}
+
+.contest-sort-radios {
+    margin-right: 20px;
+    @include breakpoint(tiny) {
+        margin-right: 0;
     }
 }
 

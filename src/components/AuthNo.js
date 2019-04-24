@@ -25,7 +25,7 @@ class AuthNo extends React.Component {
         return (
             <div className="auth auth-no">
                 <div>
-                    <form>
+                    <form className="login-form">
                         <input
                             type="text"
                             placeholder="Username"
@@ -62,7 +62,7 @@ class AuthNo extends React.Component {
                 </div>
                 <nav className="header-links">
                     <span>
-                        New to Caption Wars?
+                        New to Caption Wars?&nbsp;
                         <br />
                         <a onClick={onRegisterClick}>Register here</a> (it&#39;s
                         free)

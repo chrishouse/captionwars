@@ -1,6 +1,38 @@
 .sidebar {
     flex: 1;
     margin-right: $mainGutter;
+    transition: left 0.5s;
+    &.sidebar-mobile {
+        position: absolute;
+        margin: 0;
+        z-index: 500;
+        width: 100%;
+        max-width: 300px;
+        top: 150px;
+    }
+    &.sidebar-expanded {
+        left: 45px !important;
+    }
+}
+
+.sidebar-chevron.fa-chevron-right.fas {
+    display: none;
+    position: sticky;
+    top: 10px;
+    margin: 20px 5px 0 0;
+    color: $grey;
+    padding: 15px 2px;
+    background-color: $grey;
+    color: white;
+    font-size: 13px;
+    z-index: 600;
+    &.visible {
+        display: block;
+    }
+    &.active {
+        background-color: $green;
+        transform: rotate(180deg);
+    }
 }
 
 .sidebar-section {

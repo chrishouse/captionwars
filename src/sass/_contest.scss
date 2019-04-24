@@ -16,6 +16,9 @@
         margin-right: -850px;
         cursor: pointer;
     }
+    @include breakpoint(small) {
+        padding: 1.5rem 0.5rem;
+    }
 }
 
 .contest-date {
@@ -29,6 +32,9 @@
 .contest-photo {
     width: 97%;
     border-radius: $largeBorderRadius;
+    @include breakpoint(small) {
+        width: 100%;
+    }
 }
 
 .more-entries-btn-cont {
@@ -265,7 +271,7 @@
 }
 
 .share-dialog {
-    max-width: 15%;
+    max-width: 90%;
 }
 
 .share-dialog-buttons {
