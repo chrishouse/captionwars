@@ -181,7 +181,7 @@ router.put("/users/updatelikes", (req, res) => {
                 // If so, remove the entryId from the user's likesReceived
                 mdb.collection("users").update(
                     { _id: ObjectID(userReceiving) },
-                    { $pull: { likesReceived: entryId } },
+                    { $pull: { likesReceived: { entryId: userGiving } } },
                     function(err) {
                         assert.equal(null, err);
                     }
@@ -211,7 +211,7 @@ router.put("/users/updatelikes", (req, res) => {
                 // If not, add the entryId to the user's likesReceived
                 mdb.collection("users").updateOne(
                     { _id: ObjectID(userReceiving) },
-                    { $push: { likesReceived: entryId } },
+                    { $push: { likesReceived: { entryId: userGiving } } },
                     function(err) {
                         assert.equal(null, err);
                     }
