@@ -90,14 +90,21 @@ class App extends React.Component {
             // Remove the entry from receiving user's likesReceived array
             userDataCopy[userReceiving].likesReceived = userDataCopy[
                 userReceiving
-            ].likesReceived.filter(item => entry != item);
+            ].likesReceived.filter(
+                item => item.fromUser !== this.state.currentUser
+            );
             // Remove the new entry from the giving user's likesGiven array
             userDataCopy[this.state.currentUser].likesGiven = userDataCopy[
                 this.state.currentUser
-            ].likesGiven.filter(item => entry != item);
+            ].likesGiven.filter(
+                item => item.fromUser !== this.state.currentUser
+            );
         } else {
             // Add the new entry to receiving user's likesReceived array
-            userDataCopy[userReceiving].likesReceived.push(entry);
+            userDataCopy[userReceiving].likesReceived.push({
+                forEntry: entry,
+                fromUser: this.state.currentUser
+            });
             // Add the new entry to the giving user's likesGiven array
             userDataCopy[this.state.currentUser].likesGiven.push(entry);
         }
