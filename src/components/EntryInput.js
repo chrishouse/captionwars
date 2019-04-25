@@ -30,9 +30,6 @@ class EntryInput extends React.Component {
     };
 
     handleTextChange = e => {
-        if (e.key === "Enter") {
-            this.handleSubmitClick();
-        }
         const charDiff = this.state.characterLimit - e.target.value.length;
         if (charDiff <= 20) {
             if (charDiff === 1) {
