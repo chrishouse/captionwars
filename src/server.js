@@ -56,7 +56,7 @@ server.use(express.static(__dirname, { dotfiles: "allow" }));
 // Use the SASS middleware
 server.use(
     sassMiddleware({
-        src: path.join(__dirname, "sass"),
+        src: path.join(__dirname, "../src/sass"),
         dest: path.join(__dirname, "../public")
     })
 );
