@@ -38,7 +38,9 @@ jspm_packages
 
 .prettierignore
 */bundle.js
+*/bundle.js.gz
 build
 .well-known
 src/config.js
 **/images/**/*.jpg
+*/style.css
