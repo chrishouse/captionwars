@@ -232,7 +232,7 @@ MongoClient.connect(config.mongodbUri, (err, client) => {
             });
     };
 
-    // Our insertNewContest function will run every Wednesday at 6:00am
+    // Our insertNewContest function will run every day at 3:00am
     const rule = new schedule.RecurrenceRule();
     rule.dayOfWeek = [new schedule.Range(0, 6)];
     rule.hour = 8;

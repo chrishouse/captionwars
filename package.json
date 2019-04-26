@@ -7,7 +7,7 @@
         "start": "nodemon --exec babel-node src/server.js --ignore public/",
         "dev": "webpack -wd",
         "prod": "webpack -p",
-        "build": "babel src -d build",
+        "build": "babel src --ignore images -d build",
         "serve": "node build/server.js"
     },
     "author": "Chris House",
