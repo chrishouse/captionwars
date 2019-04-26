@@ -24,20 +24,6 @@ module.exports = {
         new ImageminPlugin({
             externalImages: {
                 context: "src", // Important! This tells the plugin where to "base" the paths at
-                sources: glob.sync("src/images/users/*"),
-                destination: "public"
-            }
-        }),
-        new ImageminPlugin({
-            externalImages: {
-                context: "src", // Important! This tells the plugin where to "base" the paths at
-                sources: glob.sync("src/images/contests/*"),
-                destination: "public"
-            }
-        }),
-        new ImageminPlugin({
-            externalImages: {
-                context: "src", // Important! This tells the plugin where to "base" the paths at
                 sources: glob.sync("src/images/assets/*"),
                 destination: "public"
             }
