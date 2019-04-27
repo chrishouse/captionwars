@@ -59,18 +59,6 @@ class App extends React.Component {
             });
         }
 
-        // Set the og:image to the selected contest image
-        if (this.state.singleContestId) {
-            document
-                .querySelector('meta[property="og:image"]')
-                .setAttribute(
-                    "content",
-                    `https://captionwars.com/images/contests${
-                        this.state.singleContestId
-                    }.jpg`
-                );
-        }
-
         this.setState({
             checkingAuth: false
         });
@@ -201,13 +189,6 @@ class App extends React.Component {
     // Set the singleContestId state to the id of the contest whose More button was clicked, and change the url
     fetchContest = (singleContestId, entriesSortedBy) => {
         if (singleContestId) {
-            // Set the og:image to the selected contest image
-            document
-                .querySelector('meta[property="og:image"]')
-                .setAttribute(
-                    "content",
-                    `https://captionwars.com/images/contests${singleContestId}.jpg`
-                );
             pushState(
                 { singleContestId: singleContestId },
                 `/contest/${singleContestId}`

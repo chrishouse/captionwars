@@ -70,6 +70,12 @@ const serverRender = (userId, contestId, path) => {
                 resp[0].data
             );
             const initialEntriesData = getInitialEntriesData(resp[1].data);
+            let ogImageUrl = "https://captionwars.com/images/assets/oglogo.png";
+            let ogUrl = "https://captionwars.com";
+            if (contestId) {
+                ogImageUrl = `https://captionwars.com/images/contests/${contestId}.jpg`;
+                ogUrl = `https://captionwars.com/contest/${contestId}/`;
+            }
             let accountPage = false;
             if (path === "/account") {
                 accountPage = true;
@@ -87,7 +93,9 @@ const serverRender = (userId, contestId, path) => {
                 initialContestData: initialContestData,
                 initialUserData: initialUserData,
                 initialEntriesData: initialEntriesData,
-                accountPage: accountPage
+                accountPage: accountPage,
+                ogImageUrl: ogImageUrl,
+                ogUrl: ogUrl
             };
         })
         .catch(console.error);

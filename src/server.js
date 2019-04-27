@@ -85,14 +85,18 @@ server.get(
                     initialContestData,
                     initialEntriesData,
                     initialUserData,
-                    accountPage
+                    accountPage,
+                    ogImageUrl,
+                    ogUrl
                 }) => {
                     res.render("index", {
                         initialMarkup, // Render the content returned from the promise
                         initialContestData, // Render the data returned from the promise
                         initialEntriesData,
                         initialUserData,
-                        accountPage
+                        accountPage,
+                        ogImageUrl,
+                        ogUrl
                     }); // .render looks for a .ejs file within the views directory. Second argument is an object to pass variables into the .ejs template file
                 }
             )
