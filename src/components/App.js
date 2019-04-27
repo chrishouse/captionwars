@@ -354,42 +354,51 @@ class App extends React.Component {
         );
     }
 
-    render() {
+    getContent = () => {
         const {
             allUsers,
             currentUser,
             isAuthenticated,
-            checkingAuth,
             register,
             loginErrorMessage
         } = this.state;
 
-        if (!checkingAuth) {
-            return (
-                <div className="app">
-                    <Header
-                        userData={allUsers}
-                        currentUser={currentUser}
-                        onAvatarClick={this.fetchProfile}
-                        onAccountClick={this.handleAccountClick}
-                        onLoginClick={this.handleLoginClick}
-                        isAuthenticated={isAuthenticated}
-                        onHomeClick={this.handleHomeClick}
-                        onLogoutClick={this.handleLogoutClick}
-                        onRegisterClick={this.handleRegisterClick}
-                        loginErrorMessage={loginErrorMessage}
+        return (
+            <div className="app">
+                <Header
+                    userData={allUsers}
+                    currentUser={currentUser}
+                    onAvatarClick={this.fetchProfile}
+                    onAccountClick={this.handleAccountClick}
+                    onLoginClick={this.handleLoginClick}
+                    isAuthenticated={isAuthenticated}
+                    onHomeClick={this.handleHomeClick}
+                    onLogoutClick={this.handleLogoutClick}
+                    onRegisterClick={this.handleRegisterClick}
+                    loginErrorMessage={loginErrorMessage}
+                />
+                {/* // Show the register modal */}
+                {register ? (
+                    <Register
+                        handleRegisterSuccess={this.handleRegisterSuccess}
+                        onCancelClick={this.handleRegisterCancel}
                     />
-                    {/* // Show the register modal */}
-                    {register ? (
-                        <Register
-                            handleRegisterSuccess={this.handleRegisterSuccess}
-                            onCancelClick={this.handleRegisterCancel}
-                        />
-                    ) : null}
-                    {this.currentContent()}
-                </div>
-            );
-        } else return null;
+                ) : null}
+                {this.currentContent()}
+            </div>
+        );
+    };
+
+    render() {
+        const { checkingAuth, accountPage } = this.state;
+        // We only want to check for checkingAuth on the account page (doing so on the home page breaks JS-disabled functionality)
+        if (accountPage) {
+            if (!checkingAuth) {
+                return this.getContent();
+            } else return null;
+        } else {
+            return this.getContent();
+        }
     }
 }
 
