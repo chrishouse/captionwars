@@ -35,6 +35,14 @@ class Share extends React.Component {
                             url={`https://captionwars.com/contest/${
                                 contestData._id
                             }`}
+                            quote={`Caption Wars contest for ${new Date(
+                                contestData.date
+                            ).toLocaleDateString("en-US", {
+                                weekday: "long",
+                                year: "numeric",
+                                month: "long",
+                                day: "numeric"
+                            })}`}
                         >
                             <FacebookIcon size={35} />
                         </FacebookShareButton>
