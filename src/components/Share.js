@@ -51,6 +51,14 @@ class Share extends React.Component {
                             url={`https://captionwars.com/contest/${
                                 contestData._id
                             }`}
+                            title={`Caption Wars contest for ${new Date(
+                                contestData.date
+                            ).toLocaleDateString("en-US", {
+                                weekday: "long",
+                                year: "numeric",
+                                month: "long",
+                                day: "numeric"
+                            })}`}
                         >
                             <TwitterIcon size={35} />
                         </TwitterShareButton>
@@ -59,6 +67,14 @@ class Share extends React.Component {
                             url={`https://captionwars.com/contest/${
                                 contestData._id
                             }`}
+                            title={`Caption Wars contest for ${new Date(
+                                contestData.date
+                            ).toLocaleDateString("en-US", {
+                                weekday: "long",
+                                year: "numeric",
+                                month: "long",
+                                day: "numeric"
+                            })}`}
                         >
                             <LinkedinIcon size={35} />
                         </LinkedinShareButton>
@@ -71,7 +87,17 @@ class Share extends React.Component {
                                 contestData._id
                             }.jpg`}
                         >
-                            <PinterestIcon size={35} />
+                            <PinterestIcon
+                                size={35}
+                                description={`Caption Wars contest for ${new Date(
+                                    contestData.date
+                                ).toLocaleDateString("en-US", {
+                                    weekday: "long",
+                                    year: "numeric",
+                                    month: "long",
+                                    day: "numeric"
+                                })}`}
+                            />
                         </PinterestShareButton>
                     </div>
                 </div>
