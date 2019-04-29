@@ -236,13 +236,8 @@ MongoClient.connect(config.mongodbUri, (err, client) => {
             });
     };
 
-    // Our insertNewContest function will run every day at 3:00am
-    const rule = new schedule.RecurrenceRule();
-    rule.dayOfWeek = [new schedule.Range(0, 6)];
-    rule.hour = 8;
-    rule.minute = 0;
-
-    const j = schedule.scheduleJob(rule, function() {
-        insertNewContest();
-    });
+    // Our insertNewContest function will run on the specified dates of every month
+    const j = schedule.scheduleJob("0 0 0 1,9,17,25 * ?", () =>
+        insertNewContest()
+    );
 });
