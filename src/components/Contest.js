@@ -130,6 +130,17 @@ class Contest extends React.Component {
                     userHasEntered: true
                 });
             }
+
+            // Check if current user is following the contest, set state accordingly
+            const currentUserFollowing = this.props.userData[
+                this.props.currentUser
+            ].contestsFollowing;
+
+            if (currentUserFollowing.includes(this.props.contestData._id)) {
+                this.setState({
+                    userIsFollowing: true
+                });
+            }
         }
     }
 
