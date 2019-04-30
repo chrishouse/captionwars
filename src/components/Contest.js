@@ -34,6 +34,14 @@ class Contest extends React.Component {
             this.today
         )
             .then(() => {
+                // Add the contest to the user's contestsEntered array
+                this.props.updateContestsEntered(
+                    this.props.currentUser,
+                    contest._id,
+                    false
+                );
+
+                // Update state
                 api.fetchEntries(contest._id).then(newEntries => {
                     this.setState(() => ({
                         contestEntries: newEntries
@@ -41,13 +49,6 @@ class Contest extends React.Component {
                 });
             })
             .catch(console.error);
-
-        // Add the contest to the user's contestsEntered array
-        this.props.updateContestsEntered(
-            this.props.currentUser,
-            contest._id,
-            false
-        );
 
         // Show the confirmation message, and then hide it 8 seconds later
         this.setState({
@@ -90,7 +91,6 @@ class Contest extends React.Component {
             const currentUsersContests = this.props.userData[
                 this.props.currentUser
             ].contestsEntered;
-
             if (currentUsersContests.includes(this.props.contestData._id)) {
                 this.setState({
                     userHasEntered: true
@@ -114,6 +114,22 @@ class Contest extends React.Component {
             document.addEventListener("scroll", this.handleScroll);
             // Scroll to the top of the page
             window.scrollTo(0, 0);
+        }
+    }
+
+    componentDidUpdate(prevProps) {
+        // This is needed because the contests that get pulled first don't get their currentUser props set correctly on componentDidMount
+        if (prevProps.currentUser === null && this.props.currentUser !== null) {
+            // Check if current user has entered this contest, set state accordingly
+            const currentUsersContests = this.props.userData[
+                this.props.currentUser
+            ].contestsEntered;
+            if (currentUsersContests.includes(this.props.contestData._id)) {
+                console.log("dfd");
+                this.setState({
+                    userHasEntered: true
+                });
+            }
         }
     }
 
