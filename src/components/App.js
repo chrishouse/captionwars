@@ -59,18 +59,6 @@ class App extends React.Component {
             });
         }
 
-        // Set the og:image to the selected contest image
-        if (this.state.singleContestId) {
-            document
-                .querySelector('meta[property="og:image"]')
-                .setAttribute(
-                    "content",
-                    `https://captionwars.com/images/contests${
-                        this.state.singleContestId
-                    }.jpg`
-                );
-        }
-
         this.setState({
             checkingAuth: false
         });
@@ -201,13 +189,6 @@ class App extends React.Component {
     // Set the singleContestId state to the id of the contest whose More button was clicked, and change the url
     fetchContest = (singleContestId, entriesSortedBy) => {
         if (singleContestId) {
-            // Set the og:image to the selected contest image
-            document
-                .querySelector('meta[property="og:image"]')
-                .setAttribute(
-                    "content",
-                    `https://captionwars.com/images/contests${singleContestId}.jpg`
-                );
             pushState(
                 { singleContestId: singleContestId },
                 `/contest/${singleContestId}`
@@ -354,42 +335,51 @@ class App extends React.Component {
         );
     }
 
-    render() {
+    getContent = () => {
         const {
             allUsers,
             currentUser,
             isAuthenticated,
-            checkingAuth,
             register,
             loginErrorMessage
         } = this.state;
 
-        if (!checkingAuth) {
-            return (
-                <div className="app">
-                    <Header
-                        userData={allUsers}
-                        currentUser={currentUser}
-                        onAvatarClick={this.fetchProfile}
-                        onAccountClick={this.handleAccountClick}
-                        onLoginClick={this.handleLoginClick}
-                        isAuthenticated={isAuthenticated}
-                        onHomeClick={this.handleHomeClick}
-                        onLogoutClick={this.handleLogoutClick}
-                        onRegisterClick={this.handleRegisterClick}
-                        loginErrorMessage={loginErrorMessage}
+        return (
+            <div className="app">
+                <Header
+                    userData={allUsers}
+                    currentUser={currentUser}
+                    onAvatarClick={this.fetchProfile}
+                    onAccountClick={this.handleAccountClick}
+                    onLoginClick={this.handleLoginClick}
+                    isAuthenticated={isAuthenticated}
+                    onHomeClick={this.handleHomeClick}
+                    onLogoutClick={this.handleLogoutClick}
+                    onRegisterClick={this.handleRegisterClick}
+                    loginErrorMessage={loginErrorMessage}
+                />
+                {/* // Show the register modal */}
+                {register ? (
+                    <Register
+                        handleRegisterSuccess={this.handleRegisterSuccess}
+                        onCancelClick={this.handleRegisterCancel}
                     />
-                    {/* // Show the register modal */}
-                    {register ? (
-                        <Register
-                            handleRegisterSuccess={this.handleRegisterSuccess}
-                            onCancelClick={this.handleRegisterCancel}
-                        />
-                    ) : null}
-                    {this.currentContent()}
-                </div>
-            );
-        } else return null;
+                ) : null}
+                {this.currentContent()}
+            </div>
+        );
+    };
+
+    render() {
+        const { checkingAuth, accountPage } = this.state;
+        // We only want to check for checkingAuth on the account page (doing so on the home page breaks JS-disabled functionality)
+        if (accountPage) {
+            if (!checkingAuth) {
+                return this.getContent();
+            } else return null;
+        } else {
+            return this.getContent();
+        }
     }
 }
 

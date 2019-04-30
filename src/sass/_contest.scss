@@ -141,6 +141,9 @@
     .entry-input {
         width: 40%;
         border: none;
+        @include breakpoint(tiny) {
+            width: 90%;
+        }
     }
 }
 
@@ -267,6 +270,9 @@
     &.visible {
         visibility: visible;
         opacity: 1;
+    }
+    @include breakpoint(small) {
+        right: 0;
     }
 }
 

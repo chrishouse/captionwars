@@ -122,6 +122,9 @@
     justify-content: center;
     width: 100%;
     padding-top: 10px;
+    @include breakpoint(small) {
+        flex-wrap: wrap;
+    }
 }
 
 .profile-stat-number {
@@ -175,6 +178,9 @@
             border: solid 5px #bfc51e;
             color: darken(#bfc51e, 10);
         }
+    }
+    @include breakpoint(small) {
+        margin-bottom: 20px;
     }
 }
 
