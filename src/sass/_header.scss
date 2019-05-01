@@ -179,6 +179,7 @@
     border: solid 1px $lightGrey;
     background-color: white;
     border-radius: $smallBorderRadius;
+    z-index: 500;
     ul {
         list-style-type: none;
         white-space: nowrap;
