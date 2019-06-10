@@ -237,7 +237,8 @@ MongoClient.connect(config.mongodbUri, (err, client) => {
     };
 
     // Our insertNewContest function will run on the specified dates of every month
-    const j = schedule.scheduleJob("0 0 0 1,9,17,25 * ?", () =>
-        insertNewContest()
-    );
+    // Commenting this out for now - Chris, 6/9/2019
+    // const j = schedule.scheduleJob("0 0 0 1,9,17,25 * ?", () =>
+    //     insertNewContest()
+    // );
 });
